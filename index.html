@@ -3,126 +3,413 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>V4 Alves — Dashboard de Clientes</title>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<title>V4 Alves — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#080808;--surface:#111;--surface2:#181818;--surface3:#222;--border:#2a2a2a;--accent:#FF4D00;--accent2:#FF7A35;--green:#00E87A;--green-dim:rgba(0,232,122,.12);--yellow:#FFD600;--yellow-dim:rgba(255,214,0,.12);--red:#FF3B3B;--red-dim:rgba(255,59,59,.12);--text:#F0F0F0;--muted:#666;--muted2:#444}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+:root {
+  --bg: #F5F6FA;
+  --white: #FFFFFF;
+  --border: #E4E7EF;
+  --border2: #D0D5E8;
+  --text: #14161F;
+  --muted: #6B7280;
+  --muted2: #9CA3AF;
+  --accent: #FF4D00;
+  --green: #16A34A;
+  --green-bg: #F0FDF4;
+  --green-border: #BBF7D0;
+  --yellow: #CA8A04;
+  --yellow-bg: #FEFCE8;
+  --yellow-border: #FEF08A;
+  --red: #DC2626;
+  --red-bg: #FEF2F2;
+  --red-border: #FECACA;
+  --blue: #2563EB;
+  --blue-bg: #EFF6FF;
+  --blue-border: #BFDBFE;
+  --gray-bg: #F9FAFB;
+  --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 6px rgba(0,0,0,.06), 0 2px 4px rgba(0,0,0,.04);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.5; }
 
 /* HEADER */
-.header{position:sticky;top:0;z-index:100;background:rgba(8,8,8,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
-.hbrand{display:flex;align-items:center;gap:12px}
-.logo{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:900;color:var(--accent)}
-.hdiv{width:1px;height:20px;background:var(--border)}
-.htitle{font-size:12px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
-.hmeta{display:flex;align-items:center;gap:10px}
-.pill{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);padding:4px 10px;border-radius:4px}
-.pill span{color:var(--green)}
+.header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 58px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow);
+}
+.hbrand { display: flex; align-items: center; gap: 14px; }
+.logo { font-weight: 700; font-size: 18px; color: var(--text); letter-spacing: -0.5px; }
+.logo span { color: var(--accent); }
+.hdiv { width: 1px; height: 22px; background: var(--border); }
+.htitle { font-size: 13px; color: var(--muted); font-weight: 500; }
+.hmeta { display: flex; align-items: center; gap: 10px; }
 
-/* PERIOD TOGGLE — header */
-.period-toggle{display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:5px;overflow:hidden;flex-shrink:0}
-.pt-btn{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;padding:5px 14px;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;letter-spacing:.03em}
-.pt-btn.active{background:var(--accent);color:#fff}
+/* PERIOD TOGGLE */
+.period-toggle {
+  display: flex;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.pt-btn {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .15s;
+}
+.pt-btn.active { background: var(--text); color: #fff; }
 
-/* LAYOUT */
-.shell{max-width:1400px;margin:0 auto;padding:28px 24px 80px}
+.upd-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--gray-bg);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 5px;
+}
 
-/* SUMMARY */
-.summary-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:28px;border:1px solid var(--border);border-radius:6px;overflow:hidden}
-.sc{background:var(--surface);padding:18px 22px;display:flex;flex-direction:column;gap:4px}
-.slabel{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600}
-.sval{font-family:'Unbounded',sans-serif;font-size:22px;font-weight:700;letter-spacing:-1px;line-height:1}
-.ssub{font-size:11px;color:var(--muted);margin-top:2px}
+/* SHELL */
+.shell { max-width: 1440px; margin: 0 auto; padding: 28px 24px 80px; }
 
-/* FILTERS */
-.filters{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
-.fb{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:4px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .15s}
-.fb:hover{border-color:var(--muted2);color:var(--text)}
-.fb.active{background:var(--accent);border-color:var(--accent);color:#fff}
-.fb.fv.active{background:var(--green);border-color:var(--green);color:#000}
-.fb.fa.active{background:var(--yellow);border-color:var(--yellow);color:#000}
-.fb.fr.active{background:var(--red);border-color:var(--red);color:#fff}
+/* SUMMARY BAR */
+.summary-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.sc {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.sc-icon {
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.sc-icon.all { background: #F1F5F9; }
+.sc-icon.g { background: var(--green-bg); }
+.sc-icon.y { background: var(--yellow-bg); }
+.sc-icon.r { background: var(--red-bg); }
+.sc-body { display: flex; flex-direction: column; gap: 1px; }
+.sc-val { font-size: 26px; font-weight: 700; line-height: 1; letter-spacing: -1px; }
+.sc-val.g { color: var(--green); }
+.sc-val.y { color: var(--yellow); }
+.sc-val.r { color: var(--red); }
+.sc-label { font-size: 11px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: .06em; }
 
-/* SECTION */
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
-.stitle{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
-.scount{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2)}
+/* TOOLBAR */
+.toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+.filters { display: flex; gap: 6px; }
+.fb {
+  font-size: 12px; font-weight: 600; padding: 6px 14px;
+  border-radius: 6px; border: 1px solid var(--border);
+  background: var(--white); color: var(--muted);
+  cursor: pointer; transition: all .15s;
+}
+.fb:hover { border-color: var(--border2); color: var(--text); }
+.fb.active { background: var(--text); border-color: var(--text); color: #fff; }
+.fb.fv.active { background: var(--green); border-color: var(--green); color: #fff; }
+.fb.fa.active { background: var(--yellow); border-color: var(--yellow); color: #fff; }
+.fb.fr.active { background: var(--red); border-color: var(--red); color: #fff; }
 
-/* GRID */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:2px;margin-bottom:40px}
+.section-label {
+  font-size: 11px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .1em;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-label span {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 4px; padding: 1px 7px;
+  font-size: 10px; color: var(--muted2);
+  font-weight: 600;
+}
+
+/* CLIENT GRID */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 14px; margin-bottom: 32px; }
 
 /* CARD */
-.card{background:var(--surface);padding:18px 20px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden;animation:fadeUp .25s ease both;transition:background .15s}
-.card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
-.card.verde::before{background:var(--green)}
-.card.amarelo::before{background:var(--yellow)}
-.card.vermelho::before{background:var(--red)}
-.card.sem-dados::before{background:var(--muted2)}
-.card:hover{background:var(--surface2)}
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  animation: fadeUp .2s ease both;
+  transition: box-shadow .15s;
+}
+.card:hover { box-shadow: var(--shadow-md); }
 
-.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.cname{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;letter-spacing:-.3px;line-height:1.2}
-.csquad{font-size:10px;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:.08em}
-.badge{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
-.badge.verde{background:var(--green-dim);color:var(--green)}
-.badge.amarelo{background:var(--yellow-dim);color:var(--yellow)}
-.badge.vermelho{background:var(--red-dim);color:var(--red)}
-.badge.sem-dados{background:var(--surface3);color:var(--muted)}
-.dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.card-header {
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.cname { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: -.2px; }
+.csquad { font-size: 10px; color: var(--muted); margin-top: 2px; font-weight: 500; }
 
-/* METRICS */
-.mrow{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:4px;overflow:hidden}
-.mcell{background:var(--surface2);padding:8px 10px;display:flex;flex-direction:column;gap:2px}
-.mlabel{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600}
-.mval{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--text);line-height:1}
-.mval.hl{color:var(--accent2)}.mval.ok{color:var(--green)}.mval.warn{color:var(--yellow)}.mval.dim{color:var(--muted);font-style:italic}
+/* BADGE */
+.badge {
+  display: flex; align-items: center; gap: 5px;
+  padding: 3px 9px; border-radius: 5px;
+  font-size: 10px; font-weight: 700;
+  white-space: nowrap; flex-shrink: 0;
+  border: 1px solid;
+}
+.badge.verde { background: var(--green-bg); color: var(--green); border-color: var(--green-border); }
+.badge.amarelo { background: var(--yellow-bg); color: var(--yellow); border-color: var(--yellow-border); }
+.badge.vermelho { background: var(--red-bg); color: var(--red); border-color: var(--red-border); }
+.badge.sem-dados { background: var(--gray-bg); color: var(--muted); border-color: var(--border); }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
-/* PERIOD LABEL */
-.plabel{display:flex;align-items:center;justify-content:space-between}
-.plabel span{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)}
+/* CARD BODY */
+.card-body { padding: 14px 16px; }
 
-/* NO DATA */
-.no-meta{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--surface3);border-radius:4px;color:var(--muted);font-size:11px}
+/* PERIOD TAG */
+.period-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--muted2);
+  background: var(--gray-bg); border: 1px solid var(--border);
+  padding: 2px 8px; border-radius: 4px;
+  margin-bottom: 12px;
+}
+.period-tag.mensal { color: var(--blue); background: var(--blue-bg); border-color: var(--blue-border); }
 
-/* CAMPS */
-.camps{display:flex;flex-direction:column;gap:4px}
-.crow{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 8px;background:var(--surface3);border-radius:3px}
-.cname2{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;font-family:'DM Mono',monospace}
-.cspend{font-family:'DM Mono',monospace;font-size:11px;color:var(--text);white-space:nowrap;flex-shrink:0}
+/* NO META */
+.no-meta {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 14px;
+  background: var(--gray-bg); border: 1px dashed var(--border2);
+  border-radius: 8px; color: var(--muted2); font-size: 12px;
+}
 
-/* PERIOD TAG on card */
-.period-tag{display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:3px;font-family:'DM Mono',monospace;font-size:9px;background:var(--surface3);color:var(--muted2);border:1px solid var(--border);align-self:flex-start}
-.period-tag.mensal{color:var(--accent2);border-color:rgba(255,122,53,.2);background:rgba(255,122,53,.06)}
+/* ── FUNNEL ── */
+.funnel { display: flex; flex-direction: column; gap: 0; }
+
+.funnel-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  position: relative;
+}
+
+/* connector between rows */
+.funnel-row + .funnel-row .funnel-bar-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 20px;
+  width: 1px; height: 10px;
+  background: var(--border2);
+}
+
+.funnel-left {
+  width: 60px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  padding-right: 8px;
+  position: relative;
+}
+
+.conv-rate {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted2);
+  white-space: nowrap;
+}
+
+.funnel-bar-wrap {
+  flex: 1;
+  padding: 5px 0;
+  position: relative;
+}
+
+.funnel-bar-outer {
+  background: var(--gray-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.funnel-bar-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  border-radius: 5px 0 0 5px;
+  transition: width .6s ease;
+  opacity: 0.18;
+}
+
+.funnel-bar-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 12px;
+  gap: 8px;
+}
+
+.funnel-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.funnel-icon {
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.funnel-metric-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.funnel-metric-val {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -.4px;
+  font-family: 'DM Mono', monospace;
+}
+
+.funnel-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.cost-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.cost-pill.cpm { background: #FFF7ED; color: #C2410C; border: 1px solid #FED7AA; }
+.cost-pill.cpc { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+.cost-pill.cpl { background: #F0FDF4; color: #15803D; border: 1px solid #BBF7D0; }
+.cost-pill.roas { background: #FAF5FF; color: #7C3AED; border: 1px solid #DDD6FE; }
+.cost-pill.na  { background: var(--gray-bg); color: var(--muted2); border: 1px solid var(--border); }
+
+/* CONNECTOR ARROW */
+.funnel-connector {
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 60px;
+  height: 10px;
+  position: relative;
+}
+.funnel-connector::before {
+  content: '';
+  position: absolute;
+  left: 70px;
+  width: 1px;
+  height: 100%;
+  background: var(--border2);
+}
+.conv-label {
+  font-size: 10px;
+  color: var(--muted2);
+  font-family: 'DM Mono', monospace;
+  padding-left: 80px;
+  line-height: 10px;
+}
+
+/* INVEST BAR (top) */
+.invest-row {
+  background: var(--text);
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.invest-label { font-size: 11px; color: rgba(255,255,255,.6); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+.invest-val { font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -.5px; }
 
 /* CHURN */
-.churn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2px;margin-bottom:40px}
-.churn-card{background:var(--surface);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;opacity:.5;position:relative}
-.churn-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--muted2)}
-.churn-name{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-decoration:line-through}
-.churn-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)}
+.churn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 10px; margin-bottom: 32px; }
+.churn-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  opacity: .5;
+}
+.churn-name { font-size: 12px; font-weight: 700; color: var(--muted); text-decoration: line-through; }
+.churn-date { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted2); }
+
+/* SECTION DIVIDER */
+.section-divider { margin: 8px 0 16px; border: none; border-top: 1px solid var(--border); }
 
 /* FOOTER */
-.footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.fbrand{font-family:'Unbounded',sans-serif;font-size:10px;color:var(--muted2)}
-.fnote{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)}
+.footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding-top: 20px; border-top: 1px solid var(--border); }
+.fbrand { font-size: 11px; color: var(--muted2); font-weight: 700; letter-spacing: .05em; }
+.fnote { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted2); }
 
 /* LOADING */
-.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:16px;color:var(--muted);font-size:13px}
-.spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+.loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px; gap: 14px; color: var(--muted); }
+.spinner { width: 28px; height: 28px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; }
 
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-@media(max-width:900px){.summary-bar{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.mrow{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.shell{padding:20px 16px 60px}.header{padding:0 16px}.htitle{display:none}}
+@media (max-width: 900px) { .summary-bar { grid-template-columns: repeat(2,1fr); } .grid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .shell { padding: 16px 12px 60px; } .header { padding: 0 16px; } .htitle { display: none; } }
 </style>
 </head>
 <body>
 
 <header class="header">
   <div class="hbrand">
-    <span class="logo">V4</span>
+    <div class="logo"><span>V4</span> Alves</div>
     <div class="hdiv"></div>
     <span class="htitle">Dashboard de Clientes</span>
   </div>
@@ -131,58 +418,207 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
       <button class="pt-btn active" id="btn-semanal" onclick="setPeriod('semanal')">Semanal</button>
       <button class="pt-btn" id="btn-mensal" onclick="setPeriod('mensal')">Mensal</button>
     </div>
-    <div class="pill">Atualizado <span id="upd">—</span></div>
+    <div class="upd-pill">Atualizado: <strong id="upd">—</strong></div>
   </div>
 </header>
 
 <div class="shell">
+
+  <!-- SUMMARY -->
   <div class="summary-bar">
-    <div class="sc"><span class="slabel">Carteira ativa</span><span class="sval" id="s-total">—</span><span class="ssub">clientes</span></div>
-    <div class="sc"><span class="slabel">🟢 Saudáveis</span><span class="sval" id="s-verde" style="color:var(--green)">—</span><span class="ssub">clientes</span></div>
-    <div class="sc"><span class="slabel">🟡 Atenção</span><span class="sval" id="s-amarelo" style="color:var(--yellow)">—</span><span class="ssub">clientes</span></div>
-    <div class="sc"><span class="slabel">🔴 Risco</span><span class="sval" id="s-vermelho" style="color:var(--red)">—</span><span class="ssub">clientes</span></div>
+    <div class="sc">
+      <div class="sc-icon all">📊</div>
+      <div class="sc-body"><div class="sc-val" id="s-total">—</div><div class="sc-label">Carteira ativa</div></div>
+    </div>
+    <div class="sc">
+      <div class="sc-icon g">🟢</div>
+      <div class="sc-body"><div class="sc-val g" id="s-verde">—</div><div class="sc-label">Saudáveis</div></div>
+    </div>
+    <div class="sc">
+      <div class="sc-icon y">🟡</div>
+      <div class="sc-body"><div class="sc-val y" id="s-amarelo">—</div><div class="sc-label">Atenção</div></div>
+    </div>
+    <div class="sc">
+      <div class="sc-icon r">🔴</div>
+      <div class="sc-body"><div class="sc-val r" id="s-vermelho">—</div><div class="sc-label">Risco</div></div>
+    </div>
   </div>
 
-  <div class="filters">
-    <button class="fb active" data-f="todos" onclick="setFilter(this)">Todos</button>
-    <button class="fb fv" data-f="verde" onclick="setFilter(this)">🟢 Saudável</button>
-    <button class="fb fa" data-f="amarelo" onclick="setFilter(this)">🟡 Atenção</button>
-    <button class="fb fr" data-f="vermelho" onclick="setFilter(this)">🔴 Risco</button>
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="filters">
+      <button class="fb active" data-f="todos" onclick="setFilter(this)">Todos</button>
+      <button class="fb fv" data-f="verde" onclick="setFilter(this)">🟢 Saudável</button>
+      <button class="fb fa" data-f="amarelo" onclick="setFilter(this)">🟡 Atenção</button>
+      <button class="fb fr" data-f="vermelho" onclick="setFilter(this)">🔴 Risco</button>
+    </div>
+    <div class="section-label">Clientes ativos <span id="ac">0</span></div>
   </div>
 
-  <div id="loading" class="loading"><div class="spinner"></div><span>Carregando dashboard…</span></div>
+  <div id="loading" class="loading"><div class="spinner"></div><span>Carregando…</span></div>
 
   <div id="active-section" style="display:none">
-    <div class="section-header">
-      <span class="stitle">Clientes ativos</span>
-      <span class="scount" id="ac">0 clientes</span>
-    </div>
     <div class="grid" id="grid"></div>
   </div>
 
   <div id="churn-section" style="display:none">
-    <div class="section-header">
-      <span class="stitle">Churns</span>
-      <span class="scount" id="cc">0 clientes</span>
+    <hr class="section-divider">
+    <div class="toolbar">
+      <div class="section-label">Churns <span id="cc">0</span></div>
     </div>
     <div class="churn-grid" id="churn-grid"></div>
   </div>
 
   <div class="footer">
     <span class="fbrand">V4 ALVES & CO — USO INTERNO</span>
-    <span class="fnote" id="fnote">Meta Ads API · Health Score</span>
+    <span class="fnote" id="fnote">Meta Ads API · Health Score · Atualizado diariamente às 8h</span>
   </div>
 </div>
 
 <script>
-const BADGE = {verde:'🟢 Saudável',amarelo:'🟡 Atenção',vermelho:'🔴 Risco','sem-dados':'Sem Score'};
+const BADGE_LABEL = {verde:'Saudável', amarelo:'Atenção', vermelho:'Risco', 'sem-dados':'Sem Score'};
+const BADGE_ICON  = {verde:'✓', amarelo:'!', vermelho:'✕', 'sem-dados':'—'};
+
 let allCards = [], curFilter = 'todos', curPeriod = 'semanal';
 
-function setPeriod(p) {
-  curPeriod = p;
-  document.getElementById('btn-semanal').classList.toggle('active', p === 'semanal');
-  document.getElementById('btn-mensal').classList.toggle('active', p === 'mensal');
-  renderGrid();
+// ── helpers ──────────────────────────────────────────────────────
+function parseNum(s) {
+  if (!s || s === '—') return null;
+  return parseFloat(String(s).replace(/[^0-9.,]/g,'').replace(',','.')) || null;
+}
+
+function pct(a, b) {
+  if (!a || !b || b === 0) return null;
+  return ((a / b) * 100).toFixed(1) + '%';
+}
+
+function fmtN(n) {
+  if (n === null || n === undefined) return '—';
+  if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
+  if (n >= 1000) return n.toLocaleString('pt-BR');
+  return String(n);
+}
+
+// ── funnel builder ───────────────────────────────────────────────
+function buildFunnel(m, isMensal) {
+  if (!m || !m.invest) return `<div class="no-meta">📭 Sem dados de Meta Ads ${isMensal ? 'mensais' : 'desta semana'}</div>`;
+
+  const imp  = parseNum(m.impressoes);
+  const cli  = parseNum(m.cliques);
+  const conv = parseNum(m.conversoes);
+  const inv  = parseNum(m.invest);
+
+  // conversion rates
+  const ctrPct  = cli && imp  ? pct(cli, imp)  : (m.ctr  || null);
+  const cvPct   = conv && cli ? pct(conv, cli)  : null;
+
+  // costs
+  const cpmVal  = m.cpm && m.cpm !== '—' ? m.cpm : null;
+  const cpcVal  = m.cpc && m.cpc !== '—' ? m.cpc : null;
+  const cplVal  = m.cpl && m.cpl !== '—' ? m.cpl : null;
+  const roasVal = m.roas && m.roas !== '—' ? m.roas : null;
+
+  // bar widths (relative)
+  const maxVal = imp || 1;
+  const wImp  = 100;
+  const wCli  = imp && cli  ? Math.max(4, (cli/imp)*100)  : 0;
+  const wConv = imp && conv ? Math.max(conv>0?2:0, (conv/imp)*100) : 0;
+
+  // colors
+  const C = {
+    imp:  { fill:'#3B82F6', icon:'👁️', bg:'#EFF6FF' },
+    cli:  { fill:'#F59E0B', icon:'🖱️', bg:'#FFFBEB' },
+    conv: { fill:'#10B981', icon:'🎯', bg:'#F0FDF4' },
+  };
+
+  function row(key, label, valStr, barW, costHtml, rateHtml='') {
+    const c = C[key];
+    return `
+      ${rateHtml}
+      <div class="funnel-row">
+        <div class="funnel-bar-wrap">
+          <div class="funnel-bar-outer">
+            <div class="funnel-bar-fill" style="width:${barW}%;background:${c.fill}"></div>
+            <div class="funnel-bar-content">
+              <div class="funnel-label">
+                <div class="funnel-icon" style="background:${c.bg}">${c.icon}</div>
+                <div>
+                  <div class="funnel-metric-name">${label}</div>
+                  <div class="funnel-metric-val">${valStr}</div>
+                </div>
+              </div>
+              <div class="funnel-right">${costHtml}</div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function costPill(val, cls, label) {
+    if (!val) return `<span class="cost-pill na">${label}: —</span>`;
+    return `<span class="cost-pill ${cls}">${label}: ${val}</span>`;
+  }
+
+  function connector(rate) {
+    if (!rate) return '<div style="height:8px"></div>';
+    return `<div style="display:flex;align-items:center;gap:6px;padding:2px 0 2px 10px;height:18px">
+      <div style="width:1px;height:100%;background:var(--border2);margin-left:12px"></div>
+      <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)">↓ ${rate} conv.</span>
+    </div>`;
+  }
+
+  const periodLabel = isMensal
+    ? `<div class="period-tag mensal">📅 ${m.period || 'Mês atual'}</div>`
+    : `<div class="period-tag">📆 ${m.period || 'Semana atual'}</div>`;
+
+  return `
+    ${periodLabel}
+    <div class="invest-row">
+      <span class="invest-label">💰 Investimento</span>
+      <span class="invest-val">${m.invest}</span>
+    </div>
+    <div class="funnel">
+      ${row('imp', 'IMPRESSÕES', imp ? fmtN(imp) : (m.impressoes||'—'), wImp,
+        costPill(cpmVal,'cpm','CPM'))}
+      ${connector(ctrPct)}
+      ${row('cli', 'CLIQUES', cli ? fmtN(cli) : (m.cliques||'—'), wCli,
+        costPill(cpcVal,'cpc','CPC'))}
+      ${connector(cvPct)}
+      ${row('conv', 'CONVERSÕES', conv!==null ? fmtN(conv) : (m.conversoes||'—'), wConv,
+        costPill(cplVal,'cpl','CPL') + (roasVal ? `<span class="cost-pill roas">ROAS: ${roasVal}</span>` : ''))}
+    </div>`;
+}
+
+// ── card builder ─────────────────────────────────────────────────
+function buildCard(c) {
+  const useField = (curPeriod === 'mensal' && c.meta_mensal) ? c.meta_mensal
+                 : (c.meta_semanal || c.meta || null);
+  const isMensal = curPeriod === 'mensal' && !!(c.meta_mensal);
+  const scoreStr = c.score != null ? ` · ${c.score}%` : '';
+
+  return `<div class="card ${c.flag}" data-flag="${c.flag}">
+    <div class="card-header">
+      <div>
+        <div class="cname">${c.name}</div>
+        <div class="csquad">${c.squad}${scoreStr}</div>
+      </div>
+      <div class="badge ${c.flag}">
+        <span class="dot"></span>${BADGE_LABEL[c.flag]||'—'}
+      </div>
+    </div>
+    <div class="card-body">
+      ${buildFunnel(useField, isMensal)}
+    </div>
+  </div>`;
+}
+
+// ── filter & render ──────────────────────────────────────────────
+function renderGrid() {
+  const filtered = curFilter === 'todos'
+    ? allCards
+    : allCards.filter(c => c.flag === curFilter);
+  document.getElementById('ac').textContent = filtered.length;
+  document.getElementById('grid').innerHTML = filtered.map(buildCard).join('');
 }
 
 function setFilter(btn) {
@@ -192,102 +628,55 @@ function setFilter(btn) {
   renderGrid();
 }
 
-function metaBlock(m, isMensal) {
-  if (!m) return `<div class="no-meta">— Sem dados de Meta Ads${isMensal ? ' mensais' : ''}</div>`;
-
-  const ctrN = m.ctr ? parseFloat(m.ctr) : 0;
-  const ctrCls = ctrN >= 2 ? 'ok' : ctrN >= 1 ? '' : 'warn';
-  const roas = m.roas && m.roas !== '—' ? m.roas : null;
-  const tag = isMensal
-    ? `<span class="period-tag mensal">📅 ${m.period || 'Mês atual'}</span>`
-    : `<span class="period-tag">📆 ${m.period || 'Semana atual'}</span>`;
-
-  let html = tag + `
-    <div class="mrow">
-      <div class="mcell"><span class="mlabel">Invest.</span><span class="mval hl">${m.invest||'—'}</span></div>
-      <div class="mcell"><span class="mlabel">Impressões</span><span class="mval">${m.impressoes||'—'}</span></div>
-      <div class="mcell"><span class="mlabel">CTR</span><span class="mval ${ctrCls}">${m.ctr||'—'}</span></div>
-      <div class="mcell"><span class="mlabel">CPM</span><span class="mval">${m.cpm||'—'}</span></div>
-    </div>
-    <div class="mrow">
-      <div class="mcell"><span class="mlabel">Cliques</span><span class="mval">${m.cliques||'—'}</span></div>
-      <div class="mcell"><span class="mlabel">CPC</span><span class="mval">${m.cpc||'—'}</span></div>
-      <div class="mcell"><span class="mlabel">CPL</span><span class="mval">${m.cpl||'—'}</span></div>
-      <div class="mcell"><span class="mlabel">ROAS</span><span class="mval ${roas?'ok':'dim'}">${roas||'—'}</span></div>
-    </div>`;
-
-  // Only show campaigns in semanal view
-  if (!isMensal && m.campaigns?.length) {
-    html += `<div class="camps">${m.campaigns.map(cp =>
-      `<div class="crow"><span class="cname2">${cp.name}</span><span class="cspend">${cp.spend}</span></div>`
-    ).join('')}</div>`;
-  }
-
-  return html;
-}
-
-function card(c) {
-  const m = curPeriod === 'mensal' ? (c.meta_mensal || c.meta_semanal) : c.meta_semanal;
-  const isMensal = curPeriod === 'mensal' && c.meta_mensal;
-  const scoreStr = c.score != null ? ` · ${c.score}%` : '';
-
-  return `<div class="card ${c.flag}" data-flag="${c.flag}">
-    <div class="card-top">
-      <div>
-        <div class="cname">${c.name}</div>
-        <div class="csquad">${c.squad}${scoreStr}</div>
-      </div>
-      <div class="badge ${c.flag}"><span class="dot"></span>${BADGE[c.flag]||'—'}</div>
-    </div>
-    ${metaBlock(m, !!isMensal)}
-  </div>`;
-}
-
-function renderGrid() {
-  const filtered = curFilter === 'todos'
-    ? allCards
-    : allCards.filter(c => c.flag === curFilter);
-  document.getElementById('ac').textContent = `${filtered.length} clientes`;
-  document.getElementById('grid').innerHTML = filtered.map(card).join('');
-}
-
-async function init() {
-  const r = await fetch('dados.json?v=' + Date.now());
-  const d = await r.json();
-
-  document.getElementById('upd').textContent = d.gerado_em || '—';
-
-  const order = {vermelho:0, amarelo:1, 'sem-dados':2, verde:3};
-  allCards = [...d.clientes].sort((a,b) => (order[a.flag]??2) - (order[b.flag]??2));
-
-  const cnt = {verde:0, amarelo:0, vermelho:0};
-  allCards.forEach(c => { if (cnt[c.flag] !== undefined) cnt[c.flag]++; });
-  document.getElementById('s-total').textContent = allCards.length;
-  document.getElementById('s-verde').textContent = cnt.verde;
-  document.getElementById('s-amarelo').textContent = cnt.amarelo;
-  document.getElementById('s-vermelho').textContent = cnt.vermelho;
-
+function setPeriod(p) {
+  curPeriod = p;
+  document.getElementById('btn-semanal').classList.toggle('active', p==='semanal');
+  document.getElementById('btn-mensal').classList.toggle('active', p==='mensal');
   renderGrid();
-  document.getElementById('active-section').style.display = '';
-
-  if (d.churns?.length) {
-    document.getElementById('cc').textContent = `${d.churns.length} clientes`;
-    document.getElementById('churn-grid').innerHTML = d.churns.map(c => `
-      <div class="churn-card">
-        <div><div class="churn-name">${c.name}</div><div class="csquad">${c.squad}</div></div>
-        <span class="churn-date">${c.churn_date}</span>
-      </div>`).join('');
-    document.getElementById('churn-section').style.display = '';
-  }
-
-  document.getElementById('fnote').textContent =
-    `Meta Ads API · Health Score: ${d.health_score_data} · Atualizado diariamente às 8h`;
-  document.getElementById('loading').style.display = 'none';
 }
 
-init().catch(() => {
-  document.getElementById('loading').innerHTML = '<span style="color:var(--red)">Erro ao carregar dados.json</span>';
-});
+// ── init ─────────────────────────────────────────────────────────
+async function init() {
+  try {
+    const r = await fetch('dados.json?v=' + Date.now());
+    const d = await r.json();
+
+    document.getElementById('upd').textContent = d.gerado_em || '—';
+
+    const order = {vermelho:0, amarelo:1, 'sem-dados':2, verde:3};
+    allCards = [...d.clientes].sort((a,b) => (order[a.flag]??2)-(order[b.flag]??2));
+
+    const cnt = {verde:0, amarelo:0, vermelho:0};
+    allCards.forEach(c => { if(cnt[c.flag]!==undefined) cnt[c.flag]++; });
+    document.getElementById('s-total').textContent   = allCards.length;
+    document.getElementById('s-verde').textContent   = cnt.verde;
+    document.getElementById('s-amarelo').textContent = cnt.amarelo;
+    document.getElementById('s-vermelho').textContent= cnt.vermelho;
+
+    renderGrid();
+    document.getElementById('active-section').style.display = '';
+
+    if (d.churns?.length) {
+      document.getElementById('cc').textContent = d.churns.length;
+      document.getElementById('churn-grid').innerHTML = d.churns.map(c => `
+        <div class="churn-card">
+          <div><div class="churn-name">${c.name}</div><div class="csquad">${c.squad}</div></div>
+          <span class="churn-date">${c.churn_date}</span>
+        </div>`).join('');
+      document.getElementById('churn-section').style.display = '';
+    }
+
+    document.getElementById('fnote').textContent =
+      `Meta Ads API · Health Score: ${d.health_score_data} · Atualizado diariamente às 8h`;
+    document.getElementById('loading').style.display = 'none';
+
+  } catch(e) {
+    document.getElementById('loading').innerHTML =
+      '<span style="color:var(--red)">Erro ao carregar dados.json — ' + e.message + '</span>';
+  }
+}
+
+init();
 </script>
 </body>
 </html>
