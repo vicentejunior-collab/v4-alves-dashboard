@@ -1,0 +1,253 @@
+{
+  "gerado_em": "2026-06-23",
+  "health_score_data": "2026-06-19",
+  "clientes": [
+    {
+      "name": "Travel Rock",
+      "file": "travel-rock",
+      "squad": "CINTIA",
+      "fee": 6327.0,
+      "flag": "amarelo",
+      "score": 67,
+      "meta": {
+        "period": "2026-06-16 a 2026-06-22",
+        "invest": "R$ 3,430.23",
+        "impressoes": "605,384",
+        "cliques": "11,501",
+        "ctr": "1.90%",
+        "cpm": "R$ 5.67",
+        "cpc": "R$ 0.30",
+        "conversoes": "51",
+        "cpl": "R$ 67.26",
+        "roas": null,
+        "campaigns": [
+          {
+            "name": "[V4] GER-BRC",
+            "spend": "R$ 1,387.39"
+          },
+          {
+            "name": "[V4] GROWTH-BRC",
+            "spend": "R$ 707.68"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Farmácia Descontão",
+      "file": "farmacia-descontao",
+      "squad": "ARTHUR",
+      "fee": 5500.0,
+      "flag": "amarelo",
+      "score": 50,
+      "meta": {
+        "period": "2026-06-16 a 2026-06-22",
+        "invest": "R$ 353.22",
+        "impressoes": "33,341",
+        "cliques": "761",
+        "ctr": "2.28%",
+        "cpm": "R$ 10.59",
+        "cpc": "R$ 0.46",
+        "conversoes": "0",
+        "cpl": null,
+        "roas": null,
+        "campaigns": [
+          {
+            "name": "[V4] TRÁFEGO-ITAJAÍ",
+            "spend": "R$ 179.43"
+          },
+          {
+            "name": "[V4] MENSAGEM-NAMORADOS",
+            "spend": "R$ 173.79"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Ventania / Marynga",
+      "file": "ventania",
+      "squad": "CINTIA",
+      "fee": 6000.0,
+      "flag": "verde",
+      "score": 90,
+      "meta": null
+    },
+    {
+      "name": "Éthéreal",
+      "file": "ethereal",
+      "squad": "CINTIA",
+      "fee": 8155.25,
+      "flag": "verde",
+      "score": 80,
+      "meta": null
+    },
+    {
+      "name": "Parcelando Tudo",
+      "file": "parcelando-tudo",
+      "squad": "VICENTE",
+      "fee": 4351.0,
+      "flag": "verde",
+      "score": 90,
+      "meta": null
+    },
+    {
+      "name": "Grupo Obará",
+      "file": "grupo-obara",
+      "squad": "VICENTE",
+      "fee": 10497.0,
+      "flag": "verde",
+      "score": 100,
+      "meta": null
+    },
+    {
+      "name": "Vitrinni",
+      "file": "vitrinni",
+      "squad": "VICENTE",
+      "fee": 0.0,
+      "flag": "amarelo",
+      "score": 60,
+      "meta": null
+    },
+    {
+      "name": "Terra Vitta",
+      "file": "terra-vitta",
+      "squad": "ARTHUR",
+      "fee": 2000.0,
+      "flag": "verde",
+      "score": 90,
+      "meta": null
+    },
+    {
+      "name": "União Vida",
+      "file": "uniao-vida",
+      "squad": "—",
+      "fee": null,
+      "flag": "sem-dados",
+      "score": null,
+      "meta": null
+    },
+    {
+      "name": "Instituto Lazarin",
+      "file": "instituto-lazarin",
+      "squad": "ARTHUR",
+      "fee": 2000.0,
+      "flag": "amarelo",
+      "score": 40,
+      "meta": null
+    },
+    {
+      "name": "F&C Serviços",
+      "file": "fc-servicos",
+      "squad": "ARTHUR",
+      "fee": 5959.6,
+      "flag": "amarelo",
+      "score": 70,
+      "meta": null
+    },
+    {
+      "name": "F&C Group App",
+      "file": "fc-group-app",
+      "squad": "ARTHUR",
+      "fee": 5855.05,
+      "flag": "amarelo",
+      "score": 50,
+      "meta": null
+    },
+    {
+      "name": "Uberhaus RP",
+      "file": "uberhaus-rp",
+      "squad": "CINTIA",
+      "fee": 2087.8,
+      "flag": "amarelo",
+      "score": 70,
+      "meta": null
+    },
+    {
+      "name": "Rede Representações",
+      "file": "rede-representacoes",
+      "squad": "CINTIA",
+      "fee": 5000.0,
+      "flag": "amarelo",
+      "score": 60,
+      "meta": null
+    },
+    {
+      "name": "Clínica Phoenix",
+      "file": "clinica-phoenix",
+      "squad": "ARTHUR",
+      "fee": 2376.75,
+      "flag": "amarelo",
+      "score": 50,
+      "meta": null
+    },
+    {
+      "name": "HigiLife",
+      "file": "higilife",
+      "squad": "VICENTE",
+      "fee": 0.0,
+      "flag": "amarelo",
+      "score": 60,
+      "meta": null
+    },
+    {
+      "name": "Café Mineiro",
+      "file": "cafe-mineiro",
+      "squad": "—",
+      "fee": null,
+      "flag": "sem-dados",
+      "score": null,
+      "meta": null
+    },
+    {
+      "name": "Papelaria Home & Office",
+      "file": "papelaria-home-office",
+      "squad": "ARTHUR",
+      "fee": 0.0,
+      "flag": "amarelo",
+      "score": 60,
+      "meta": null
+    },
+    {
+      "name": "Condal Beauty",
+      "file": "condal-beauty",
+      "squad": "CINTIA",
+      "fee": 4540.0,
+      "flag": "amarelo",
+      "score": 60,
+      "meta": null
+    },
+    {
+      "name": "M.A Produções Rabin",
+      "file": "ma-producoes-rabin",
+      "squad": "CINTIA",
+      "fee": 3000.0,
+      "flag": "amarelo",
+      "score": 50,
+      "meta": null
+    },
+    {
+      "name": "M.A Produções Marrom",
+      "file": "ma-producoes-marrom",
+      "squad": "CINTIA",
+      "fee": 4489.36,
+      "flag": "amarelo",
+      "score": 50,
+      "meta": null
+    },
+    {
+      "name": "Fazenda Vale Imperial",
+      "file": "fazenda-vale-imperial",
+      "squad": "CINTIA",
+      "fee": 2000.0,
+      "flag": "vermelho",
+      "score": 30,
+      "meta": null
+    }
+  ],
+  "churns": [
+    {
+      "name": "Empadinhas",
+      "squad": "ARTHUR",
+      "churn_date": "2026-06-19"
+    }
+  ]
+}
