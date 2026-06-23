@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V4 Alves — Dashboard de Clientes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #111111;
+    --surface2: #181818;
+    --surface3: #222222;
+    --border: #2a2a2a;
+    --accent: #FF4D00;
+    --accent2: #FF7A35;
+    --accent-dim: rgba(255,77,0,0.12);
+    --green: #00E87A;
+    --green-dim: rgba(0,232,122,0.12);
+    --yellow: #FFD600;
+    --yellow-dim: rgba(255,214,0,0.12);
+    --red: #FF3B3B;
+    --red-dim: rgba(255,59,59,0.12);
+    --blue: #3B8EFF;
+    --text: #F0F0F0;
+    --muted: #666;
+    --muted2: #444;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,8,8,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .header-logo {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+  }
+
+  .header-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+  }
+
+  .header-title {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .update-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  .update-pill span {
+    color: var(--green);
+  }
+
+  /* ── LAYOUT ── */
+  .shell {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+
+  /* ── SUMMARY BAR ── */
+  .summary-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .summary-card {
+    background: var(--surface);
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .summary-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .summary-value {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .summary-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .section-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted2);
+  }
+
+  /* ── FILTERS ── */
+  .filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .filter-btn:hover { border-color: var(--muted2); color: var(--text); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .filter-btn.f-verde.active { background: var(--green); border-color: var(--green); color: #000; }
+  .filter-btn.f-amarelo.active { background: var(--yellow); border-color: var(--yellow); color: #000; }
+  .filter-btn.f-vermelho.active { background: var(--red); border-color: var(--red); color: #fff; }
+
+  /* ── CLIENT GRID ── */
+  .client-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 2px;
+  }
+
+  .client-card {
+    background: var(--surface);
+    border-radius: 0;
+    padding: 20px;
+    transition: background 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .client-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+  }
+
+  .client-card.verde::before { background: var(--green); }
+  .client-card.amarelo::before { background: var(--yellow); }
+  .client-card.vermelho::before { background: var(--red); }
+  .client-card.sem-dados::before { background: var(--muted2); }
+
+  .client-card:hover { background: var(--surface2); }
+
+  /* card top */
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .card-name {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+  }
+
+  .card-squad {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .health-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .health-badge.verde { background: var(--green-dim); color: var(--green); }
+  .health-badge.amarelo { background: var(--yellow-dim); color: var(--yellow); }
+  .health-badge.vermelho { background: var(--red-dim); color: var(--red); }
+  .health-badge.sem-dados { background: var(--surface3); color: var(--muted); }
+
+  .health-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  /* metrics row */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .metric-cell {
+    background: var(--surface2);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .metric-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .metric-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .metric-value.highlight { color: var(--accent2); }
+  .metric-value.good { color: var(--green); }
+  .metric-value.warn { color: var(--yellow); }
+  .metric-value.muted { color: var(--muted); font-style: italic; }
+
+  /* period bar */
+  .period-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .period-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .period-label strong {
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* campaign mini list */
+  .campaigns {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .campaign-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 8px;
+    background: var(--surface3);
+    border-radius: 3px;
+  }
+
+  .campaign-name {
+    font-size: 10px;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .campaign-spend {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* no data state */
+  .no-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: var(--surface3);
+    border-radius: 4px;
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .no-meta-icon {
+    width: 20px;
+    height: 20px;
+    background: var(--surface2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  /* ── SECTION SPACING ── */
+  .section { margin-bottom: 40px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .summary-bar { grid-template-columns: repeat(2, 1fr); }
+    .client-grid { grid-template-columns: 1fr; }
+    .metrics-row { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .shell { padding: 20px 16px 60px; }
+    .header { padding: 0 16px; }
+    .summary-bar { grid-template-columns: 1fr 1fr; }
+    .header-title { display: none; }
+  }
+
+  /* ── SKELETON LOADER ── */
+  .skeleton {
+    background: linear-gradient(90deg, var(--surface) 25%, var(--surface2) 50%, var(--surface) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .loading-overlay {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    gap: 16px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .loading-overlay.active { display: flex; }
+
+  .spinner {
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── CHURN SECTION ── */
+  .churn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2px;
+  }
+
+  .churn-card {
+    background: var(--surface);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    opacity: 0.5;
+    position: relative;
+  }
+
+  .churn-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--muted2);
+  }
+
+  .churn-name {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+
+  .churn-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted2);
+  }
+
+  /* ── LAST UPDATE ── */
+  .page-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-brand {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 10px;
+    color: var(--muted2);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted2);
+  }
+
+  /* ── ANIMATION ── */
+  .client-card {
+    animation: fadeUp 0.3s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-brand">
+    <span class="header-logo">V4</span>
+    <div class="header-divider"></div>
+    <span class="header-title">Dashboard de Clientes</span>
+  </div>
+  <div class="header-meta">
+    <div class="update-pill">Atualizado <span id="update-date">—</span></div>
+  </div>
+</header>
+
+<div class="shell">
+
+  <!-- SUMMARY BAR -->
+  <div class="summary-bar" id="summary-bar">
+    <div class="summary-card">
+      <span class="summary-label">Carteira ativa</span>
+      <span class="summary-value" id="s-total">—</span>
+      <span class="summary-sub">clientes</span>
+    </div>
+    <div class="summary-card">
+      <span class="summary-label">🟢 Saudáveis</span>
+      <span class="summary-value" id="s-verde" style="color: var(--green)">—</span>
+      <span class="summary-sub">clientes</span>
+    </div>
+    <div class="summary-card">
+      <span class="summary-label">🟡 Atenção</span>
+      <span class="summary-value" id="s-amarelo" style="color: var(--yellow)">—</span>
+      <span class="summary-sub">clientes</span>
+    </div>
+    <div class="summary-card">
+      <span class="summary-label">🔴 Risco</span>
+      <span class="summary-value" id="s-vermelho" style="color: var(--red)">—</span>
+      <span class="summary-sub">clientes</span>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <button class="filter-btn active" data-filter="todos" onclick="setFilter(this)">Todos</button>
+    <button class="filter-btn f-verde" data-filter="verde" onclick="setFilter(this)">🟢 Saudável</button>
+    <button class="filter-btn f-amarelo" data-filter="amarelo" onclick="setFilter(this)">🟡 Atenção</button>
+    <button class="filter-btn f-vermelho" data-filter="vermelho" onclick="setFilter(this)">🔴 Risco</button>
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading-overlay active" id="loading">
+    <div class="spinner"></div>
+    <span>Carregando dados do Segundo Cérebro…</span>
+  </div>
+
+  <!-- CLIENT GRID -->
+  <div class="section" id="active-section" style="display:none">
+    <div class="section-header">
+      <span class="section-title">Clientes ativos</span>
+      <span class="section-count" id="active-count">0 clientes</span>
+    </div>
+    <div class="client-grid" id="client-grid"></div>
+  </div>
+
+  <!-- CHURN SECTION -->
+  <div class="section" id="churn-section" style="display:none">
+    <div class="section-header">
+      <span class="section-title">Churns</span>
+      <span class="section-count" id="churn-count">0 clientes</span>
+    </div>
+    <div class="churn-grid" id="churn-grid"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <span class="footer-brand">V4 ALVES & CO — USO INTERNO</span>
+    <span class="footer-note" id="footer-note">Dados: Meta Ads API + Health Score</span>
+  </div>
+
+</div>
+
+<script>
+// ──────────────────────────────────────────────
+// CONFIG — owner e repo do Segundo Cérebro
+// ──────────────────────────────────────────────
+const OWNER = 'vicentejunior-collab';
+const REPO  = 'v4-alves-segundo-cerebro';
+const BRANCH = 'main';
+const API = `https://api.github.com/repos/${OWNER}/${REPO}/contents`;
+
+// Token de leitura (somente leitura, repo privado)
+// Substitua pelo seu token abaixo quando publicar.
+// IMPORTANTE: use um token com escopo "repo:read" apenas.
+const TOKEN = '__GITHUB_READ_TOKEN__';
+
+const headers = TOKEN && TOKEN !== '__GITHUB_READ_TOKEN__'
+  ? { 'Authorization': `token ${TOKEN}` }
+  : {};
+
+// ──────────────────────────────────────────────
+// HELPERS
+// ──────────────────────────────────────────────
+function fmt(val, prefix = '') {
+  if (val === null || val === undefined || val === '—' || val === '') return '—';
+  const n = parseFloat(String(val).replace(/[^0-9.,]/g, '').replace(',', '.'));
+  if (isNaN(n)) return val;
+  if (n >= 1000) return prefix + n.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  return prefix + n.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function fmtPct(val) {
+  if (!val || val === '—') return '—';
+  const n = parseFloat(String(val).replace(',', '.').replace('%', ''));
+  if (isNaN(n)) return '—';
+  return n.toFixed(2) + '%';
+}
+
+async function fetchText(path) {
+  const r = await fetch(`${API}/${path}?ref=${BRANCH}`, { headers });
+  if (!r.ok) return null;
+  const j = await r.json();
+  return j.content ? atob(j.content) : null;
+}
+
+async function fetchJSON(path) {
+  const txt = await fetchText(path);
+  if (!txt) return null;
+  try { return JSON.parse(txt); } catch { return null; }
+}
+
+// ──────────────────────────────────────────────
+// PARSE PERFORMANCE from .md
+// ──────────────────────────────────────────────
+function parseMetrics(md) {
+  if (!md) return null;
+
+  // Extract "## Performance Atual" section
+  const atual = md.match(/## Performance Atual([\s\S]*?)(?=\n## |$)/);
+  if (!atual) return null;
+  const block = atual[1];
+
+  function pick(label) {
+    const rx = new RegExp(`\\|\\s*${label.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}\\s*\\|\\s*([^|\\n]+)\\s*\\|`,'i');
+    const m = block.match(rx);
+    if (!m) return null;
+    const v = m[1].trim().replace(/[💰👁️🎯🔁🖱️📊💵📢✅💲📈]/g,'').trim();
+    return v === '—' || v === '' ? null : v;
+  }
+
+  const period = block.match(/_Período:\s*([^_\n]+)_/);
+
+  // extract campaigns (top 2)
+  const campRows = [];
+  const campSection = block.match(/### Por Campanha([\s\S]*?)(?=\n###|$)/);
+  if (campSection) {
+    const rows = campSection[1].match(/\|\s*\[.*?\].*?\|.*?R\$\s*([\d.,]+)/g);
+    if (rows) {
+      rows.slice(0,2).forEach(r => {
+        const nm = r.match(/\|\s*(\[.*?\].*?)\s*\|/);
+        const sp = r.match(/R\$\s*([\d.,]+)/);
+        if (nm && sp) campRows.push({ name: nm[1].trim().substring(0,30), spend: 'R$ ' + sp[1] });
+      });
+    }
+  }
+
+  return {
+    period: period ? period[1].trim() : null,
+    invest: pick('💰 Investimento'),
+    impressoes: pick('👁️ Impressões'),
+    cliques: pick('🖱️ Cliques'),
+    ctr: pick('📊 CTR'),
+    cpm: pick('📢 CPM'),
+    cpc: pick('💵 CPC'),
+    conversoes: pick('✅ Conversões \\(Total\\)') || pick('✅ Conversões (Total)'),
+    roas: pick('📈 ROAS'),
+    campaigns: campRows,
+  };
+}
+
+function parseHealthScore(md) {
+  if (!md) return null;
+  // Look for Health Score in the file
+  const m = md.match(/Health Score.*?:\s*([\d.]+)%.*?([🔴🟡🟢][^\n]*)/i)
+           || md.match(/\*\*Score.*?\*\*.*?([\d.]+)%.*?([🔴🟡🟢][^\n]*)/i)
+           || md.match(/Score.*?:\s*([\d.]+)%/i);
+  if (!m) return null;
+  const score = parseFloat(m[1]);
+  let flag = 'sem-dados';
+  if (score >= 75) flag = 'verde';
+  else if (score >= 50) flag = 'amarelo';
+  else flag = 'vermelho';
+  return { score, flag };
+}
+
+// ──────────────────────────────────────────────
+// LOAD HEALTH SCORE JSON
+// ──────────────────────────────────────────────
+async function loadLatestHealthScore() {
+  const dir = await fetch(`${API}/health-score/historico?ref=${BRANCH}`, { headers });
+  if (!dir.ok) return {};
+  const files = await dir.json();
+  if (!files.length) return {};
+  // sort desc, take latest
+  const sorted = files.filter(f => f.name.endsWith('.json')).sort((a,b) => b.name.localeCompare(a.name));
+  if (!sorted.length) return {};
+  const raw = await fetchJSON(`health-score/historico/${sorted[0].name}`);
+  if (!raw || !raw.clientes) return {};
+
+  const map = {};
+  raw.clientes.forEach(c => {
+    // compute flag from notas
+    if (c.classificacao === 'CHURN') { map[normalizeKey(c.nome)] = { flag: 'churn', churn: c.churn }; return; }
+    const n = c.notas;
+    if (!n) { map[normalizeKey(c.nome)] = { flag: 'sem-dados', score: null, squad: c.squad, fee: c.fee }; return; }
+    const vals = Object.values(n).filter(v => v !== null && v !== undefined);
+    const avg = vals.length ? vals.reduce((a,b) => a + b, 0) / vals.length : null;
+    let flag = 'sem-dados';
+    if (avg !== null) {
+      if (avg >= 1.6) flag = 'verde';
+      else if (avg >= 0.8) flag = 'amarelo';
+      else flag = 'vermelho';
+    }
+    const pct = avg !== null ? Math.round((avg / 2) * 100) : null;
+    map[normalizeKey(c.nome)] = { flag, score: pct, squad: c.squad, fee: c.fee };
+  });
+  return { map, date: sorted[0].name.replace('.json','') };
+}
+
+function normalizeKey(s) {
+  return s.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9]/g,' ')
+    .trim()
+    .replace(/\s+/g, ' ');
+}
+
+// Map md filename to display name + possible health score keys
+const CLIENT_MAP = [
+  { file: 'farmacia-descontao', name: 'Farmácia Descontão', keys: ['farmacia descontao'] },
+  { file: 'empadinhas', name: 'Empadinhas', keys: ['empadinhas'] },
+  { file: 'condal-beauty', name: 'Condal Beauty', keys: ['condal'] },
+  { file: 'ventania', name: 'Ventania / Marynga', keys: ['marynga motos ventania','ventania','marynga motos'] },
+  { file: 'ethereal', name: 'Éthéreal', keys: ['ethereal'] },
+  { file: 'parcelando-tudo', name: 'Parcelando Tudo', keys: ['parcelando tudo'] },
+  { file: 'grupo-obara', name: 'Grupo Obará', keys: ['obara'] },
+  { file: 'vitrinni', name: 'Vitrinni', keys: ['vitrinni lounge','vitrinni'] },
+  { file: 'travel-rock', name: 'Travel Rock', keys: ['travel rock'] },
+  { file: 'terra-vitta', name: 'Terra Vitta', keys: ['terra vitta'] },
+  { file: 'uniao-vida', name: 'União Vida', keys: ['uniao vida'] },
+  { file: 'instituto-lazarin', name: 'Instituto Lazarin', keys: ['inst lazarin','instituto lazarin'] },
+  { file: 'fc-servicos', name: 'F&C Serviços', keys: ['f c servicos','f&c servicos'] },
+  { file: 'fc-group-app', name: 'F&C Group App', keys: ['f c group','f&c group'] },
+  { file: 'uberhaus-rp', name: 'Uberhaus RP', keys: ['uberhaus rp'] },
+  { file: 'rede-representacoes', name: 'Rede Representações', keys: ['rede representacoes'] },
+  { file: 'clinica-phoenix', name: 'Clínica Phoenix', keys: ['clinica phoenix'] },
+  { file: 'higilife', name: 'HigiLife', keys: ['higilife'] },
+  { file: 'cafe-mineiro', name: 'Café Mineiro', keys: ['cafe mineiro'] },
+  { file: 'papelaria-home-office', name: 'Papelaria Home & Office', keys: ['home office'] },
+  { file: 'condal', name: 'Condal', keys: ['condal'] },
+  { file: 'ma-producoes-rabin', name: 'M.A Produções Rabin', keys: ['m a producoes rabin'] },
+  { file: 'ma-producoes-marrom', name: 'M.A Produções Marrom', keys: ['m a producoes marrom'] },
+  { file: 'fazenda-vale-imperial', name: 'Fazenda Vale Imperial', keys: ['fazenda vale imperial'] },
+];
+
+// ──────────────────────────────────────────────
+// RENDER CARD
+// ──────────────────────────────────────────────
+function renderCard(client, metrics, hs) {
+  const flag = hs?.flag || 'sem-dados';
+  const isChurn = flag === 'churn';
+  if (isChurn) return null;
+
+  const badgeLabels = {
+    verde: '🟢 Saudável',
+    amarelo: '🟡 Atenção',
+    vermelho: '🔴 Risco',
+    'sem-dados': 'Sem Score',
+  };
+
+  const scoreText = hs?.score !== null && hs?.score !== undefined
+    ? ` · ${hs.score}%` : '';
+
+  const squad = hs?.squad || '—';
+
+  let metricsHTML = '';
+  if (metrics) {
+    const ctrClass = metrics.ctr ? (parseFloat(metrics.ctr) >= 2 ? 'good' : parseFloat(metrics.ctr) >= 1 ? '' : 'warn') : 'muted';
+    const roas = metrics.roas && metrics.roas !== '—' ? metrics.roas : null;
+
+    metricsHTML = `
+      <div class="metrics-row">
+        <div class="metric-cell">
+          <span class="metric-label">Invest.</span>
+          <span class="metric-value highlight">${metrics.invest || '—'}</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-label">Impressões</span>
+          <span class="metric-value">${metrics.impressoes ? Number(String(metrics.impressoes).replace(/,/g,'')).toLocaleString('pt-BR') : '—'}</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-label">CTR</span>
+          <span class="metric-value ${ctrClass}">${metrics.ctr || '—'}</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-label">CPM</span>
+          <span class="metric-value">${metrics.cpm || '—'}</span>
+        </div>
+      </div>
+      <div class="metrics-row">
+        <div class="metric-cell">
+          <span class="metric-label">Cliques</span>
+          <span class="metric-value">${metrics.cliques ? Number(String(metrics.cliques).replace(/,/g,'')).toLocaleString('pt-BR') : '—'}</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-label">CPC</span>
+          <span class="metric-value">${metrics.cpc || '—'}</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-label">Conversões</span>
+          <span class="metric-value">${metrics.conversoes || '0'}</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-label">ROAS</span>
+          <span class="metric-value ${roas ? 'good' : 'muted'}">${roas || '—'}</span>
+        </div>
+      </div>`;
+
+    if (metrics.campaigns?.length) {
+      const campRows = metrics.campaigns.map(c => `
+        <div class="campaign-row">
+          <span class="campaign-name">${c.name}</span>
+          <span class="campaign-spend">${c.spend}</span>
+        </div>`).join('');
+      metricsHTML += `<div class="campaigns">${campRows}</div>`;
+    }
+
+    if (metrics.period) {
+      metricsHTML += `<div class="period-bar">
+        <span class="period-label">Período: <strong>${metrics.period}</strong></span>
+        <span class="period-label" style="color:var(--muted2)">Meta Ads</span>
+      </div>`;
+    }
+  } else {
+    metricsHTML = `<div class="no-meta">
+      <div class="no-meta-icon">—</div>
+      <span>Sem dados de Meta Ads neste arquivo</span>
+    </div>`;
+  }
+
+  return `
+    <div class="client-card ${flag}" data-flag="${flag}">
+      <div class="card-top">
+        <div>
+          <div class="card-name">${client.name}</div>
+          <div class="card-squad">${squad}${scoreText}</div>
+        </div>
+        <div class="health-badge ${flag}">
+          <span class="health-dot"></span>
+          ${badgeLabels[flag]}
+        </div>
+      </div>
+      ${metricsHTML}
+    </div>`;
+}
+
+// ──────────────────────────────────────────────
+// MAIN LOAD
+// ──────────────────────────────────────────────
+let allCards = [];
+let currentFilter = 'todos';
+
+async function loadDashboard() {
+  document.getElementById('loading').classList.add('active');
+
+  // 1. Load health score
+  const { map: hsMap, date: hsDate } = await loadLatestHealthScore().catch(() => ({}));
+
+  // 2. Load client files in parallel (cap at 8 concurrent)
+  const chunks = [];
+  for (let i = 0; i < CLIENT_MAP.length; i += 8) chunks.push(CLIENT_MAP.slice(i, i+8));
+
+  const results = [];
+  for (const chunk of chunks) {
+    const batch = await Promise.all(chunk.map(async c => {
+      const md = await fetchText(`clientes/${c.file}.md`);
+      const metrics = md ? parseMetrics(md) : null;
+
+      // look up hs
+      let hs = null;
+      if (hsMap) {
+        for (const k of c.keys) {
+          if (hsMap[k]) { hs = hsMap[k]; break; }
+        }
+        // fuzzy fallback
+        if (!hs) {
+          const normName = normalizeKey(c.name);
+          for (const [k, v] of Object.entries(hsMap)) {
+            if (k.includes(normName.split(' ')[0]) || normName.includes(k.split(' ')[0])) {
+              hs = v; break;
+            }
+          }
+        }
+      }
+
+      // fallback: parse from md
+      if (!hs && md) {
+        const parsed = parseHealthScore(md);
+        if (parsed) hs = parsed;
+      }
+
+      return { client: c, metrics, hs };
+    }));
+    results.push(...batch);
+  }
+
+  // 3. Separate churns
+  const churns = results.filter(r => r.hs?.flag === 'churn');
+  const active = results.filter(r => r.hs?.flag !== 'churn');
+
+  // 4. Sort: vermelho first, then amarelo, then sem-dados, then verde
+  const order = { vermelho: 0, amarelo: 1, 'sem-dados': 2, verde: 3 };
+  active.sort((a,b) => {
+    const fa = a.hs?.flag || 'sem-dados';
+    const fb = b.hs?.flag || 'sem-dados';
+    return (order[fa] ?? 2) - (order[fb] ?? 2);
+  });
+
+  // 5. Render
+  allCards = active;
+
+  // summary
+  const counts = { verde: 0, amarelo: 0, vermelho: 0 };
+  active.forEach(r => { const f = r.hs?.flag; if (counts[f] !== undefined) counts[f]++; });
+  document.getElementById('s-total').textContent = active.length;
+  document.getElementById('s-verde').textContent = counts.verde;
+  document.getElementById('s-amarelo').textContent = counts.amarelo;
+  document.getElementById('s-vermelho').textContent = counts.vermelho;
+
+  // update date
+  const today = new Date().toLocaleDateString('pt-BR', { day:'2-digit', month:'short', year:'numeric' });
+  document.getElementById('update-date').textContent = today;
+
+  // render active
+  renderGrid();
+
+  // render churns
+  if (churns.length) {
+    document.getElementById('churn-section').style.display = '';
+    document.getElementById('churn-count').textContent = `${churns.length} clientes`;
+    document.getElementById('churn-grid').innerHTML = churns.map(r => `
+      <div class="churn-card">
+        <div>
+          <div class="churn-name">${r.client.name}</div>
+          <div class="card-squad">${r.hs?.squad || '—'}</div>
+        </div>
+        <span class="churn-date">${r.hs?.churn || 'churn'}</span>
+      </div>`).join('');
+  }
+
+  document.getElementById('loading').classList.remove('active');
+  document.getElementById('active-section').style.display = '';
+
+  document.getElementById('footer-note').textContent =
+    `Meta Ads API · Health Score: ${hsDate || 'N/A'} · Atualizado diariamente às 8h`;
+}
+
+function renderGrid() {
+  const grid = document.getElementById('client-grid');
+  const filtered = currentFilter === 'todos'
+    ? allCards
+    : allCards.filter(r => (r.hs?.flag || 'sem-dados') === currentFilter);
+
+  document.getElementById('active-count').textContent = `${filtered.length} clientes`;
+
+  grid.innerHTML = filtered
+    .map(r => renderCard(r.client, r.metrics, r.hs))
+    .filter(Boolean)
+    .join('');
+}
+
+function setFilter(btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = btn.dataset.filter;
+  renderGrid();
+}
+
+// ──────────────────────────────────────────────
+// INIT
+// ──────────────────────────────────────────────
+loadDashboard();
+</script>
+</body>
+</html>
