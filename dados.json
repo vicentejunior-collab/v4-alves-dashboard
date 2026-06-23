@@ -9,7 +9,7 @@
       "fee": 6327.0,
       "flag": "amarelo",
       "score": 67,
-      "meta": {
+      "meta_semanal": {
         "period": null,
         "invest": "R$ 3,430.23",
         "impressoes": "605,384",
@@ -30,6 +30,19 @@
             "spend": "R$ 707.68"
           }
         ]
+      },
+      "meta_mensal": {
+        "period": "Junho/2026 — parcial até 23/06",
+        "invest": "R$ 10,762.32",
+        "impressoes": "1,888,793",
+        "cliques": "37,556",
+        "ctr": "1.99%",
+        "cpm": "R$ 5.70",
+        "cpc": "R$ 0.29",
+        "conversoes": "132",
+        "cpl": "R$ 81.53",
+        "roas": null,
+        "campaigns": []
       }
     },
     {
@@ -39,7 +52,7 @@
       "fee": 5500.0,
       "flag": "amarelo",
       "score": 50,
-      "meta": {
+      "meta_semanal": {
         "period": null,
         "invest": "R$ 353.22",
         "impressoes": "33,341",
@@ -60,6 +73,19 @@
             "spend": "R$ 173.79"
           }
         ]
+      },
+      "meta_mensal": {
+        "period": "Junho/2026 — parcial até 23/06",
+        "invest": "R$ 1,116.55",
+        "impressoes": "140,703",
+        "cliques": "2,626",
+        "ctr": "1.87%",
+        "cpm": "R$ 7.94",
+        "cpc": "R$ 0.43",
+        "conversoes": "0",
+        "cpl": null,
+        "roas": null,
+        "campaigns": []
       }
     },
     {
@@ -69,7 +95,7 @@
       "fee": 6000.0,
       "flag": "verde",
       "score": 90,
-      "meta": {
+      "meta_semanal": {
         "period": null,
         "invest": "R$ 451.01",
         "impressoes": "27,026",
@@ -77,6 +103,19 @@
         "ctr": "1.32%",
         "cpm": "R$ 16.69",
         "cpc": "R$ 1.26",
+        "conversoes": "0",
+        "cpl": null,
+        "roas": null,
+        "campaigns": []
+      },
+      "meta_mensal": {
+        "period": "Junho/2026 — parcial até 23/06",
+        "invest": "R$ 1,709.27",
+        "impressoes": "123,463",
+        "cliques": "1,676",
+        "ctr": "1.36%",
+        "cpm": "R$ 13.84",
+        "cpc": "R$ 1.02",
         "conversoes": "0",
         "cpl": null,
         "roas": null,
@@ -90,19 +129,8 @@
       "fee": 8155.25,
       "flag": "verde",
       "score": 80,
-      "meta": {
-        "period": null,
-        "invest": null,
-        "impressoes": null,
-        "cliques": null,
-        "ctr": null,
-        "cpm": null,
-        "cpc": null,
-        "conversoes": null,
-        "cpl": null,
-        "roas": null,
-        "campaigns": []
-      }
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "Parcelando Tudo",
@@ -111,7 +139,7 @@
       "fee": 4351.0,
       "flag": "verde",
       "score": 90,
-      "meta": {
+      "meta_semanal": {
         "period": null,
         "invest": "R$ 209.62",
         "impressoes": "29,977",
@@ -128,6 +156,19 @@
             "spend": "R$ 209.62"
           }
         ]
+      },
+      "meta_mensal": {
+        "period": "Junho/2026 — parcial até 23/06",
+        "invest": "R$ 683.98",
+        "impressoes": "90,513",
+        "cliques": "695",
+        "ctr": "0.77%",
+        "cpm": "R$ 7.56",
+        "cpc": "R$ 0.98",
+        "conversoes": "19",
+        "cpl": null,
+        "roas": "188.33x",
+        "campaigns": []
       }
     },
     {
@@ -137,7 +178,7 @@
       "fee": 10497.0,
       "flag": "verde",
       "score": 100,
-      "meta": {
+      "meta_semanal": {
         "period": null,
         "invest": "R$ 3,372.45",
         "impressoes": "171,824",
@@ -158,6 +199,19 @@
             "spend": "R$ 1,151.70"
           }
         ]
+      },
+      "meta_mensal": {
+        "period": "Junho/2026 — parcial até 23/06",
+        "invest": "R$ 10,549.12",
+        "impressoes": "857,396",
+        "cliques": "19,312",
+        "ctr": "2.25%",
+        "cpm": "R$ 12.30",
+        "cpc": "R$ 0.55",
+        "conversoes": "1",
+        "cpl": "R$ 10,549.12",
+        "roas": null,
+        "campaigns": []
       }
     },
     {
@@ -167,7 +221,7 @@
       "fee": 0.0,
       "flag": "amarelo",
       "score": 60,
-      "meta": {
+      "meta_semanal": {
         "period": null,
         "invest": "R$ 5,420.39",
         "impressoes": "1,326,203",
@@ -179,7 +233,8 @@
         "cpl": "R$ 45.55",
         "roas": null,
         "campaigns": []
-      }
+      },
+      "meta_mensal": null
     },
     {
       "name": "Terra Vitta",
@@ -188,7 +243,8 @@
       "fee": 2000.0,
       "flag": "verde",
       "score": 90,
-      "meta": null
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "União Vida",
@@ -197,7 +253,8 @@
       "fee": null,
       "flag": "sem-dados",
       "score": null,
-      "meta": null
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "Instituto Lazarin",
@@ -206,7 +263,8 @@
       "fee": 2000.0,
       "flag": "amarelo",
       "score": 40,
-      "meta": null
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "F&C Serviços",
@@ -215,7 +273,8 @@
       "fee": 5959.6,
       "flag": "amarelo",
       "score": 70,
-      "meta": null
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "F&C Group App",
@@ -224,7 +283,8 @@
       "fee": 5855.05,
       "flag": "amarelo",
       "score": 50,
-      "meta": null
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "Uberhaus RP",
@@ -233,7 +293,8 @@
       "fee": 2087.8,
       "flag": "amarelo",
       "score": 70,
-      "meta": null
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "Rede Representações",
@@ -242,7 +303,8 @@
       "fee": 5000.0,
       "flag": "amarelo",
       "score": 60,
-      "meta": null
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "Clínica Phoenix",
@@ -251,7 +313,8 @@
       "fee": 2376.75,
       "flag": "amarelo",
       "score": 50,
-      "meta": null
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "HigiLife",
@@ -260,7 +323,8 @@
       "fee": 0.0,
       "flag": "amarelo",
       "score": 60,
-      "meta": null
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "Café Mineiro",
@@ -269,7 +333,8 @@
       "fee": null,
       "flag": "sem-dados",
       "score": null,
-      "meta": null
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "Papelaria Home & Office",
@@ -278,7 +343,8 @@
       "fee": 0.0,
       "flag": "amarelo",
       "score": 60,
-      "meta": null
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "Condal Beauty",
@@ -287,7 +353,7 @@
       "fee": 4540.0,
       "flag": "amarelo",
       "score": 60,
-      "meta": {
+      "meta_semanal": {
         "period": null,
         "invest": "R$ 456.93",
         "impressoes": "43,089",
@@ -308,6 +374,19 @@
             "spend": "R$ 103.83"
           }
         ]
+      },
+      "meta_mensal": {
+        "period": "Junho/2026 — parcial até 23/06",
+        "invest": "R$ 1,630.45",
+        "impressoes": "138,043",
+        "cliques": "3,053",
+        "ctr": "2.21%",
+        "cpm": "R$ 11.81",
+        "cpc": "R$ 0.53",
+        "conversoes": "8",
+        "cpl": "R$ 203.81",
+        "roas": null,
+        "campaigns": []
       }
     },
     {
@@ -317,7 +396,8 @@
       "fee": 3000.0,
       "flag": "amarelo",
       "score": 50,
-      "meta": null
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "M.A Produções Marrom",
@@ -326,7 +406,8 @@
       "fee": 4489.36,
       "flag": "amarelo",
       "score": 50,
-      "meta": null
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "Fazenda Vale Imperial",
@@ -335,7 +416,8 @@
       "fee": 2000.0,
       "flag": "vermelho",
       "score": 30,
-      "meta": null
+      "meta_semanal": null,
+      "meta_mensal": null
     }
   ],
   "churns": [
