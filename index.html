@@ -9,85 +9,130 @@
 :root{--bg:#080808;--surface:#111;--surface2:#181818;--surface3:#222;--border:#2a2a2a;--accent:#FF4D00;--accent2:#FF7A35;--green:#00E87A;--green-dim:rgba(0,232,122,.12);--yellow:#FFD600;--yellow-dim:rgba(255,214,0,.12);--red:#FF3B3B;--red-dim:rgba(255,59,59,.12);--text:#F0F0F0;--muted:#666;--muted2:#444}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
-.header{position:sticky;top:0;z-index:100;background:rgba(8,8,8,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px}
-.header-brand{display:flex;align-items:center;gap:12px}
+
+/* HEADER */
+.header{position:sticky;top:0;z-index:100;background:rgba(8,8,8,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+.hbrand{display:flex;align-items:center;gap:12px}
 .logo{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:900;color:var(--accent)}
 .hdiv{width:1px;height:20px;background:var(--border)}
 .htitle{font-size:12px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.hmeta{display:flex;align-items:center;gap:10px}
 .pill{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);padding:4px 10px;border-radius:4px}
 .pill span{color:var(--green)}
-.shell{max-width:1400px;margin:0 auto;padding:32px 24px 80px}
-.summary-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:32px;border:1px solid var(--border);border-radius:6px;overflow:hidden}
-.sc{background:var(--surface);padding:20px 24px;display:flex;flex-direction:column;gap:4px}
+
+/* PERIOD TOGGLE — header */
+.period-toggle{display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:5px;overflow:hidden;flex-shrink:0}
+.pt-btn{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;padding:5px 14px;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;letter-spacing:.03em}
+.pt-btn.active{background:var(--accent);color:#fff}
+
+/* LAYOUT */
+.shell{max-width:1400px;margin:0 auto;padding:28px 24px 80px}
+
+/* SUMMARY */
+.summary-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:28px;border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.sc{background:var(--surface);padding:18px 22px;display:flex;flex-direction:column;gap:4px}
 .slabel{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600}
-.sval{font-family:'Unbounded',sans-serif;font-size:24px;font-weight:700;letter-spacing:-1px;line-height:1}
+.sval{font-family:'Unbounded',sans-serif;font-size:22px;font-weight:700;letter-spacing:-1px;line-height:1}
 .ssub{font-size:11px;color:var(--muted);margin-top:2px}
-.filters{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+
+/* FILTERS */
+.filters{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
 .fb{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:4px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .15s}
 .fb:hover{border-color:var(--muted2);color:var(--text)}
 .fb.active{background:var(--accent);border-color:var(--accent);color:#fff}
 .fb.fv.active{background:var(--green);border-color:var(--green);color:#000}
 .fb.fa.active{background:var(--yellow);border-color:var(--yellow);color:#000}
 .fb.fr.active{background:var(--red);border-color:var(--red);color:#fff}
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+
+/* SECTION */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
 .stitle{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
 .scount{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2)}
+
+/* GRID */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:2px;margin-bottom:40px}
-.card{background:var(--surface);padding:20px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden;animation:fadeUp .3s ease both;transition:background .15s}
+
+/* CARD */
+.card{background:var(--surface);padding:18px 20px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden;animation:fadeUp .25s ease both;transition:background .15s}
 .card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
 .card.verde::before{background:var(--green)}
 .card.amarelo::before{background:var(--yellow)}
 .card.vermelho::before{background:var(--red)}
 .card.sem-dados::before{background:var(--muted2)}
 .card:hover{background:var(--surface2)}
+
 .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.cname{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;letter-spacing:-.3px;line-height:1.2}
+.cname{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;letter-spacing:-.3px;line-height:1.2}
 .csquad{font-size:10px;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:.08em}
-.badge{display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.badge{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
 .badge.verde{background:var(--green-dim);color:var(--green)}
 .badge.amarelo{background:var(--yellow-dim);color:var(--yellow)}
 .badge.vermelho{background:var(--red-dim);color:var(--red)}
 .badge.sem-dados{background:var(--surface3);color:var(--muted)}
 .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-.mrow{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:0}
-.mcell{background:var(--surface2);padding:9px 11px;display:flex;flex-direction:column;gap:2px}
+
+/* METRICS */
+.mrow{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:4px;overflow:hidden}
+.mcell{background:var(--surface2);padding:8px 10px;display:flex;flex-direction:column;gap:2px}
 .mlabel{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600}
-.mval{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--text);line-height:1}
-.mval.hl{color:var(--accent2)}
-.mval.ok{color:var(--green)}
-.mval.warn{color:var(--yellow)}
-.mval.dim{color:var(--muted);font-style:italic}
-.camps{display:flex;flex-direction:column;gap:5px}
+.mval{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--text);line-height:1}
+.mval.hl{color:var(--accent2)}.mval.ok{color:var(--green)}.mval.warn{color:var(--yellow)}.mval.dim{color:var(--muted);font-style:italic}
+
+/* PERIOD LABEL */
+.plabel{display:flex;align-items:center;justify-content:space-between}
+.plabel span{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)}
+
+/* NO DATA */
+.no-meta{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--surface3);border-radius:4px;color:var(--muted);font-size:11px}
+
+/* CAMPS */
+.camps{display:flex;flex-direction:column;gap:4px}
 .crow{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 8px;background:var(--surface3);border-radius:3px}
 .cname2{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;font-family:'DM Mono',monospace}
 .cspend{font-family:'DM Mono',monospace;font-size:11px;color:var(--text);white-space:nowrap;flex-shrink:0}
-.no-meta{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--surface3);border-radius:4px;color:var(--muted);font-size:11px}
-.period{display:flex;align-items:center;justify-content:space-between}
-.period span{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)}
+
+/* PERIOD TAG on card */
+.period-tag{display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:3px;font-family:'DM Mono',monospace;font-size:9px;background:var(--surface3);color:var(--muted2);border:1px solid var(--border);align-self:flex-start}
+.period-tag.mensal{color:var(--accent2);border-color:rgba(255,122,53,.2);background:rgba(255,122,53,.06)}
+
+/* CHURN */
 .churn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2px;margin-bottom:40px}
 .churn-card{background:var(--surface);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;opacity:.5;position:relative}
 .churn-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--muted2)}
 .churn-name{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-decoration:line-through}
 .churn-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)}
+
+/* FOOTER */
 .footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .fbrand{font-family:'Unbounded',sans-serif;font-size:10px;color:var(--muted2)}
 .fnote{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)}
+
+/* LOADING */
 .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:16px;color:var(--muted);font-size:13px}
 .spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
 @media(max-width:900px){.summary-bar{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.mrow{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.shell{padding:20px 16px 60px}.header{padding:0 16px}.htitle{display:none}}
 </style>
 </head>
 <body>
+
 <header class="header">
-  <div class="header-brand">
+  <div class="hbrand">
     <span class="logo">V4</span>
     <div class="hdiv"></div>
     <span class="htitle">Dashboard de Clientes</span>
   </div>
-  <div class="pill">Atualizado <span id="upd">—</span></div>
+  <div class="hmeta">
+    <div class="period-toggle">
+      <button class="pt-btn active" id="btn-semanal" onclick="setPeriod('semanal')">Semanal</button>
+      <button class="pt-btn" id="btn-mensal" onclick="setPeriod('mensal')">Mensal</button>
+    </div>
+    <div class="pill">Atualizado <span id="upd">—</span></div>
+  </div>
 </header>
 
 <div class="shell">
@@ -108,12 +153,18 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
   <div id="loading" class="loading"><div class="spinner"></div><span>Carregando dashboard…</span></div>
 
   <div id="active-section" style="display:none">
-    <div class="section-header"><span class="stitle">Clientes ativos</span><span class="scount" id="ac">0 clientes</span></div>
+    <div class="section-header">
+      <span class="stitle">Clientes ativos</span>
+      <span class="scount" id="ac">0 clientes</span>
+    </div>
     <div class="grid" id="grid"></div>
   </div>
 
   <div id="churn-section" style="display:none">
-    <div class="section-header"><span class="stitle">Churns</span><span class="scount" id="cc">0 clientes</span></div>
+    <div class="section-header">
+      <span class="stitle">Churns</span>
+      <span class="scount" id="cc">0 clientes</span>
+    </div>
     <div class="churn-grid" id="churn-grid"></div>
   </div>
 
@@ -125,93 +176,117 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 
 <script>
 const BADGE = {verde:'🟢 Saudável',amarelo:'🟡 Atenção',vermelho:'🔴 Risco','sem-dados':'Sem Score'};
-let allCards=[], curFilter='todos';
+let allCards = [], curFilter = 'todos', curPeriod = 'semanal';
 
-function card(c){
-  const m = c.meta;
-  let metricsHTML='';
-  if(m){
-    const ctrN = m.ctr ? parseFloat(m.ctr) : 0;
-    const ctrCls = ctrN>=2?'ok':ctrN>=1?'':'warn';
-    const roas = m.roas && m.roas!=='—' ? m.roas : null;
-    metricsHTML=`
-      <div class="mrow">
-        <div class="mcell"><span class="mlabel">Invest.</span><span class="mval hl">${m.invest||'—'}</span></div>
-        <div class="mcell"><span class="mlabel">Impressões</span><span class="mval">${m.impressoes||'—'}</span></div>
-        <div class="mcell"><span class="mlabel">CTR</span><span class="mval ${ctrCls}">${m.ctr||'—'}</span></div>
-        <div class="mcell"><span class="mlabel">CPM</span><span class="mval">${m.cpm||'—'}</span></div>
-      </div>
-      <div class="mrow">
-        <div class="mcell"><span class="mlabel">Cliques</span><span class="mval">${m.cliques||'—'}</span></div>
-        <div class="mcell"><span class="mlabel">CPC</span><span class="mval">${m.cpc||'—'}</span></div>
-        <div class="mcell"><span class="mlabel">CPL</span><span class="mval">${m.cpl||'—'}</span></div>
-        <div class="mcell"><span class="mlabel">ROAS</span><span class="mval ${roas?'ok':'dim'}">${roas||'—'}</span></div>
-      </div>`;
-    if(m.campaigns?.length){
-      metricsHTML+=`<div class="camps">${m.campaigns.map(cp=>`<div class="crow"><span class="cname2">${cp.name}</span><span class="cspend">${cp.spend}</span></div>`).join('')}</div>`;
-    }
-    if(m.period) metricsHTML+=`<div class="period"><span>${m.period}</span><span>Meta Ads</span></div>`;
-  } else {
-    metricsHTML=`<div class="no-meta">— Sem dados de Meta Ads</div>`;
-  }
-  const scoreStr = c.score!=null ? ` · ${c.score}%` : '';
-  return `<div class="card ${c.flag}" data-flag="${c.flag}">
-    <div class="card-top">
-      <div><div class="cname">${c.name}</div><div class="csquad">${c.squad}${scoreStr}</div></div>
-      <div class="badge ${c.flag}"><span class="dot"></span>${BADGE[c.flag]||'—'}</div>
-    </div>
-    ${metricsHTML}
-  </div>`;
-}
-
-function renderGrid(){
-  const filtered = curFilter==='todos' ? allCards : allCards.filter(c=>c.flag===curFilter);
-  document.getElementById('ac').textContent=`${filtered.length} clientes`;
-  document.getElementById('grid').innerHTML=filtered.map(card).join('');
-}
-
-function setFilter(btn){
-  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  curFilter=btn.dataset.f;
+function setPeriod(p) {
+  curPeriod = p;
+  document.getElementById('btn-semanal').classList.toggle('active', p === 'semanal');
+  document.getElementById('btn-mensal').classList.toggle('active', p === 'mensal');
   renderGrid();
 }
 
-async function init(){
-  const r = await fetch('dados.json?v='+Date.now());
+function setFilter(btn) {
+  document.querySelectorAll('.fb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  curFilter = btn.dataset.f;
+  renderGrid();
+}
+
+function metaBlock(m, isMensal) {
+  if (!m) return `<div class="no-meta">— Sem dados de Meta Ads${isMensal ? ' mensais' : ''}</div>`;
+
+  const ctrN = m.ctr ? parseFloat(m.ctr) : 0;
+  const ctrCls = ctrN >= 2 ? 'ok' : ctrN >= 1 ? '' : 'warn';
+  const roas = m.roas && m.roas !== '—' ? m.roas : null;
+  const tag = isMensal
+    ? `<span class="period-tag mensal">📅 ${m.period || 'Mês atual'}</span>`
+    : `<span class="period-tag">📆 ${m.period || 'Semana atual'}</span>`;
+
+  let html = tag + `
+    <div class="mrow">
+      <div class="mcell"><span class="mlabel">Invest.</span><span class="mval hl">${m.invest||'—'}</span></div>
+      <div class="mcell"><span class="mlabel">Impressões</span><span class="mval">${m.impressoes||'—'}</span></div>
+      <div class="mcell"><span class="mlabel">CTR</span><span class="mval ${ctrCls}">${m.ctr||'—'}</span></div>
+      <div class="mcell"><span class="mlabel">CPM</span><span class="mval">${m.cpm||'—'}</span></div>
+    </div>
+    <div class="mrow">
+      <div class="mcell"><span class="mlabel">Cliques</span><span class="mval">${m.cliques||'—'}</span></div>
+      <div class="mcell"><span class="mlabel">CPC</span><span class="mval">${m.cpc||'—'}</span></div>
+      <div class="mcell"><span class="mlabel">CPL</span><span class="mval">${m.cpl||'—'}</span></div>
+      <div class="mcell"><span class="mlabel">ROAS</span><span class="mval ${roas?'ok':'dim'}">${roas||'—'}</span></div>
+    </div>`;
+
+  // Only show campaigns in semanal view
+  if (!isMensal && m.campaigns?.length) {
+    html += `<div class="camps">${m.campaigns.map(cp =>
+      `<div class="crow"><span class="cname2">${cp.name}</span><span class="cspend">${cp.spend}</span></div>`
+    ).join('')}</div>`;
+  }
+
+  return html;
+}
+
+function card(c) {
+  const m = curPeriod === 'mensal' ? (c.meta_mensal || c.meta_semanal) : c.meta_semanal;
+  const isMensal = curPeriod === 'mensal' && c.meta_mensal;
+  const scoreStr = c.score != null ? ` · ${c.score}%` : '';
+
+  return `<div class="card ${c.flag}" data-flag="${c.flag}">
+    <div class="card-top">
+      <div>
+        <div class="cname">${c.name}</div>
+        <div class="csquad">${c.squad}${scoreStr}</div>
+      </div>
+      <div class="badge ${c.flag}"><span class="dot"></span>${BADGE[c.flag]||'—'}</div>
+    </div>
+    ${metaBlock(m, !!isMensal)}
+  </div>`;
+}
+
+function renderGrid() {
+  const filtered = curFilter === 'todos'
+    ? allCards
+    : allCards.filter(c => c.flag === curFilter);
+  document.getElementById('ac').textContent = `${filtered.length} clientes`;
+  document.getElementById('grid').innerHTML = filtered.map(card).join('');
+}
+
+async function init() {
+  const r = await fetch('dados.json?v=' + Date.now());
   const d = await r.json();
 
   document.getElementById('upd').textContent = d.gerado_em || '—';
 
-  const order={vermelho:0,amarelo:1,'sem-dados':2,verde:3};
-  allCards = [...d.clientes].sort((a,b)=>(order[a.flag]??2)-(order[b.flag]??2));
+  const order = {vermelho:0, amarelo:1, 'sem-dados':2, verde:3};
+  allCards = [...d.clientes].sort((a,b) => (order[a.flag]??2) - (order[b.flag]??2));
 
-  const cnt={verde:0,amarelo:0,vermelho:0};
-  allCards.forEach(c=>{if(cnt[c.flag]!==undefined)cnt[c.flag]++});
-  document.getElementById('s-total').textContent=allCards.length;
-  document.getElementById('s-verde').textContent=cnt.verde;
-  document.getElementById('s-amarelo').textContent=cnt.amarelo;
-  document.getElementById('s-vermelho').textContent=cnt.vermelho;
+  const cnt = {verde:0, amarelo:0, vermelho:0};
+  allCards.forEach(c => { if (cnt[c.flag] !== undefined) cnt[c.flag]++; });
+  document.getElementById('s-total').textContent = allCards.length;
+  document.getElementById('s-verde').textContent = cnt.verde;
+  document.getElementById('s-amarelo').textContent = cnt.amarelo;
+  document.getElementById('s-vermelho').textContent = cnt.vermelho;
 
   renderGrid();
-  document.getElementById('active-section').style.display='';
+  document.getElementById('active-section').style.display = '';
 
-  if(d.churns?.length){
-    document.getElementById('cc').textContent=`${d.churns.length} clientes`;
-    document.getElementById('churn-grid').innerHTML=d.churns.map(c=>`
+  if (d.churns?.length) {
+    document.getElementById('cc').textContent = `${d.churns.length} clientes`;
+    document.getElementById('churn-grid').innerHTML = d.churns.map(c => `
       <div class="churn-card">
         <div><div class="churn-name">${c.name}</div><div class="csquad">${c.squad}</div></div>
         <span class="churn-date">${c.churn_date}</span>
       </div>`).join('');
-    document.getElementById('churn-section').style.display='';
+    document.getElementById('churn-section').style.display = '';
   }
 
-  document.getElementById('fnote').textContent=`Meta Ads API · Health Score: ${d.health_score_data} · Atualizado diariamente às 8h`;
-  document.getElementById('loading').style.display='none';
+  document.getElementById('fnote').textContent =
+    `Meta Ads API · Health Score: ${d.health_score_data} · Atualizado diariamente às 8h`;
+  document.getElementById('loading').style.display = 'none';
 }
 
-init().catch(e=>{
-  document.getElementById('loading').innerHTML='<span style="color:var(--red)">Erro ao carregar dados.json</span>';
+init().catch(() => {
+  document.getElementById('loading').innerHTML = '<span style="color:var(--red)">Erro ao carregar dados.json</span>';
 });
 </script>
 </body>
