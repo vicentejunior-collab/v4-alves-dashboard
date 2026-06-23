@@ -1,44 +1,31 @@
 #!/usr/bin/env python3
 """
-gerar_dashboard.py
-──────────────────
-Lê os .md do repo privado (v4-alves-segundo-cerebro) via API do GitHub,
-extrai Performance Atual e Health Score, gera dados.json e faz push de
-dados.json + index.html para o repo público (v4-alves-dashboard).
+gerar_dashboard.py v2
+─────────────────────
+Lê os .md do repo privado, extrai Performance Atual (semanal) e
+Performance Mensal, gera dados.json e faz push para o repo público.
 
-Uso:
-    python gerar_dashboard.py
-
-Env vars (mesmo .env do atualizar_segundo_cerebro.py):
-    GITHUB_TOKEN        → token com escrita no repo PÚBLICO
-    GITHUB_READ_TOKEN   → token com leitura no repo PRIVADO
+Env vars:
+    GITHUB_TOKEN        → escrita no repo público
+    GITHUB_READ_TOKEN   → leitura no repo privado
 """
 
 import os, re, json, base64, urllib.request, urllib.error
 from datetime import datetime
 from pathlib import Path
 
-# ── Config ────────────────────────────────────────────────────────────
 PRIVATE_OWNER  = "vicentejunior-collab"
 PRIVATE_REPO   = "v4-alves-segundo-cerebro"
 PRIVATE_BRANCH = "main"
-
 PUBLIC_OWNER   = "vicentejunior-collab"
 PUBLIC_REPO    = "v4-alves-dashboard"
 PUBLIC_BRANCH  = "main"
 
-# Tokens — lidos do .env ou variáveis de ambiente
-WRITE_TOKEN    = os.getenv("GITHUB_TOKEN", "")
-READ_TOKEN     = os.getenv("GITHUB_READ_TOKEN", "")
+WRITE_TOKEN = os.getenv("GITHUB_TOKEN", "")
+READ_TOKEN  = os.getenv("GITHUB_READ_TOKEN", "")
+SCRIPT_DIR  = Path(__file__).parent
+INDEX_HTML  = SCRIPT_DIR / "dashboard" / "index.html"
 
-# Caminho do index.html (relativo a este script)
-SCRIPT_DIR     = Path(__file__).parent
-INDEX_HTML     = SCRIPT_DIR / "dashboard" / "index.html"
-
-# ── Client map ────────────────────────────────────────────────────────
-# file: nome do .md em clientes/
-# name: nome de exibição no dashboard
-# hs_nome: campo "nome" no JSON do health score
 CLIENT_MAP = [
     {"file": "travel-rock",          "name": "Travel Rock",              "hs_nome": "Travel Rock"},
     {"file": "farmacia-descontao",   "name": "Farmácia Descontão",       "hs_nome": "Farmacia Descontao"},
@@ -66,12 +53,9 @@ CLIENT_MAP = [
     # ── Adicione novos clientes aqui ──
 ]
 
-# ── GitHub API ────────────────────────────────────────────────────────
+# ── GitHub API ──────────────────────────────────────────────────────
 def gh_get_raw(path, token, owner=None, repo=None, branch=None):
-    """Fetch file content from GitHub API, returns decoded text or None."""
-    o = owner or PRIVATE_OWNER
-    r = repo  or PRIVATE_REPO
-    b = branch or PRIVATE_BRANCH
+    o, r, b = owner or PRIVATE_OWNER, repo or PRIVATE_REPO, branch or PRIVATE_BRANCH
     url = f"https://api.github.com/repos/{o}/{r}/contents/{path}?ref={b}"
     req = urllib.request.Request(url, headers={"Authorization": f"token {token}"})
     try:
@@ -79,16 +63,12 @@ def gh_get_raw(path, token, owner=None, repo=None, branch=None):
             data = json.load(resp)
             if isinstance(data, dict) and data.get("content"):
                 return base64.b64decode(data["content"]).decode("utf-8")
-            return None
     except Exception as e:
         print(f"  ⚠️  GET {path}: {e}")
-        return None
+    return None
 
 def gh_list(path, token, owner=None, repo=None, branch=None):
-    """List directory contents from GitHub API."""
-    o = owner or PRIVATE_OWNER
-    r = repo  or PRIVATE_REPO
-    b = branch or PRIVATE_BRANCH
+    o, r, b = owner or PRIVATE_OWNER, repo or PRIVATE_REPO, branch or PRIVATE_BRANCH
     url = f"https://api.github.com/repos/{o}/{r}/contents/{path}?ref={b}"
     req = urllib.request.Request(url, headers={"Authorization": f"token {token}"})
     try:
@@ -96,151 +76,120 @@ def gh_list(path, token, owner=None, repo=None, branch=None):
             return json.load(resp)
     except Exception as e:
         print(f"  ⚠️  LIST {path}: {e}")
-        return []
+    return []
 
 def gh_put(path, content_bytes, message, token, owner=None, repo=None, branch=None):
-    """Push a file to GitHub, creating or updating."""
-    o = owner or PUBLIC_OWNER
-    r = repo  or PUBLIC_REPO
-    b = branch or PUBLIC_BRANCH
+    o, r, b = owner or PUBLIC_OWNER, repo or PUBLIC_REPO, branch or PUBLIC_BRANCH
     url = f"https://api.github.com/repos/{o}/{r}/contents/{path}"
-
-    # Get current SHA if file exists (needed for update)
     sha = None
-    req_get = urllib.request.Request(url, headers={"Authorization": f"token {token}"})
     try:
-        with urllib.request.urlopen(req_get) as resp:
+        with urllib.request.urlopen(
+            urllib.request.Request(url, headers={"Authorization": f"token {token}"})
+        ) as resp:
             sha = json.load(resp).get("sha")
     except Exception:
-        pass  # File doesn't exist yet — that's fine
-
-    payload = {
-        "message": message,
-        "content": base64.b64encode(content_bytes).decode("utf-8"),
-        "branch": b,
-    }
+        pass
+    payload = {"message": message, "content": base64.b64encode(content_bytes).decode(), "branch": b}
     if sha:
         payload["sha"] = sha
-
-    req = urllib.request.Request(
-        url, data=json.dumps(payload).encode("utf-8"), method="PUT",
-        headers={"Authorization": f"token {token}", "Content-Type": "application/json"}
-    )
+    req = urllib.request.Request(url, data=json.dumps(payload).encode(), method="PUT",
+        headers={"Authorization": f"token {token}", "Content-Type": "application/json"})
     try:
-        with urllib.request.urlopen(req) as resp:
-            d = json.load(resp)
+        with urllib.request.urlopen(req):
             print(f"  ✅ {path} publicado")
             return True
     except urllib.error.HTTPError as e:
-        print(f"  ❌ {path}: {e.read().decode()}")
+        print(f"  ❌ {path}: {e.read().decode()[:200]}")
         return False
 
-# ── Parsing ────────────────────────────────────────────────────────────
+# ── Parsing ─────────────────────────────────────────────────────────
 def compute_flag(notas):
-    """Compute health flag and score % from notas dict."""
-    if not notas:
-        return "sem-dados", None
+    if not notas: return "sem-dados", None
     vals = [v for v in notas.values() if v is not None]
-    if not vals:
-        return "sem-dados", None
+    if not vals: return "sem-dados", None
     avg = sum(vals) / len(vals)
     pct = round((avg / 2) * 100)
-    if avg >= 1.6:
-        return "verde", pct
-    elif avg >= 0.8:
-        return "amarelo", pct
-    else:
-        return "vermelho", pct
+    return ("verde", pct) if avg >= 1.6 else ("amarelo", pct) if avg >= 0.8 else ("vermelho", pct)
 
-def parse_meta(md_text):
-    """Extract ## Performance Atual metrics from markdown."""
-    if not md_text:
+def parse_block(block):
+    """Parse a metrics table block into a dict."""
+    if not block:
         return None
-    m = re.search(r"## Performance Atual(.*?)(?=\n## |\Z)", md_text, re.DOTALL)
-    if not m:
-        return None
-    block = m.group(1)
 
     def pick(label):
-        rx = re.compile(
-            r"\|\s*" + re.escape(label) + r"\s*\|\s*([^|\n]+)\s*\|",
-            re.IGNORECASE
-        )
+        rx = re.compile(r"\|[^|]*" + re.escape(label) + r"\s*\|\s*([^|\n]+)\s*\|", re.IGNORECASE)
         match = rx.search(block)
-        if not match:
-            return None
+        if not match: return None
         v = re.sub(r"[^\x00-\x7F]", "", match.group(1)).strip()
         return None if v in ("", "—", "-") else v
 
-    period_m = re.search(r"_Período:\s*([^_\n]+)_", block)
+    # Period — try both formats
+    period_m = re.search(r"_Período:\s*([^_\n]+)_", block) or re.search(r"_([\w/]+\s*—[^\n_]+)_", block)
     period = period_m.group(1).strip() if period_m else None
 
-    # Top 2 campaigns
+    # Top 2 campaigns (only in Atual block)
     campaigns = []
     camp_m = re.search(r"### Por Campanha(.*?)(?=\n###|\Z)", block, re.DOTALL)
     if camp_m:
-        rows = re.findall(
-            r"\|\s*(\[.*?\][^|]*)\|\s*R\$\s*([\d.,]+)",
-            camp_m.group(1)
-        )
+        rows = re.findall(r"\|\s*(\[.*?\][^|]*)\|\s*R\$\s*([\d.,]+)", camp_m.group(1))
         for name, spend in rows[:2]:
-            clean = re.sub(r"\s+", " ", name.strip())[:35]
-            campaigns.append({"name": clean, "spend": f"R$ {spend}"})
+            campaigns.append({"name": re.sub(r"\s+", " ", name.strip())[:35], "spend": f"R$ {spend}"})
 
-    return {
+    result = {
         "period":     period,
         "invest":     pick("Investimento"),
-        "impressoes": pick("Impressoes") or pick("Impress\u00f5es"),
+        "impressoes": pick("Impressões") or pick("Impressoes"),
         "cliques":    pick("Cliques"),
         "ctr":        pick("CTR"),
         "cpm":        pick("CPM"),
         "cpc":        pick("CPC"),
-        "conversoes": pick("Convers\u00f5es (Total)") or pick("Conversoes (Total)"),
+        "conversoes": pick("Conversões (Total)") or pick("Conversoes (Total)"),
         "cpl":        pick("CPL"),
         "roas":       pick("ROAS"),
         "campaigns":  campaigns,
     }
+    # Return None if no real data
+    if not any(v for k, v in result.items() if k not in ("period", "campaigns")):
+        return None
+    return result
 
-# ── Load Health Score ──────────────────────────────────────────────────
+def parse_meta_full(md_text):
+    """Extract both Atual (semanal) and Mensal blocks."""
+    if not md_text:
+        return None, None
+
+    atual_m = re.search(r"## Performance Atual(.*?)(?=\n## |\Z)", md_text, re.DOTALL)
+    mensal_m = re.search(r"## Performance Mensal(.*?)(?=\n## |\Z)", md_text, re.DOTALL)
+
+    atual  = parse_block(atual_m.group(1) if atual_m else "")
+    mensal = parse_block(mensal_m.group(1) if mensal_m else "")
+
+    return atual, mensal
+
+# ── Health Score ────────────────────────────────────────────────────
 def load_health_score():
-    """Load latest health score JSON from historico/ directory."""
     files = gh_list("health-score/historico", READ_TOKEN)
-    jsons = sorted(
-        [f for f in files if f["name"].endswith(".json")],
-        key=lambda f: f["name"],
-        reverse=True
-    )
+    jsons = sorted([f for f in files if f["name"].endswith(".json")],
+                   key=lambda f: f["name"], reverse=True)
     if not jsons:
-        print("  ⚠️  Nenhum JSON de health score encontrado")
         return {}, "N/A"
-
     latest = jsons[0]["name"]
     print(f"  📊 Health Score: {latest}")
     raw = gh_get_raw(f"health-score/historico/{latest}", READ_TOKEN)
-    if not raw:
-        return {}, "N/A"
-
+    if not raw: return {}, "N/A"
     data = json.loads(raw)
-    hs_map = {c["nome"]: c for c in data.get("clientes", [])}
-    return hs_map, latest.replace(".json", "")
+    return {c["nome"]: c for c in data.get("clientes", [])}, latest.replace(".json", "")
 
-# ── Main ───────────────────────────────────────────────────────────────
+# ── Main ────────────────────────────────────────────────────────────
 def main():
-    ts = datetime.now().strftime("%H:%M:%S")
-    print(f"\n[{ts}] ── Gerando dashboard ──────────────────────────")
+    print(f"\n[{datetime.now().strftime('%H:%M:%S')}] ── Gerando dashboard v2 ──────────")
 
-    if not WRITE_TOKEN:
-        print("❌  GITHUB_TOKEN não definido. Configure no .env")
-        return
-    if not READ_TOKEN:
-        print("❌  GITHUB_READ_TOKEN não definido. Configure no .env")
-        return
+    if not WRITE_TOKEN: print("❌  GITHUB_TOKEN não definido"); return
+    if not READ_TOKEN:  print("❌  GITHUB_READ_TOKEN não definido"); return
 
-    # 1. Load health score
     print("\n1. Carregando Health Score...")
     hs_map, hs_date = load_health_score()
 
-    # 2. Load each client .md and parse
     print("\n2. Lendo arquivos de clientes...")
     output = {
         "gerado_em": datetime.now().strftime("%Y-%m-%d"),
@@ -252,58 +201,42 @@ def main():
     for c in CLIENT_MAP:
         hs = hs_map.get(c["hs_nome"])
 
-        # Churn check
         if hs and hs.get("classificacao") == "CHURN":
-            output["churns"].append({
-                "name": c["name"],
-                "squad": hs.get("squad", "—"),
-                "churn_date": hs.get("churn", ""),
-            })
+            output["churns"].append({"name": c["name"], "squad": hs.get("squad","—"), "churn_date": hs.get("churn","")})
             print(f"  ✗  {c['name']} — CHURN")
             continue
 
-        # Health flag
-        flag, score = "sem-dados", None
-        squad, fee = "—", None
+        flag, score, squad, fee = "sem-dados", None, "—", None
         if hs and hs.get("notas"):
             flag, score = compute_flag(hs["notas"])
-            squad = hs.get("squad", "—")
-            fee   = hs.get("fee")
+            squad, fee = hs.get("squad","—"), hs.get("fee")
 
-        # Meta Ads data
         md = gh_get_raw(f"clientes/{c['file']}.md", READ_TOKEN)
-        meta = parse_meta(md) if md else None
+        atual, mensal = parse_meta_full(md)
 
-        icon = {"verde": "🟢", "amarelo": "🟡", "vermelho": "🔴"}.get(flag, "⚪")
-        meta_label = "meta ✓" if meta and meta.get("invest") else "sem meta"
-        print(f"  {icon}  {c['name']} ({squad}) — {meta_label}")
+        icon = {"verde":"🟢","amarelo":"🟡","vermelho":"🔴"}.get(flag,"⚪")
+        has = ("sem✓" if atual else "sem meta") + (" | men✓" if mensal else "")
+        print(f"  {icon}  {c['name']} ({squad}) — {has}")
 
         output["clientes"].append({
-            "name":  c["name"],
-            "file":  c["file"],
-            "squad": squad,
-            "fee":   fee,
-            "flag":  flag,
-            "score": score,
-            "meta":  meta,
+            "name": c["name"], "file": c["file"],
+            "squad": squad, "fee": fee,
+            "flag": flag, "score": score,
+            "meta_semanal": atual,
+            "meta_mensal":  mensal,
         })
 
-    # 3. Push dados.json
     print("\n3. Publicando no repo público...")
     dados_bytes = json.dumps(output, ensure_ascii=False, indent=2).encode("utf-8")
-    gh_put("dados.json", dados_bytes, f"dados: atualização {output['gerado_em']}", WRITE_TOKEN)
+    gh_put("dados.json", dados_bytes, f"dados: {output['gerado_em']}", WRITE_TOKEN)
 
-    # 4. Push index.html (só se existir localmente)
     if INDEX_HTML.exists():
-        html_bytes = INDEX_HTML.read_bytes()
-        gh_put("index.html", html_bytes, f"dashboard: atualização {output['gerado_em']}", WRITE_TOKEN)
+        gh_put("index.html", INDEX_HTML.read_bytes(), f"dashboard: {output['gerado_em']}", WRITE_TOKEN)
     else:
-        print(f"  ⚠️  {INDEX_HTML} não encontrado — index.html não atualizado")
+        print(f"  ⚠️  {INDEX_HTML} não encontrado")
 
-    print(f"\n✅  Dashboard atualizado!")
-    print(f"    {len(output['clientes'])} clientes · {len(output['churns'])} churns")
-    print(f"    URL: https://{PUBLIC_OWNER}.github.io/{PUBLIC_REPO}/\n")
-
+    print(f"\n✅  Done! {len(output['clientes'])} clientes · {len(output['churns'])} churns")
+    print(f"    https://{PUBLIC_OWNER}.github.io/{PUBLIC_REPO}/\n")
 
 if __name__ == "__main__":
     main()
