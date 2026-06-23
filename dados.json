@@ -10,23 +10,23 @@
       "flag": "amarelo",
       "score": 67,
       "meta": {
-        "period": "2026-06-16 a 2026-06-22",
-        "invest": "R$ 3,430.23",
-        "impressoes": "605,384",
-        "cliques": "11,501",
-        "ctr": "1.90%",
-        "cpm": "R$ 5.67",
-        "cpc": "R$ 0.30",
-        "conversoes": "51",
-        "cpl": "R$ 67.26",
+        "period": null,
+        "invest": null,
+        "impressoes": "Cliques",
+        "cliques": "CTR",
+        "ctr": "CPM",
+        "cpm": "Leads",
+        "cpc": null,
+        "conversoes": null,
+        "cpl": null,
         "roas": null,
         "campaigns": [
           {
-            "name": "[V4] GER-BRC",
+            "name": "[V4]-[CBO]-[TEST]-[TOP]-[DIA]-[GER]",
             "spend": "R$ 1,387.39"
           },
           {
-            "name": "[V4] GROWTH-BRC",
+            "name": "[V4]-[CBO]-[TEST]-[TOP]-[DIA]-[TRA]",
             "spend": "R$ 707.68"
           }
         ]
@@ -40,23 +40,23 @@
       "flag": "amarelo",
       "score": 50,
       "meta": {
-        "period": "2026-06-16 a 2026-06-22",
-        "invest": "R$ 353.22",
-        "impressoes": "33,341",
-        "cliques": "761",
-        "ctr": "2.28%",
-        "cpm": "R$ 10.59",
-        "cpc": "R$ 0.46",
-        "conversoes": "0",
+        "period": null,
+        "invest": null,
+        "impressoes": "Cliques",
+        "cliques": "CTR",
+        "ctr": "CPM",
+        "cpm": "Leads",
+        "cpc": null,
+        "conversoes": null,
         "cpl": null,
         "roas": null,
         "campaigns": [
           {
-            "name": "[V4] TRÁFEGO-ITAJAÍ",
+            "name": "[V4]-[CBO]-[TEST]-[TOP]-[DIA]-[TRÁF",
             "spend": "R$ 179.43"
           },
           {
-            "name": "[V4] MENSAGEM-NAMORADOS",
+            "name": "[V4]-[CBO]-[SEMANA-04]-[TOP]-[DIA]-",
             "spend": "R$ 173.79"
           }
         ]
@@ -69,7 +69,19 @@
       "fee": 6000.0,
       "flag": "verde",
       "score": 90,
-      "meta": null
+      "meta": {
+        "period": null,
+        "invest": null,
+        "impressoes": "Cliques",
+        "cliques": "CTR",
+        "ctr": "CPM",
+        "cpm": "Leads",
+        "cpc": null,
+        "conversoes": null,
+        "cpl": null,
+        "roas": null,
+        "campaigns": []
+      }
     },
     {
       "name": "Éthéreal",
@@ -78,7 +90,19 @@
       "fee": 8155.25,
       "flag": "verde",
       "score": 80,
-      "meta": null
+      "meta": {
+        "period": null,
+        "invest": null,
+        "impressoes": null,
+        "cliques": null,
+        "ctr": null,
+        "cpm": null,
+        "cpc": null,
+        "conversoes": null,
+        "cpl": null,
+        "roas": null,
+        "campaigns": []
+      }
     },
     {
       "name": "Parcelando Tudo",
@@ -87,7 +111,24 @@
       "fee": 4351.0,
       "flag": "verde",
       "score": 90,
-      "meta": null
+      "meta": {
+        "period": null,
+        "invest": null,
+        "impressoes": "Cliques",
+        "cliques": "CTR",
+        "ctr": "CPM",
+        "cpm": "Leads",
+        "cpc": null,
+        "conversoes": null,
+        "cpl": null,
+        "roas": null,
+        "campaigns": [
+          {
+            "name": "[V4]-[IPVA]-[CBO]-[TEST]-[TOP]-[DIA",
+            "spend": "R$ 209.62"
+          }
+        ]
+      }
     },
     {
       "name": "Grupo Obará",
@@ -96,7 +137,28 @@
       "fee": 10497.0,
       "flag": "verde",
       "score": 100,
-      "meta": null
+      "meta": {
+        "period": null,
+        "invest": null,
+        "impressoes": "Cliques",
+        "cliques": "CTR",
+        "ctr": "CPM",
+        "cpm": "Leads",
+        "cpc": null,
+        "conversoes": null,
+        "cpl": null,
+        "roas": null,
+        "campaigns": [
+          {
+            "name": "[V4]-[CBO]-[WPP]-[TEST]-[TOP]-[DIA]",
+            "spend": "R$ 1,528.45"
+          },
+          {
+            "name": "[V4]-[CBO]-[WPP]-[TEST]-[TOP]-[DIA]",
+            "spend": "R$ 1,151.70"
+          }
+        ]
+      }
     },
     {
       "name": "Vitrinni",
@@ -105,7 +167,19 @@
       "fee": 0.0,
       "flag": "amarelo",
       "score": 60,
-      "meta": null
+      "meta": {
+        "period": null,
+        "invest": null,
+        "impressoes": "Cliques",
+        "cliques": "CTR",
+        "ctr": "CPM",
+        "cpm": "Leads",
+        "cpc": null,
+        "conversoes": null,
+        "cpl": null,
+        "roas": null,
+        "campaigns": []
+      }
     },
     {
       "name": "Terra Vitta",
@@ -213,7 +287,28 @@
       "fee": 4540.0,
       "flag": "amarelo",
       "score": 60,
-      "meta": null
+      "meta": {
+        "period": null,
+        "invest": null,
+        "impressoes": "Cliques",
+        "cliques": "CTR",
+        "ctr": "CPM",
+        "cpm": "Leads",
+        "cpc": null,
+        "conversoes": null,
+        "cpl": null,
+        "roas": null,
+        "campaigns": [
+          {
+            "name": "[V4]-[IMAGEM COM PREÇO]-[BARRA DA T",
+            "spend": "R$ 353.10"
+          },
+          {
+            "name": "[V4]-[ABO]-[TEST]-[TOP]-[DIA]-[ENG ",
+            "spend": "R$ 103.83"
+          }
+        ]
+      }
     },
     {
       "name": "M.A Produções Rabin",
