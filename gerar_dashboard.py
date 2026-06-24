@@ -67,6 +67,19 @@ def gh_get_raw(path, token, owner=None, repo=None, branch=None):
         print(f"  ⚠️  GET {path}: {e}")
     return None
 
+def gh_get_bytes(path, token, owner=None, repo=None, branch=None):
+    o, r, b = owner or PUBLIC_OWNER, repo or PUBLIC_REPO, branch or PUBLIC_BRANCH
+    url = f"https://api.github.com/repos/{o}/{r}/contents/{path}?ref={b}"
+    req = urllib.request.Request(url, headers={"Authorization": f"token {token}"})
+    try:
+        with urllib.request.urlopen(req) as resp:
+            data = json.load(resp)
+            if isinstance(data, dict) and data.get("content"):
+                return base64.b64decode(data["content"])
+    except Exception as e:
+        print(f"  ⚠️  GET bytes {path}: {e}")
+    return None
+
 def gh_list(path, token, owner=None, repo=None, branch=None):
     o, r, b = owner or PRIVATE_OWNER, repo or PRIVATE_REPO, branch or PRIVATE_BRANCH
     url = f"https://api.github.com/repos/{o}/{r}/contents/{path}?ref={b}"
@@ -230,10 +243,18 @@ def main():
     dados_bytes = json.dumps(output, ensure_ascii=False, indent=2).encode("utf-8")
     gh_put("dados.json", dados_bytes, f"dados: {output['gerado_em']}", WRITE_TOKEN)
 
+    # index.html — usa local se existir, senão busca do repo público
     if INDEX_HTML.exists():
-        gh_put("index.html", INDEX_HTML.read_bytes(), f"dashboard: {output['gerado_em']}", WRITE_TOKEN)
+        html_bytes = INDEX_HTML.read_bytes()
+        print(f"  📄 index.html carregado localmente")
     else:
-        print(f"  ⚠️  {INDEX_HTML} não encontrado")
+        print(f"  📄 index.html não encontrado localmente — buscando do repo público...")
+        html_bytes = gh_get_bytes("index.html", WRITE_TOKEN)
+
+    if html_bytes:
+        gh_put("index.html", html_bytes, f"dashboard: {output['gerado_em']}", WRITE_TOKEN)
+    else:
+        print(f"  ⚠️  index.html não encontrado em nenhuma fonte — pulando")
 
     print(f"\n✅  Done! {len(output['clientes'])} clientes · {len(output['churns'])} churns")
     print(f"    https://{PUBLIC_OWNER}.github.io/{PUBLIC_REPO}/\n")
