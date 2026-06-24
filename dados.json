@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-06-23",
+  "gerado_em": "2026-06-24",
   "health_score_data": "2026-06-19",
   "clientes": [
     {
@@ -11,36 +11,36 @@
       "score": 67,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 3,430.23",
-        "impressoes": "605,384",
-        "cliques": "11,501",
-        "ctr": "1.90%",
-        "cpm": "R$ 5.67",
+        "invest": "R$ 3,341.48",
+        "impressoes": "591,906",
+        "cliques": "11,122",
+        "ctr": "1.88%",
+        "cpm": "R$ 5.65",
         "cpc": "R$ 0.30",
-        "conversoes": "51",
-        "cpl": "R$ 67.26",
+        "conversoes": "50",
+        "cpl": "R$ 66.83",
         "roas": null,
         "campaigns": [
           {
             "name": "[V4]-[CBO]-[TEST]-[TOP]-[DIA]-[GER]",
-            "spend": "R$ 1,387.39"
+            "spend": "R$ 1,301.26"
           },
           {
             "name": "[V4]-[CBO]-[TEST]-[TOP]-[DIA]-[TRA]",
-            "spend": "R$ 707.68"
+            "spend": "R$ 681.03"
           }
         ]
       },
       "meta_mensal": {
-        "period": "Junho/2026 — parcial até 23/06",
-        "invest": "R$ 10,762.32",
-        "impressoes": "1,888,793",
-        "cliques": "37,556",
-        "ctr": "1.99%",
+        "period": "Junho/2026 — parcial até 24/06",
+        "invest": "R$ 11,155.72",
+        "impressoes": "1,956,567",
+        "cliques": "38,796",
+        "ctr": "1.98%",
         "cpm": "R$ 5.70",
         "cpc": "R$ 0.29",
-        "conversoes": "132",
-        "cpl": "R$ 81.53",
+        "conversoes": "137",
+        "cpl": "R$ 81.43",
         "roas": null,
         "campaigns": []
       }
@@ -54,30 +54,30 @@
       "score": 50,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 353.22",
-        "impressoes": "33,341",
-        "cliques": "761",
-        "ctr": "2.28%",
-        "cpm": "R$ 10.59",
-        "cpc": "R$ 0.46",
+        "invest": "R$ 314.33",
+        "impressoes": "29,827",
+        "cliques": "673",
+        "ctr": "2.26%",
+        "cpm": "R$ 10.54",
+        "cpc": "R$ 0.47",
         "conversoes": "0",
         "cpl": null,
         "roas": null,
         "campaigns": [
           {
             "name": "[V4]-[CBO]-[TEST]-[TOP]-[DIA]-[TRÁF",
-            "spend": "R$ 179.43"
+            "spend": "R$ 158.54"
           },
           {
             "name": "[V4]-[CBO]-[SEMANA-04]-[TOP]-[DIA]-",
-            "spend": "R$ 173.79"
+            "spend": "R$ 155.79"
           }
         ]
       },
       "meta_mensal": {
-        "period": "Junho/2026 — parcial até 23/06",
-        "invest": "R$ 1,116.55",
-        "impressoes": "140,703",
+        "period": "Junho/2026 — parcial até 24/06",
+        "invest": "R$ 1,116.67",
+        "impressoes": "140,708",
         "cliques": "2,626",
         "ctr": "1.87%",
         "cpm": "R$ 7.94",
@@ -97,24 +97,24 @@
       "score": 90,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 451.01",
-        "impressoes": "27,026",
-        "cliques": "357",
-        "ctr": "1.32%",
-        "cpm": "R$ 16.69",
-        "cpc": "R$ 1.26",
+        "invest": "R$ 420.19",
+        "impressoes": "24,830",
+        "cliques": "323",
+        "ctr": "1.30%",
+        "cpm": "R$ 16.92",
+        "cpc": "R$ 1.30",
         "conversoes": "0",
         "cpl": null,
         "roas": null,
         "campaigns": []
       },
       "meta_mensal": {
-        "period": "Junho/2026 — parcial até 23/06",
-        "invest": "R$ 1,709.27",
-        "impressoes": "123,463",
-        "cliques": "1,676",
+        "period": "Junho/2026 — parcial até 24/06",
+        "invest": "R$ 1,734.65",
+        "impressoes": "124,872",
+        "cliques": "1,701",
         "ctr": "1.36%",
-        "cpm": "R$ 13.84",
+        "cpm": "R$ 13.89",
         "cpc": "R$ 1.02",
         "conversoes": "0",
         "cpl": null,
@@ -141,33 +141,33 @@
       "score": 90,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 209.62",
-        "impressoes": "29,977",
+        "invest": "R$ 196.79",
+        "impressoes": "28,417",
         "cliques": "112",
-        "ctr": "0.37%",
-        "cpm": "R$ 6.99",
-        "cpc": "R$ 1.87",
-        "conversoes": "5",
+        "ctr": "0.39%",
+        "cpm": "R$ 6.93",
+        "cpc": "R$ 1.76",
+        "conversoes": "4",
         "cpl": null,
-        "roas": "87.55x",
+        "roas": "78.66x",
         "campaigns": [
           {
             "name": "[V4]-[IPVA]-[CBO]-[TEST]-[TOP]-[DIA",
-            "spend": "R$ 209.62"
+            "spend": "R$ 196.79"
           }
         ]
       },
       "meta_mensal": {
-        "period": "Junho/2026 — parcial até 23/06",
-        "invest": "R$ 683.98",
-        "impressoes": "90,513",
-        "cliques": "695",
+        "period": "Junho/2026 — parcial até 24/06",
+        "invest": "R$ 686.09",
+        "impressoes": "90,839",
+        "cliques": "697",
         "ctr": "0.77%",
-        "cpm": "R$ 7.56",
+        "cpm": "R$ 7.55",
         "cpc": "R$ 0.98",
         "conversoes": "19",
         "cpl": null,
-        "roas": "188.33x",
+        "roas": "187.76x",
         "campaigns": []
       }
     },
@@ -180,36 +180,36 @@
       "score": 100,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 3,372.45",
-        "impressoes": "171,824",
-        "cliques": "3,577",
-        "ctr": "2.08%",
-        "cpm": "R$ 19.63",
-        "cpc": "R$ 0.94",
+        "invest": "R$ 2,837.16",
+        "impressoes": "133,725",
+        "cliques": "2,844",
+        "ctr": "2.13%",
+        "cpm": "R$ 21.22",
+        "cpc": "R$ 1.00",
         "conversoes": "1",
-        "cpl": "R$ 3,372.45",
+        "cpl": "R$ 2,837.16",
         "roas": null,
         "campaigns": [
           {
             "name": "[V4]-[CBO]-[WPP]-[TEST]-[TOP]-[DIA]",
-            "spend": "R$ 1,528.45"
+            "spend": "R$ 1,110.59"
           },
           {
             "name": "[V4]-[CBO]-[WPP]-[TEST]-[TOP]-[DIA]",
-            "spend": "R$ 1,151.70"
+            "spend": "R$ 881.95"
           }
         ]
       },
       "meta_mensal": {
-        "period": "Junho/2026 — parcial até 23/06",
-        "invest": "R$ 10,549.12",
-        "impressoes": "857,396",
-        "cliques": "19,312",
+        "period": "Junho/2026 — parcial até 24/06",
+        "invest": "R$ 10,815.09",
+        "impressoes": "866,764",
+        "cliques": "19,508",
         "ctr": "2.25%",
-        "cpm": "R$ 12.30",
+        "cpm": "R$ 12.48",
         "cpc": "R$ 0.55",
         "conversoes": "1",
-        "cpl": "R$ 10,549.12",
+        "cpl": "R$ 10,815.09",
         "roas": null,
         "campaigns": []
       }
@@ -355,36 +355,36 @@
       "score": 60,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 456.93",
-        "impressoes": "43,089",
-        "cliques": "931",
-        "ctr": "2.16%",
-        "cpm": "R$ 10.60",
-        "cpc": "R$ 0.49",
-        "conversoes": "4",
-        "cpl": "R$ 114.23",
+        "invest": "R$ 460.21",
+        "impressoes": "42,796",
+        "cliques": "905",
+        "ctr": "2.11%",
+        "cpm": "R$ 10.75",
+        "cpc": "R$ 0.51",
+        "conversoes": "3",
+        "cpl": "R$ 153.40",
         "roas": null,
         "campaigns": [
           {
             "name": "[V4]-[IMAGEM COM PREÇO]-[BARRA DA T",
-            "spend": "R$ 353.10"
+            "spend": "R$ 358.57"
           },
           {
             "name": "[V4]-[ABO]-[TEST]-[TOP]-[DIA]-[ENG ",
-            "spend": "R$ 103.83"
+            "spend": "R$ 101.64"
           }
         ]
       },
       "meta_mensal": {
-        "period": "Junho/2026 — parcial até 23/06",
-        "invest": "R$ 1,630.45",
-        "impressoes": "138,043",
-        "cliques": "3,053",
-        "ctr": "2.21%",
+        "period": "Junho/2026 — parcial até 24/06",
+        "invest": "R$ 1,683.90",
+        "impressoes": "142,555",
+        "cliques": "3,172",
+        "ctr": "2.23%",
         "cpm": "R$ 11.81",
         "cpc": "R$ 0.53",
         "conversoes": "8",
-        "cpl": "R$ 203.81",
+        "cpl": "R$ 210.49",
         "roas": null,
         "campaigns": []
       }
