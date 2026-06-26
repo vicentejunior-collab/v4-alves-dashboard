@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PIC Financeiro — V4 Alves & Co</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #fff; min-height: 100vh; padding-bottom: 48px; color: #111827; }
+  input[type=number] { -moz-appearance: textfield; }
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+  .header { background: #111827; padding: 24px 20px 20px; }
+  .header-inner { max-width: 820px; margin: 0 auto; }
+  .header-dot { width: 6px; height: 6px; border-radius: 50%; background: #ef4444; display: inline-block; margin-right: 6px; vertical-align: middle; }
+  .header-tag { font-size: 10px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.1em; }
+  .header h1 { font-size: 20px; font-weight: 800; color: #fff; margin-top: 4px; }
+  .header p { font-size: 12px; color: #9ca3af; margin-top: 3px; }
+
+  .container { max-width: 820px; margin: 0 auto; padding: 0 16px; }
+
+  .perfis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 20px; margin-bottom: 16px; }
+  .perfil-btn { padding: 10px 8px; border-radius: 9px; border: 2px solid #e5e7eb; background: #f9fafb; cursor: pointer; text-align: center; transition: all 0.15s; }
+  .perfil-btn.active { border-color: #ef4444; background: #fff1f2; }
+  .perfil-btn .icone { font-size: 20px; margin-bottom: 3px; }
+  .perfil-btn .nome { font-size: 11px; font-weight: 700; color: #374151; line-height: 1.2; }
+  .perfil-btn.active .nome { color: #ef4444; }
+
+  .aviso { font-size: 12px; color: #6b7280; margin-bottom: 12px; padding: 8px 12px; background: #f9fafb; border-radius: 7px; border-left: 3px solid #e5e7eb; }
+  .aviso-pdv { color: #92400e; background: #fffbeb; border-left-color: #f59e0b; }
+
+  .abas { display: flex; gap: 0; margin-bottom: 20px; background: #f3f4f6; border-radius: 8px; padding: 3px; }
+  .aba-btn { flex: 1; padding: 8px 12px; border-radius: 6px; border: none; background: transparent; font-weight: 700; font-size: 13px; color: #6b7280; cursor: pointer; transition: all 0.15s; }
+  .aba-btn.active { background: #fff; color: #111827; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid2-small { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+
+  .sec-title { font-size: 11px; font-weight: 800; color: #111827; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #f3f4f6; margin-top: 0; }
+  .sec-title + .sec-title, .sec-title.mt { margin-top: 20px; }
+
+  .campo { margin-bottom: 13px; }
+  .campo-label { display: flex; align-items: center; margin-bottom: 4px; font-size: 11px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; }
+  .campo-wrap { position: relative; display: flex; align-items: center; }
+  .campo-pre { position: absolute; left: 10px; font-size: 13px; color: #9ca3af; font-weight: 600; pointer-events: none; }
+  .campo-suf { position: absolute; right: 10px; font-size: 12px; color: #9ca3af; pointer-events: none; }
+  .campo input { width: 100%; border: 1.5px solid #e5e7eb; border-radius: 7px; font-size: 14px; font-weight: 600; color: #111827; background: #fafafa; outline: none; transition: border-color 0.15s; }
+  .campo input:focus { border-color: #ef4444; }
+  .campo input.pre { padding: 9px 10px 9px 26px; }
+  .campo input.suf { padding: 9px 36px 9px 10px; }
+  .campo input.plain { padding: 9px 10px; }
+
+  .tip-wrap { position: relative; display: inline-flex; align-items: center; margin-left: 5px; }
+  .tip-btn { background: none; border: none; cursor: pointer; padding: 0; color: #9ca3af; line-height: 1; display: flex; align-items: center; }
+  .tip-box { display: none; position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: #1f2937; color: #f9fafb; font-size: 11px; line-height: 1.5; padding: 8px 10px; border-radius: 7px; width: 220px; z-index: 999; box-shadow: 0 4px 16px rgba(0,0,0,0.3); pointer-events: none; }
+  .tip-box::after { content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid #1f2937; }
+  .tip-wrap:hover .tip-box, .tip-wrap.open .tip-box { display: block; }
+
+  .metcard { border-radius: 9px; padding: 12px 14px; }
+  .metcard.grande { padding: 16px 18px; }
+  .metcard-label { display: flex; align-items: center; gap: 4px; margin-bottom: 3px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.7; }
+  .metcard-valor { font-size: 18px; font-weight: 800; line-height: 1.1; }
+  .metcard.grande .metcard-valor { font-size: 26px; }
+  .metcard-sub { font-size: 10px; margin-top: 3px; opacity: 0.6; }
+  .metcard.verde { background: #dcfce7; color: #15803d; }
+  .metcard.vermelho { background: #fee2e2; color: #b91c1c; }
+  .metcard.amarelo { background: #fef9c3; color: #854d0e; }
+  .metcard.azul { background: #eff6ff; color: #1d4ed8; }
+  .metcard.neutro { background: #f9fafb; color: #111827; }
+
+  .info-box { background: #f9fafb; border-radius: 8px; padding: 10px 12px; }
+  .info-box .label { font-size: 10px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 2px; }
+  .info-box .valor { font-size: 20px; font-weight: 800; color: #111827; }
+  .info-box .sub { font-size: 10px; color: #9ca3af; margin-top: 2px; }
+  .info-box.cinza { background: #f3f4f6; }
+
+  .bench-item { display: flex; justify-content: space-between; align-items: center; padding: 4px 8px; border-radius: 5px; margin-bottom: 4px; }
+
+  .funil-campo { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #fafafa; border-radius: 8px; border: 1.5px solid #f3f4f6; margin-bottom: 8px; }
+  .funil-campo-info { flex: 1; }
+  .funil-campo-info .nome { font-size: 11px; font-weight: 700; color: #374151; display: flex; align-items: center; gap: 4px; }
+  .funil-campo-info .desc { font-size: 10px; color: #9ca3af; margin-top: 1px; }
+  .funil-campo-right { display: flex; align-items: center; gap: 6px; }
+  .funil-bench { font-size: 10px; color: #d1d5db; white-space: nowrap; }
+  .funil-input-wrap { position: relative; }
+  .funil-input-wrap input { width: 72px; padding: 6px 6px 6px 8px; border: 1.5px solid #e5e7eb; border-radius: 6px; font-size: 13px; font-weight: 700; color: #111827; background: #fff; outline: none; text-align: right; }
+  .funil-input-wrap input:focus { border-color: #ef4444; }
+  .funil-input-wrap input.moeda { padding-left: 22px; }
+  .funil-input-wrap .pre { position: absolute; left: 7px; top: 50%; transform: translateY(-50%); font-size: 11px; color: #9ca3af; pointer-events: none; }
+  .funil-input-wrap .suf { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-size: 11px; color: #9ca3af; pointer-events: none; }
+
+  .funil-etapas { display: flex; flex-direction: column; gap: 0; margin-bottom: 16px; }
+  .etapa { border-radius: 8px; padding: 10px 6px; text-align: center; border: 1.5px solid #e5e7eb; background: #f3f4f6; }
+  .etapa.destaque { background: #ef4444; border-color: #ef4444; }
+  .etapa-icone { font-size: 16px; margin-bottom: 3px; }
+  .etapa-label { font-size: 10px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px; }
+  .etapa.destaque .etapa-label { color: #fff; }
+  .etapa-valor { font-size: 13px; font-weight: 800; color: #111827; }
+  .etapa.destaque .etapa-valor { color: #fff; }
+  .etapa-seta { text-align: center; font-size: 16px; color: #d1d5db; line-height: 1.2; padding: 2px 0; }
+
+  .aviso-funil { background: #fff1f2; border-radius: 8px; padding: 10px 12px; border: 1.5px solid #fecaca; margin-top: 16px; }
+  .aviso-funil .label { font-size: 10px; font-weight: 700; color: #ef4444; text-transform: uppercase; margin-bottom: 4px; }
+  .aviso-funil .texto { font-size: 11px; color: #7f1d1d; line-height: 1.6; }
+
+  .btn-copiar { background: #111827; color: #fff; border: none; border-radius: 8px; padding: 11px 18px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 7px; transition: background 0.2s; }
+  .btn-copiar.ok { background: #15803d; }
+  .btn-row { margin-top: 24px; display: flex; justify-content: flex-end; }
+
+  .fluxo-box { margin-top: 10px; background: #f9fafb; border-radius: 8px; padding: 10px 14px; }
+  .fluxo-box .label { font-size: 10px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 4px; }
+  .fluxo-box .texto { font-size: 11px; color: #6b7280; line-height: 1.7; }
+  .fluxo-box code { background: #e5e7eb; padding: 1px 4px; border-radius: 3px; font-size: 10px; }
+
+  .campo-nome-wrap { background: #f9fafb; border-radius: 8px; padding: 10px 12px; margin-bottom: 16px; }
+  .campo-nome-wrap label { font-size: 11px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 6px; }
+  .campo-nome-wrap input { width: 100%; border: 1.5px solid #e5e7eb; border-radius: 7px; padding: 9px 12px; font-size: 14px; font-weight: 600; color: #111827; background: #fff; outline: none; transition: border-color 0.15s; }
+  .campo-nome-wrap input:focus { border-color: #ef4444; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div><span class="header-dot"></span><span class="header-tag">V4 Alves & Co</span></div>
+    <h1>PIC Financeiro</h1>
+    <p>Projeção de ROI + Funil Reverso — Growth Class</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="campo-nome-wrap" style="margin-top:20px;">
+    <label>Nome do cliente</label>
+    <input type="text" id="nomeCliente" placeholder="Ex: Clínica Saúde & Bem-Estar" />
+  </div>
+
+  <div class="perfis" id="perfis"></div>
+
+  <div class="aviso" id="avisoSub"></div>
+  <div class="aviso aviso-pdv" id="avisoPDV" style="display:none;">⚠️ PDV tem mensuração estimada. As taxas de entrada e conversão são aproximações baseadas em benchmarks — o PO deve calibrar com dados reais da operação do cliente.</div>
+
+  <div class="abas">
+    <button class="aba-btn active" id="aba-fin" onclick="trocarAba('financeiro')">💰 Financeiro & ROI</button>
+    <button class="aba-btn" id="aba-fun" onclick="trocarAba('funil')">📊 Funil Reverso</button>
+  </div>
+
+  <div id="painel-financeiro">
+    <div class="grid2">
+      <div>
+        <div class="sec-title">Investimento</div>
+        <div id="campos-financeiros"></div>
+      </div>
+      <div>
+        <div class="sec-title">Projeção de retorno</div>
+        <div id="resultados"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="painel-funil" style="display:none;">
+    <div class="grid2">
+      <div>
+        <div class="sec-title">Taxas de conversão <span style="font-size:10px;font-weight:400;color:#9ca3af;text-transform:none;margin-left:6px;">benchmarks editáveis</span></div>
+        <div id="campos-funil"></div>
+        <div class="aviso-funil">
+          <div class="label">Como usar</div>
+          <div class="texto">Os valores são benchmarks de mercado. O PO deve ajustar com base no histórico do cliente e no segmento. Use como ponto de partida no planejamento — não como promessa.</div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-title" id="funil-titulo">Funil reverso</div>
+        <div class="funil-etapas" id="funil-etapas"></div>
+        <div class="sec-title">Métricas de mídia necessárias</div>
+        <div id="metricas-midia"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn-copiar" id="btnCopiar" onclick="copiarMarkdown()">📋 Copiar para o Segundo Cérebro</button>
+  </div>
+
+  <div class="fluxo-box">
+    <div class="label">Fluxo de uso</div>
+    <div class="texto">1. Informe o nome do cliente → 2. Selecione o perfil → 3. Preencha os dados financeiros na Growth Class → 4. Ajuste as taxas do funil com o PO no planejamento → 5. Copie e cole em <code>/clientes/[cliente].md</code> no Claude → 6. Atualize o realizado todo mês no Check-in</div>
+  </div>
+</div>
+
+<script>
+const TIPS = {
+  feeV4: "Valor mensal cobrado pela V4 Alves & Co pelo serviço de assessoria.",
+  midia: "Verba mensal investida diretamente nas plataformas de anúncios (Meta, Google, TikTok etc).",
+  custoVariavel: "Percentual do faturamento gasto com comissão de vendedores, ferramentas (CRM, automações), taxas de gateway e outros custos variáveis de venda.",
+  ticketMedio: "Valor médio de uma venda ou contrato fechado com um cliente.",
+  margem: "Margem bruta: percentual da receita que sobra após descontar o custo direto do produto ou serviço, sem contar custos operacionais variáveis.",
+  volumeAtual: "Quantas vendas ou contratos o cliente está fechando por mês hoje, antes da V4.",
+  metaVolume: "Quantas vendas ou contratos queremos atingir por mês ao final do prazo.",
+  prazo: "Em quantos meses esperamos atingir a meta de volume.",
+  roi: "Multiplicador de retorno sobre o fee da V4. ROI 2x significa que para cada R$1 investido na V4, o cliente recupera R$2 em margem líquida gerada pelo crescimento.",
+  payback: "Em quantos meses a margem gerada pelo crescimento cobre o fee mensal da V4.",
+  cpm: "Custo por Mil Impressões — quanto a plataforma cobra para exibir o anúncio 1.000 vezes.",
+  ctr: "Click-Through Rate — percentual de pessoas que clicam no anúncio após vê-lo.",
+  cpc: "Custo Por Clique — quanto custa cada clique no anúncio.",
+  taxaLead: "Percentual de cliques que se convertem em leads (formulário, WhatsApp, ligação etc).",
+  cpl: "Custo Por Lead — quanto custa gerar cada lead qualificado.",
+  taxaAgendamento: "Percentual de leads que evoluem para um agendamento ou reunião comercial.",
+  taxaComparecimento: "Percentual de agendamentos em que o prospect realmente aparece.",
+  taxaFechamento: "Percentual de reuniões ou atendimentos que resultam em venda fechada.",
+  taxaCarrinho: "Percentual de visitantes que adicionam um produto ao carrinho.",
+  taxaCheckout: "Percentual de carrinhos que chegam até o pagamento concluído.",
+  taxaEntrada: "Percentual de pessoas impactadas pelo anúncio que entram na loja física (estimativa).",
+  taxaAbordagem: "Percentual de visitantes abordados pela equipe de vendas.",
+  taxaConversaoPDV: "Percentual de abordagens que resultam em compra no PDV.",
+  impressoesNecessarias: "Total de impressões necessárias para atingir a meta de vendas, considerando todas as taxas do funil.",
+};
+
+const PERFIS = {
+  clinica: {
+    label: "Inside Sales B2C", icone: "🏥",
+    sub: "Clínica, escola, academia — capta via Meta, fecha por WhatsApp",
+    pdv: false,
+    defaults: { feeV4: 3500, midia: 4000, custoVariavel: 15, ticketMedio: 280, margem: 60, volumeAtual: 40, metaVolume: 80, prazo: 3 },
+    funil: [
+      { id: "cpm", label: "CPM", tip: "cpm", bench: 18, tipo: "moeda", desc: "Custo por mil impressões" },
+      { id: "ctr", label: "CTR", tip: "ctr", bench: 2.0, tipo: "pct", desc: "Taxa de clique no anúncio" },
+      { id: "taxaLead", label: "Taxa Lead", tip: "taxaLead", bench: 8.0, tipo: "pct", desc: "Cliques → Leads (WhatsApp/form)" },
+      { id: "taxaAgendamento", label: "Taxa Agendamento", tip: "taxaAgendamento", bench: 60, tipo: "pct", desc: "Leads → Agendamentos" },
+      { id: "taxaComparecimento", label: "Taxa Comparecimento", tip: "taxaComparecimento", bench: 70, tipo: "pct", desc: "Agendamentos → Comparecimentos" },
+      { id: "taxaFechamento", label: "Taxa Fechamento", tip: "taxaFechamento", bench: 65, tipo: "pct", desc: "Atendimentos → Vendas" },
+    ],
+    calcEtapas(t, v) {
+      const atend = v / (t.taxaFechamento / 100);
+      const comp = atend / (t.taxaComparecimento / 100);
+      const agenda = comp / (t.taxaAgendamento / 100);
+      const leads = agenda / (t.taxaLead / 100);
+      const cliques = leads;
+      const imp = cliques / (t.ctr / 100);
+      return [
+        { label: "Impressões", valor: fmtN(imp), icone: "👁" },
+        { label: "Cliques", valor: fmtN(cliques), icone: "🖱" },
+        { label: "Leads", valor: fmtN(leads), icone: "💬" },
+        { label: "Agendamentos", valor: fmtN(agenda), icone: "📅" },
+        { label: "Comparecimentos", valor: fmtN(comp), icone: "🚪" },
+        { label: "Vendas", valor: fmtN(v), icone: "✅", destaque: true },
+      ];
+    },
+    calcImp(t, v) {
+      const leads = (v / (t.taxaFechamento/100)) / (t.taxaComparecimento/100) / (t.taxaAgendamento/100) / (t.taxaLead/100);
+      return leads / (t.ctr/100);
+    },
+    calcLeads(t, v) {
+      return (v / (t.taxaFechamento/100)) / (t.taxaComparecimento/100) / (t.taxaAgendamento/100);
+    }
+  },
+  b2b: {
+    label: "Inside Sales B2B", icone: "🤝",
+    sub: "Serviços e soluções para empresas — ciclo longo, ticket alto",
+    pdv: false,
+    defaults: { feeV4: 4500, midia: 5000, custoVariavel: 20, ticketMedio: 3500, margem: 55, volumeAtual: 8, metaVolume: 18, prazo: 4 },
+    funil: [
+      { id: "cpm", label: "CPM", tip: "cpm", bench: 25, tipo: "moeda", desc: "Custo por mil impressões" },
+      { id: "ctr", label: "CTR", tip: "ctr", bench: 1.2, tipo: "pct", desc: "Taxa de clique" },
+      { id: "taxaLead", label: "Taxa Lead", tip: "taxaLead", bench: 5.0, tipo: "pct", desc: "Cliques → Leads qualificados" },
+      { id: "taxaAgendamento", label: "Taxa Reunião", tip: "taxaAgendamento", bench: 40, tipo: "pct", desc: "Leads → Reuniões comerciais" },
+      { id: "taxaFechamento", label: "Taxa Fechamento", tip: "taxaFechamento", bench: 30, tipo: "pct", desc: "Reuniões → Contratos fechados" },
+    ],
+    calcEtapas(t, v) {
+      const reun = v / (t.taxaFechamento/100);
+      const leads = reun / (t.taxaAgendamento/100);
+      const cliques = leads / (t.taxaLead/100);
+      const imp = cliques / (t.ctr/100);
+      return [
+        { label: "Impressões", valor: fmtN(imp), icone: "👁" },
+        { label: "Cliques", valor: fmtN(cliques), icone: "🖱" },
+        { label: "Leads qualificados", valor: fmtN(leads), icone: "📋" },
+        { label: "Reuniões", valor: fmtN(reun), icone: "📞" },
+        { label: "Contratos fechados", valor: fmtN(v), icone: "✅", destaque: true },
+      ];
+    },
+    calcImp(t, v) {
+      const cliques = (v / (t.taxaFechamento/100)) / (t.taxaAgendamento/100) / (t.taxaLead/100);
+      return cliques / (t.ctr/100);
+    },
+    calcLeads(t, v) { return (v / (t.taxaFechamento/100)) / (t.taxaAgendamento/100); }
+  },
+  ecommerce: {
+    label: "E-commerce", icone: "🛒",
+    sub: "Venda online direta — Meta Ads e Google Ads",
+    pdv: false,
+    defaults: { feeV4: 4000, midia: 8000, custoVariavel: 18, ticketMedio: 180, margem: 35, volumeAtual: 120, metaVolume: 220, prazo: 3 },
+    funil: [
+      { id: "cpm", label: "CPM", tip: "cpm", bench: 15, tipo: "moeda", desc: "Custo por mil impressões" },
+      { id: "ctr", label: "CTR", tip: "ctr", bench: 2.5, tipo: "pct", desc: "Taxa de clique" },
+      { id: "taxaCarrinho", label: "Add to Cart", tip: "taxaCarrinho", bench: 8.0, tipo: "pct", desc: "Visitantes → Adição ao carrinho" },
+      { id: "taxaCheckout", label: "Taxa Checkout", tip: "taxaCheckout", bench: 40, tipo: "pct", desc: "Carrinhos → Compras concluídas" },
+    ],
+    calcEtapas(t, v) {
+      const carrinhos = v / (t.taxaCheckout/100);
+      const sessoes = carrinhos / (t.taxaCarrinho/100);
+      const imp = sessoes / (t.ctr/100);
+      return [
+        { label: "Impressões", valor: fmtN(imp), icone: "👁" },
+        { label: "Cliques / Sessões", valor: fmtN(sessoes), icone: "🖱" },
+        { label: "Add to Cart", valor: fmtN(carrinhos), icone: "🛒" },
+        { label: "Compras", valor: fmtN(v), icone: "✅", destaque: true },
+      ];
+    },
+    calcImp(t, v) {
+      const sessoes = (v / (t.taxaCheckout/100)) / (t.taxaCarrinho/100);
+      return sessoes / (t.ctr/100);
+    },
+    calcLeads(t, v) { return (v / (t.taxaCheckout/100)); }
+  },
+  pdv: {
+    label: "PDV / Físico", icone: "🏪",
+    sub: "Loja física — mensuração estimada via mídia + operação",
+    pdv: true,
+    defaults: { feeV4: 3000, midia: 4500, custoVariavel: 12, ticketMedio: 150, margem: 45, volumeAtual: 200, metaVolume: 340, prazo: 3 },
+    funil: [
+      { id: "cpm", label: "CPM", tip: "cpm", bench: 12, tipo: "moeda", desc: "Custo por mil impressões (alcance local)" },
+      { id: "ctr", label: "CTR", tip: "ctr", bench: 1.8, tipo: "pct", desc: "Taxa de clique (interesse no anúncio)" },
+      { id: "taxaEntrada", label: "Taxa Entrada", tip: "taxaEntrada", bench: 3.0, tipo: "pct", desc: "Cliques → Visitas à loja (estimativa)" },
+      { id: "taxaAbordagem", label: "Taxa Abordagem", tip: "taxaAbordagem", bench: 70, tipo: "pct", desc: "Visitantes abordados pela equipe" },
+      { id: "taxaConversaoPDV", label: "Conversão PDV", tip: "taxaConversaoPDV", bench: 35, tipo: "pct", desc: "Abordagens → Compras" },
+    ],
+    calcEtapas(t, v) {
+      const abord = v / (t.taxaConversaoPDV/100);
+      const entradas = abord / (t.taxaAbordagem/100);
+      const cliques = entradas / (t.taxaEntrada/100);
+      const imp = cliques / (t.ctr/100);
+      return [
+        { label: "Impressões", valor: fmtN(imp), icone: "👁" },
+        { label: "Cliques (interesse)", valor: fmtN(cliques), icone: "🖱" },
+        { label: "Entradas na loja", valor: fmtN(entradas), icone: "🚪" },
+        { label: "Abordagens", valor: fmtN(abord), icone: "🗣" },
+        { label: "Compras", valor: fmtN(v), icone: "✅", destaque: true },
+      ];
+    },
+    calcImp(t, v) {
+      const cliques = (v / (t.taxaConversaoPDV/100)) / (t.taxaAbordagem/100) / (t.taxaEntrada/100);
+      return cliques / (t.ctr/100);
+    },
+    calcLeads(t, v) { return (v / (t.taxaConversaoPDV/100)) / (t.taxaAbordagem/100); }
+  }
+};
+
+let perfilAtual = 'clinica';
+let aba = 'financeiro';
+let campos = { ...PERFIS.clinica.defaults };
+let taxas = initTaxas(PERFIS.clinica);
+
+function initTaxas(p) {
+  const t = {};
+  p.funil.forEach(f => t[f.id] = f.bench);
+  return t;
+}
+
+const fmt = n => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+const fmtD = (n, d=1) => n.toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
+const fmtN = n => Math.round(n).toLocaleString('pt-BR');
+
+function calcFin() {
+  const inv = campos.feeV4 + campos.midia;
+  const margemLiq = campos.margem - campos.custoVariavel;
+  const recAtual = campos.volumeAtual * campos.ticketMedio;
+  const recMeta = campos.metaVolume * campos.ticketMedio;
+  const crescRec = recMeta - recAtual;
+  const margemGerada = crescRec * (margemLiq / 100);
+  const roiMult = campos.feeV4 > 0 ? margemGerada / campos.feeV4 : 0;
+  const roasMeta = campos.midia > 0 ? recMeta / campos.midia : 0;
+  const payback = margemGerada > 0 ? campos.feeV4 / (margemGerada / campos.prazo) : null;
+  return { inv, margemLiq, recAtual, recMeta, crescRec, margemGerada, roiMult, roasMeta, payback };
+}
+
+function calcMidia() {
+  const p = PERFIS[perfilAtual];
+  const imp = p.calcImp(taxas, campos.metaVolume);
+  const cliques = imp * (taxas.ctr / 100);
+  const leads = p.calcLeads(taxas, campos.metaVolume);
+  const cpc = cliques > 0 ? campos.midia / cliques : 0;
+  const cpl = leads > 0 ? campos.midia / leads : 0;
+  const cpa = campos.metaVolume > 0 ? campos.midia / campos.metaVolume : 0;
+  return { imp, cliques, leads, cpc, cpl, cpa };
+}
+
+function tipHTML(key) {
+  if (!TIPS[key]) return '';
+  return `<span class="tip-wrap" onclick="this.classList.toggle('open')">
+    <button class="tip-btn" type="button">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="#9ca3af"/><text x="7" y="11" text-anchor="middle" font-size="9" fill="#9ca3af" font-weight="700">i</text></svg>
+    </button>
+    <div class="tip-box">${TIPS[key]}</div>
+  </span>`;
+}
+
+function metcard(label, valor, tip, cor, grande, sub) {
+  cor = cor || 'neutro';
+  return `<div class="metcard ${cor}${grande?' grande':''}">
+    <div class="metcard-label">${label}${tip?tipHTML(tip):''}</div>
+    <div class="metcard-valor">${valor}</div>
+    ${sub?`<div class="metcard-sub">${sub}</div>`:''}
+  </div>`;
+}
+
+function campoHTML(id, label, pre, suf, step, min, tip) {
+  const cls = pre ? 'pre' : suf ? 'suf' : 'plain';
+  return `<div class="campo">
+    <div class="campo-label">${label}${tip?tipHTML(tip):''}</div>
+    <div class="campo-wrap">
+      ${pre?`<span class="campo-pre">${pre}</span>`:''}
+      <input type="number" class="${cls}" id="c_${id}" value="${campos[id]}" step="${step||100}" min="${min||0}" oninput="setCampo('${id}', this.value)" />
+      ${suf?`<span class="campo-suf">${suf}</span>`:''}
+    </div>
+  </div>`;
+}
+
+function render() {
+  const p = PERFIS[perfilAtual];
+  const fin = calcFin();
+  const mid = calcMidia();
+  const etapas = p.calcEtapas(taxas, campos.metaVolume);
+
+  document.getElementById('avisoSub').textContent = p.sub;
+  document.getElementById('avisoPDV').style.display = p.pdv ? 'block' : 'none';
+
+  document.getElementById('campos-financeiros').innerHTML = `
+    ${campoHTML('feeV4','Fee V4 (mensal)','R$','',500,0,'feeV4')}
+    ${campoHTML('midia','Mídia (mensal)','R$','',500,0,'midia')}
+    <div class="sec-title mt">Negócio do cliente</div>
+    ${campoHTML('ticketMedio','Ticket médio','R$','',50,0,'ticketMedio')}
+    ${campoHTML('margem','Margem bruta','','%',5,1,'margem')}
+    ${campoHTML('custoVariavel','Custos variáveis de venda','','%',1,0,'custoVariavel')}
+    <div class="sec-title mt">Meta</div>
+    ${campoHTML('volumeAtual','Volume atual (vendas/mês)','','',5,0,'volumeAtual')}
+    ${campoHTML('metaVolume','Meta (vendas/mês)','','',5,0,'metaVolume')}
+    ${campoHTML('prazo','Prazo para atingir','','meses',1,1,'prazo')}
+    <div class="info-box" style="margin-top:16px;">
+      <div class="label">Margem líquida operacional</div>
+      <div class="valor">${fmtD(fin.margemLiq)}%</div>
+      <div class="sub">${campos.margem}% bruta − ${campos.custoVariavel}% variáveis</div>
+    </div>`;
+
+  const roiCor = fin.roiMult >= 2 ? 'verde' : fin.roiMult >= 1 ? 'amarelo' : 'vermelho';
+  const roiSub = fin.roiMult >= 2 ? 'Retorno saudável ✓' : fin.roiMult >= 1 ? 'Retorno positivo mas baixo' : 'ROI negativo — revisar premissas';
+
+  document.getElementById('resultados').innerHTML = `
+    ${metcard('ROI do Projeto', fmtD(fin.roiMult)+'x', 'roi', roiCor, true, roiSub)}
+    <div class="grid2-small">
+      ${metcard('ROAS meta', fmtD(fin.roasMeta)+'x', null, 'neutro')}
+      ${metcard('Payback', fin.payback ? fmtD(fin.payback)+'m' : '—', 'payback', 'neutro')}
+    </div>
+    <div class="grid2-small">
+      ${metcard('Receita adicional', fmt(fin.crescRec), null, 'neutro', false, '/mês')}
+      ${metcard('Margem gerada', fmt(fin.margemGerada), null, 'neutro', false, '/mês')}
+    </div>
+    <div class="info-box cinza" style="margin-top:8px;">
+      <div class="label">Investimento total/mês</div>
+      <div class="valor" style="font-size:18px;">${fmt(fin.inv)}</div>
+      <div class="sub">Fee ${fmt(campos.feeV4)} + Mídia ${fmt(campos.midia)}</div>
+    </div>
+    <div class="info-box" style="margin-top:12px;">
+      <div class="label" style="margin-bottom:8px;">Referência de ROI</div>
+      <div class="bench-item" style="background:#fee2e2;margin-bottom:4px;"><span style="font-size:11px;font-weight:700;color:#b91c1c;">Abaixo de 1x</span><span style="font-size:10px;color:#b91c1c;opacity:.8;">ROI negativo</span></div>
+      <div class="bench-item" style="background:#fef9c3;margin-bottom:4px;"><span style="font-size:11px;font-weight:700;color:#854d0e;">1x – 2x</span><span style="font-size:10px;color:#854d0e;opacity:.8;">Retorno baixo</span></div>
+      <div class="bench-item" style="background:#dcfce7;margin-bottom:4px;"><span style="font-size:11px;font-weight:700;color:#15803d;">2x – 3x</span><span style="font-size:10px;color:#15803d;opacity:.8;">Retorno saudável</span></div>
+      <div class="bench-item" style="background:#dbeafe;"><span style="font-size:11px;font-weight:700;color:#1d4ed8;">Acima de 3x</span><span style="font-size:10px;color:#1d4ed8;opacity:.8;">Retorno excelente</span></div>
+    </div>`;
+
+  document.getElementById('campos-funil').innerHTML = p.funil.map(f => `
+    <div class="funil-campo">
+      <div class="funil-campo-info">
+        <div class="nome">${f.label}${tipHTML(f.tip)}</div>
+        <div class="desc">${f.desc}</div>
+      </div>
+      <div class="funil-campo-right">
+        <span class="funil-bench">bench: ${f.tipo==='moeda'?'R$'+f.bench:f.bench+'%'}</span>
+        <div class="funil-input-wrap">
+          ${f.tipo==='moeda'?'<span class="pre">R$</span>':''}
+          <input type="number" class="${f.tipo==='moeda'?'moeda':''}" id="t_${f.id}" value="${taxas[f.id]}" step="${f.tipo==='moeda'?1:0.5}" min="0.1" oninput="setTaxa('${f.id}', this.value)" />
+          ${f.tipo==='pct'?'<span class="suf">%</span>':''}
+        </div>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('funil-titulo').textContent = `Funil reverso — meta: ${campos.metaVolume} vendas/mês`;
+
+  document.getElementById('funil-etapas').innerHTML = etapas.map((e, i) => `
+    <div class="etapa${e.destaque?' destaque':''}">
+      <div class="etapa-icone">${e.icone}</div>
+      <div class="etapa-label">${e.label}</div>
+      <div class="etapa-valor">${e.valor}</div>
+    </div>
+    ${i < etapas.length-1 ? '<div class="etapa-seta">↓</div>' : ''}`).join('');
+
+  document.getElementById('metricas-midia').innerHTML = `
+    <div class="grid2-small">
+      ${metcard('Impressões necessárias', fmtN(mid.imp), 'impressoesNecessarias', 'azul')}
+      ${metcard('CPC estimado', fmt(mid.cpc), 'cpc', 'neutro')}
+      ${metcard('CPL estimado', fmt(mid.cpl), 'cpl', 'neutro')}
+      ${metcard('CPA meta', fmt(mid.cpa), 'cpm', 'neutro')}
+    </div>
+    <div class="info-box" style="margin-top:10px;">
+      <div class="label">CPM necessário</div>
+      <div class="valor" style="font-size:22px;">R$${fmtD(taxas.cpm)}</div>
+      <div class="sub">Com ${fmtN(mid.imp)} impressões e ${fmt(campos.midia)}/mês de mídia</div>
+    </div>`;
+}
+
+function renderPerfis() {
+  document.getElementById('perfis').innerHTML = Object.entries(PERFIS).map(([key, p]) =>
+    `<button class="perfil-btn${key===perfilAtual?' active':''}" onclick="trocarPerfil('${key}')">
+      <div class="icone">${p.icone}</div>
+      <div class="nome">${p.label}</div>
+    </button>`
+  ).join('');
+}
+
+function trocarPerfil(key) {
+  perfilAtual = key;
+  campos = { ...PERFIS[key].defaults };
+  taxas = initTaxas(PERFIS[key]);
+  renderPerfis();
+  render();
+}
+
+function trocarAba(a) {
+  aba = a;
+  document.getElementById('painel-financeiro').style.display = a === 'financeiro' ? '' : 'none';
+  document.getElementById('painel-funil').style.display = a === 'funil' ? '' : 'none';
+  document.getElementById('aba-fin').classList.toggle('active', a === 'financeiro');
+  document.getElementById('aba-fun').classList.toggle('active', a === 'funil');
+}
+
+function setCampo(id, val) {
+  campos[id] = parseFloat(val) || 0;
+  render();
+}
+
+function setTaxa(id, val) {
+  taxas[id] = parseFloat(val) || 0;
+  render();
+}
+
+function copiarMarkdown() {
+  const p = PERFIS[perfilAtual];
+  const fin = calcFin();
+  const mid = calcMidia();
+  const nome = document.getElementById('nomeCliente').value || '[Nome do Cliente]';
+  const hoje = new Date().toLocaleDateString('pt-BR');
+
+  const md = `## PIC Financeiro — ${p.label}
+> Cliente: ${nome}
+> Criado em: ${hoje} | Revisão: mensal (Check-in)
+
+### Premissas financeiras
+| Campo | Valor |
+|---|---|
+| Fee V4 | ${fmt(campos.feeV4)}/mês |
+| Investimento em mídia | ${fmt(campos.midia)}/mês |
+| Investimento total | ${fmt(fin.inv)}/mês |
+| Ticket médio | ${fmt(campos.ticketMedio)} |
+| Margem bruta | ${campos.margem}% |
+| Custos variáveis de venda | ${campos.custoVariavel}% |
+| Margem líquida operacional | ${fmtD(fin.margemLiq)}% |
+| Volume atual | ${campos.volumeAtual} vendas/mês |
+| Meta | ${campos.metaVolume} vendas/mês em ${campos.prazo} meses |
+
+### Projeção de ROI
+| Métrica | Valor |
+|---|---|
+| ROI do projeto | ${fmtD(fin.roiMult)}x |
+| ROAS meta | ${fmtD(fin.roasMeta)}x |
+| Margem gerada pelo crescimento | ${fmt(fin.margemGerada)}/mês |
+| Payback | ${fin.payback ? fmtD(fin.payback)+' meses' : '—'} |
+
+### Funil reverso (ponto de partida para o PO)
+| Métrica | Referência |
+|---|---|
+| CPM | R$${fmtD(taxas.cpm)} |
+| CTR | ${fmtD(taxas.ctr)}% |
+| CPC estimado | ${fmt(mid.cpc)} |
+| CPL estimado | ${fmt(mid.cpl)} |
+| CPA meta | ${fmt(mid.cpa)} |
+| Impressões necessárias | ${fmtN(mid.imp)} |
+
+### Realizado — atualizar mensalmente no Check-in
+| Mês | Volume real | ROAS real | ROI real | Observação |
+|---|---|---|---|---|
+| M1 | — | — | — | — |
+| M2 | — | — | — | — |
+| M3 | — | — | — | — |`;
+
+  navigator.clipboard.writeText(md).then(() => {
+    const btn = document.getElementById('btnCopiar');
+    btn.textContent = '✓ Copiado!';
+    btn.classList.add('ok');
+    setTimeout(() => { btn.innerHTML = '📋 Copiar para o Segundo Cérebro'; btn.classList.remove('ok'); }, 2000);
+  });
+}
+
+renderPerfis();
+render();
+</script>
+</body>
+</html>
