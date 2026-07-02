@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Rock · Painel de Performance · Junho 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<style>
+  :root{
+    --black: #0A0A0B;
+    --black-soft: #151316;
+    --black-elev: #1C191D;
+    --line: rgba(255,255,255,0.08);
+    --line-strong: rgba(255,255,255,0.14);
+    --orange: #FF5A1F;
+    --orange-bright: #FF7E4D;
+    --orange-dim: rgba(255,90,31,0.16);
+    --amber: #FFB230;
+    --white: #F7F4F0;
+    --gray: #948F8C;
+    --gray-dim: #5C5856;
+    --good: #7BC47F;
+    --good-dim: rgba(123,196,127,0.14);
+    --warn: #E2574C;
+    --warn-dim: rgba(226,87,76,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+
+  /* ---------- HERO ---------- */
+  header.hero{ padding:64px 0 40px; border-bottom:1px solid var(--line); position:relative; overflow:hidden; }
+  header.hero::before{
+    content:""; position:absolute; top:-220px; right:-160px; width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle, rgba(255,90,31,0.16) 0%, rgba(255,90,31,0) 70%);
+    pointer-events:none;
+  }
+  .eyebrow{ display:inline-flex; align-items:center; gap:8px; font-size:11.5px; font-weight:700; letter-spacing:2px; color:var(--orange-bright); text-transform:uppercase; margin-bottom:18px;}
+  .eyebrow::before{ content:""; width:22px; height:2px; background:var(--orange); display:inline-block;}
+  h1.headline{
+    font-family:'Anton', sans-serif; font-weight:400;
+    font-size:clamp(38px, 5.2vw, 68px); line-height:1.02; letter-spacing:0.5px;
+    text-transform:uppercase; max-width:900px;
+  }
+  h1.headline .accent{ color:var(--orange); }
+  .hero-sub{ margin-top:18px; max-width:640px; color:var(--gray); font-size:15.5px; }
+  .hero-meta{ margin-top:28px; display:flex; gap:28px; flex-wrap:wrap; color:var(--gray-dim); font-size:12.5px; }
+  .hero-meta b{ color:var(--white); font-weight:600; }
+
+  .kpi-row{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:40px; }
+  @media (max-width:1100px){ .kpi-row{ grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:640px){ .kpi-row{ grid-template-columns:repeat(2,1fr);} }
+  .kpi{
+    background:var(--black-soft); border:1px solid var(--line); border-radius:14px; padding:20px 20px 18px;
+  }
+  .kpi .val{ font-family:'IBM Plex Mono'; font-size:30px; font-weight:600; color:var(--white); }
+  .kpi .val span.unit{ font-size:16px; color:var(--gray); font-weight:500; }
+  .kpi .lbl{ margin-top:6px; font-size:12.5px; color:var(--gray); }
+  .kpi .tag{ display:inline-block; margin-top:10px; font-size:11px; font-weight:700; padding:3px 9px; border-radius:20px; }
+  .tag.good{ background:var(--good-dim); color:var(--good); }
+  .tag.orange{ background:var(--orange-dim); color:var(--orange-bright); }
+  .tag.warn{ background:var(--warn-dim); color:var(--warn); }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding:64px 0; border-bottom:1px solid var(--line); scroll-margin-top:80px; }
+  .sec-head{ display:flex; align-items:baseline; justify-content:space-between; gap:20px; margin-bottom:32px; flex-wrap:wrap;}
+  .sec-num{ font-family:'IBM Plex Mono'; color:var(--orange); font-size:13px; font-weight:600; letter-spacing:1px; }
+  h2.sec-title{ font-family:'Archivo Black', sans-serif; font-size:26px; text-transform:uppercase; letter-spacing:0.3px; margin-top:6px;}
+  .sec-desc{ color:var(--gray); font-size:14px; max-width:480px; }
+
+  .card{ background:var(--black-soft); border:1px solid var(--line); border-radius:16px; padding:24px; }
+  .card h3{ font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:var(--white); }
+  .card .sub{ font-size:12px; color:var(--gray); margin-top:2px; }
+  .chart-box{ margin-top:18px; position:relative; }
+
+  /* Channel cards */
+  .channels{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media (max-width:900px){ .channels{ grid-template-columns:1fr; } }
+  .ch-card{ background:var(--black-soft); border:1px solid var(--line); border-radius:16px; padding:22px; }
+  .ch-top{ display:flex; justify-content:space-between; align-items:flex-start;}
+  .ch-name{ font-family:'Archivo Black'; font-size:16px; text-transform:uppercase; }
+  .ch-pct{ font-family:'IBM Plex Mono'; font-size:22px; color:var(--orange-bright); font-weight:600;}
+  .track{ height:8px; border-radius:6px; background:rgba(255,255,255,0.08); margin-top:16px; overflow:hidden; }
+  .track > i{ display:block; height:100%; background:linear-gradient(90deg, var(--orange), var(--amber)); border-radius:6px; }
+  .ch-figs{ display:flex; justify-content:space-between; margin-top:12px; font-size:12px; color:var(--gray); }
+  .ch-figs b{ color:var(--white); font-family:'IBM Plex Mono'; font-weight:600; font-size:13px; display:block; }
+  .ch-note{ margin-top:14px; font-size:12px; color:var(--gray); border-top:1px solid var(--line); padding-top:12px; }
+  .ch-note b{ color:var(--amber); }
+
+  /* two-col grid */
+  .grid-2{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:16px; }
+  @media (max-width:900px){ .grid-2{ grid-template-columns:1fr; } }
+  .grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media (max-width:900px){ .grid-3{ grid-template-columns:1fr; } }
+
+  /* leads runway */
+  .runway{ position:relative; margin-top:30px; padding-top:36px; }
+  .runway-track{ height:14px; border-radius:8px; background:repeating-linear-gradient(90deg, rgba(255,255,255,0.09) 0 18px, rgba(255,255,255,0.02) 18px 36px); position:relative; }
+  .runway-fill{ position:absolute; left:0; top:0; height:100%; border-radius:8px; background:linear-gradient(90deg, var(--orange), var(--orange-bright)); }
+  .runway-marker{ position:absolute; top:-30px; transform:translateX(-50%); text-align:center; }
+  .runway-marker .flag{ width:2px; height:22px; background:var(--line-strong); margin:0 auto 4px; }
+  .runway-marker span{ font-size:11px; color:var(--gray); white-space:nowrap; }
+  .runway-marker b{ display:block; font-family:'IBM Plex Mono'; font-size:13px; color:var(--white); }
+  .runway-now{ position:absolute; top:-58px; transform:translateX(-50%); text-align:center; }
+  .runway-now .pin{ background:var(--orange); color:var(--black); font-family:'IBM Plex Mono'; font-weight:700; font-size:13px; padding:5px 10px; border-radius:8px; white-space:nowrap;}
+  .runway-now .stem{ width:2px; height:14px; background:var(--orange); margin:2px auto 0;}
+
+  /* vinyl gauges */
+  .vinyl-row{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  @media (max-width:640px){ .vinyl-row{ grid-template-columns:1fr; } }
+  .vinyl-card{ display:flex; align-items:center; gap:22px; }
+  .vinyl{ position:relative; width:150px; height:150px; flex:none; }
+  .vinyl .grooves{
+    position:absolute; inset:0; border-radius:50%;
+    background: repeating-radial-gradient(circle at center, #201C1F 0px, #201C1F 2px, #171417 2px, #171417 5px);
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .vinyl svg{ position:absolute; inset:0; transform:rotate(-90deg); }
+  .vinyl .label{
+    position:absolute; inset:0; margin:auto; width:56px; height:56px; border-radius:50%;
+    background:var(--orange); display:flex; align-items:center; justify-content:center;
+    font-family:'Archivo Black'; font-size:13px; color:var(--black);
+  }
+  .vinyl .label{ box-shadow: 0 0 0 4px var(--black-elev); }
+  .vinyl-info .big{ font-family:'IBM Plex Mono'; font-size:26px; font-weight:600; }
+  .vinyl-info .of{ font-size:12px; color:var(--gray); margin-top:2px; }
+  .vinyl-info .tag{ margin-top:10px; }
+
+  /* programmatic stat strip */
+  .stat-strip{ display:grid; grid-template-columns:repeat(6,1fr); gap:12px; }
+  @media (max-width:900px){ .stat-strip{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:520px){ .stat-strip{ grid-template-columns:repeat(2,1fr); } }
+  .ministat{ background:var(--black-elev); border:1px solid var(--line); border-radius:12px; padding:14px 14px; text-align:left;}
+  .ministat .v{ font-family:'IBM Plex Mono'; font-size:19px; font-weight:600; color:var(--orange-bright); }
+  .ministat .l{ font-size:11px; color:var(--gray); margin-top:3px; }
+
+  .callout{
+    margin-top:20px; border-radius:14px; padding:18px 20px; background:var(--orange-dim);
+    border:1px solid rgba(255,90,31,0.35); font-size:13.5px; color:var(--white); display:flex; gap:14px; align-items:flex-start;
+  }
+  .callout .ico{ font-family:'Archivo Black'; color:var(--orange); font-size:18px; flex:none; }
+  .callout b{ color:var(--orange-bright); }
+  .chip-row{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+  .chip{ background:var(--black); border:1px solid var(--line-strong); color:var(--white); font-size:11.5px; font-weight:600; padding:5px 11px; border-radius:20px; }
+
+  /* quality section */
+  .quality-flags{ display:flex; flex-direction:column; gap:10px; margin-top:18px; }
+  .qflag{ display:flex; align-items:center; gap:12px; }
+  .qflag .name{ width:110px; font-size:12.5px; color:var(--gray); flex:none; }
+  .qflag .bar{ flex:1; height:10px; background:rgba(255,255,255,0.06); border-radius:6px; overflow:hidden; }
+  .qflag .bar i{ display:block; height:100%; background:linear-gradient(90deg, var(--amber), var(--orange)); }
+  .qflag .n{ width:34px; text-align:right; font-family:'IBM Plex Mono'; font-size:13px; flex:none; }
+  .note-box{ margin-top:18px; border-left:2px solid var(--amber); padding:12px 16px; background:rgba(255,178,48,0.06); border-radius:0 10px 10px 0; font-size:12.5px; color:var(--gray); }
+  .note-box b{ color:var(--amber); }
+
+  /* next steps */
+  .steps{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  @media (max-width:800px){ .steps{ grid-template-columns:1fr; } }
+  .step{ background:var(--black-soft); border:1px solid var(--line); border-radius:16px; padding:22px; display:flex; gap:16px; }
+  .step .num{ font-family:'Anton'; font-size:30px; color:var(--orange); flex:none; line-height:1; }
+  .step h4{ font-size:14.5px; font-weight:700; margin-bottom:6px; }
+  .step p{ font-size:12.5px; color:var(--gray); }
+  .status{ display:inline-block; margin-top:10px; font-size:10.5px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; padding:3px 9px; border-radius:20px; }
+  .status.progress{ background:var(--good-dim); color:var(--good); }
+  .status.test{ background:var(--orange-dim); color:var(--orange-bright); }
+
+  footer{ padding:36px 0 48px; text-align:center; }
+  footer p{ color:var(--gray-dim); font-size:12px; }
+  footer .fbrand{ font-family:'Archivo Black'; color:var(--gray); font-size:12px; letter-spacing:1px; margin-bottom:6px; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">V4 Alves & Co. · Relatório interno</div>
+    <h1 class="headline">Travel Rock</h1>
+    <p class="hero-sub">Consolidado de junho/2026 — Meta Ads, Google Ads, TikTok Ads e mídia programática (Adsplay), cruzado com o balanço de leads e a qualidade dos dados captados no mês.</p>
+    <div class="hero-meta">
+      <span>Período: <b>01/06 – 30/06/2026</b></span>
+      <span>Budget total: <b>R$ 33.000</b></span>
+      <span>Investido: <b>R$ 32.385</b></span>
+      <span>Gerado em: <b>02/07/2026</b></span>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="val">499</div>
+        <div class="lbl">Total de leads gerados</div>
+        <span class="tag good">121% da meta realista</span>
+      </div>
+      <div class="kpi">
+        <div class="val">430</div>
+        <div class="lbl">MQL gerados</div>
+        <span class="tag orange">86,2% de qualificação</span>
+      </div>
+      <div class="kpi">
+        <div class="val">R$ 46<span class="unit">,41</span></div>
+        <div class="lbl">CPL médio ponderado</div>
+        <span class="tag warn">+16% vs. histórico R$40</span>
+      </div>
+      <div class="kpi">
+        <div class="val">98,1<span class="unit">%</span></div>
+        <div class="lbl">Do budget total executado</div>
+      </div>
+      <div class="kpi">
+        <div class="val">205,7<span class="unit">k</span></div>
+        <div class="lbl">Seguidores TikTok (absoluto)</div>
+        <span class="tag good">Meta de 205k superada</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== CANAIS ===================== -->
+<section id="canais">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">01 — EXECUÇÃO</div>
+        <h2 class="sec-title">Budget por canal</h2>
+      </div>
+      <p class="sec-desc">Planejado vs. realizado em cada plataforma. Meta Ads passou do budget após a correção de impostos; os demais canais seguem dentro do previsto.</p>
+    </div>
+
+    <div class="channels">
+      <div class="ch-card">
+        <div class="ch-top"><span class="ch-name">Meta Ads</span><span class="ch-pct" style="color:var(--warn);">105,4%</span></div>
+        <div class="track"><i style="width:100%"></i></div>
+        <div class="ch-figs">
+          <div>Planejado<b>R$ 15.840</b></div>
+          <div>Realizado<b>R$ 16.698</b></div>
+        </div>
+        <div class="ch-note">171 leads · CPL médio <b>R$ 53,70</b> (34% acima da meta de R$40)<br><span style="color:var(--gray);">Valor com impostos da plataforma inclusos — acima do planejado</span></div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-top"><span class="ch-name">Google Ads</span><span class="ch-pct">93,6%</span></div>
+        <div class="track"><i style="width:93.6%"></i></div>
+        <div class="ch-figs">
+          <div>Planejado<b>R$ 8.910</b></div>
+          <div>Realizado<b>R$ 8.335</b></div>
+        </div>
+        <div class="ch-note">210 leads · CPL médio <b>R$ 39,69</b> — único canal abaixo da meta de R$40 ✓</div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-top"><span class="ch-name">TikTok Ads</span><span class="ch-pct">89,1%</span></div>
+        <div class="track"><i style="width:89.1%"></i></div>
+        <div class="ch-figs">
+          <div>Planejado<b>R$ 8.250</b></div>
+          <div>Realizado<b>R$ 7.352</b></div>
+        </div>
+        <div class="ch-note">5.539 novos seguidores · <b>98,9%</b> da meta de crescimento do mês</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h3>Planejado vs. realizado — visão comparativa</h3>
+      <div class="chart-box" style="height:260px;"><canvas id="chartBudget"></canvas></div>
+      <div class="note-box" style="margin-top:16px; border-left-color:var(--warn);">Valor de Meta Ads corrigido para incluir os impostos cobrados pela plataforma sobre a mídia — por isso o realizado passou de R$ 14.568 para <b style="color:var(--warn);">R$ 16.698</b> e ficou acima do budget planejado. Total investido no mês: <b>R$ 32.385,35</b> (98,1% do budget geral).</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LEADS ===================== -->
+<section id="leads">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">02 — VOLUME</div>
+        <h2 class="sec-title">Leads vs. cenários do plano</h2>
+      </div>
+      <p class="sec-desc">499 leads no balanço geral (430 MQL) superam a projeção realista do plano — mesmo com CPL pago acima do histórico.</p>
+    </div>
+
+    <div class="card">
+      <h3>Corrida até a meta</h3>
+      <div class="sub">Total de leads no mês frente aos cenários do planejamento</div>
+      <div class="runway">
+        <div class="runway-now" id="runwayNow" style="left:83.2%;">
+          <div class="pin">499 leads</div>
+          <div class="stem"></div>
+        </div>
+        <div class="runway-track">
+          <div class="runway-fill" style="width:83.2%;"></div>
+          <div class="runway-marker" style="left:68.7%;">
+            <span>Realista</span><b>412</b>
+          </div>
+          <div class="runway-marker" style="left:100%;">
+            <span>Aspiracional</span><b>600</b>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:16px;">
+      <div class="card">
+        <h3>Funil de qualificação</h3>
+        <div class="sub">Total de leads → MQL</div>
+        <div class="chart-box" style="height:270px;"><canvas id="chartFunnel"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>CPL por canal vs. meta (R$ 40)</h3>
+        <div class="chart-box" style="height:270px;"><canvas id="chartCPL"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Origem dos leads (Controle de Leads)</h3>
+        <div class="sub">402 leads de Bariloche · junho/2026</div>
+        <div class="chart-box" style="height:270px;"><canvas id="chartLeadsSplit"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PERFIL ===================== -->
+<section id="perfil">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">03 — AUDIÊNCIA</div>
+        <h2 class="sec-title">Crescimento de perfil</h2>
+      </div>
+      <p class="sec-desc">Números absolutos de seguidores — o que a Travel Rock tem hoje, frente à meta do mês.</p>
+    </div>
+
+    <div class="vinyl-row">
+      <div class="card vinyl-card">
+        <div class="vinyl">
+          <div class="grooves"></div>
+          <svg viewBox="0 0 150 150" width="150" height="150">
+            <circle cx="75" cy="75" r="64" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="10"/>
+            <circle cx="75" cy="75" r="64" fill="none" stroke="#FF5A1F" stroke-width="10" stroke-linecap="round"
+              stroke-dasharray="390.4" stroke-dashoffset="9.7"/>
+          </svg>
+          <div class="label">IG</div>
+        </div>
+        <div class="vinyl-info">
+          <div class="big">79.000</div>
+          <div class="of">de 81.000 seguidores-meta</div>
+        </div>
+      </div>
+
+      <div class="card vinyl-card">
+        <div class="vinyl">
+          <div class="grooves"></div>
+          <svg viewBox="0 0 150 150" width="150" height="150">
+            <circle cx="75" cy="75" r="64" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="10"/>
+            <circle cx="75" cy="75" r="64" fill="none" stroke="#FF5A1F" stroke-width="10" stroke-linecap="round"
+              stroke-dasharray="402.1" stroke-dashoffset="0"/>
+          </svg>
+          <div class="label">TT</div>
+        </div>
+        <div class="vinyl-info">
+          <div class="big">205.700</div>
+          <div class="of">meta era 205.000</div>
+          <span class="tag good">Meta superada</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROGRAMÁTICA ===================== -->
+<section id="programatica">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">04 — ADSPLAY</div>
+        <h2 class="sec-title">Mídia programática</h2>
+      </div>
+      <p class="sec-desc">Flight acumulado 25/mai – 02/jul. A audiência de público parental segue como o maior achado do mês.</p>
+    </div>
+
+    <div class="stat-strip">
+      <div class="ministat"><div class="v">R$ 5.978</div><div class="l">Investido (39,9% do flight)</div></div>
+      <div class="ministat"><div class="v">512k</div><div class="l">Impressões</div></div>
+      <div class="ministat"><div class="v">10.560</div><div class="l">Cliques</div></div>
+      <div class="ministat"><div class="v">2,06%</div><div class="l">CTR geral</div></div>
+      <div class="ministat"><div class="v">R$ 11,68</div><div class="l">CPM</div></div>
+      <div class="ministat"><div class="v">230k</div><div class="l">Alcance</div></div>
+    </div>
+
+    <div class="grid-2" style="margin-top:16px;">
+      <div class="card">
+        <h3>CTR por estratégia de audiência</h3>
+        <div class="sub">A segmentação de público parental dispara na frente</div>
+        <div class="chart-box" style="height:270px;"><canvas id="chartStrategy"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>CTR por criativo</h3>
+        <div class="sub">Família "Inesquecível" performa acima da "Não Comum"</div>
+        <div class="chart-box" style="height:270px;"><canvas id="chartCreative"></canvas></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="ico">→</span>
+      <div>
+        <b>Uso cruzado de audiência já em andamento.</b> A leitura de público parental que gera CTR de 6,56% na programática está sendo replicada nas campanhas de Meta, Google e TikTok — a mesma inteligência de audiência circulando pelos quatro canais.
+        <div class="chip-row">
+          <span class="chip">Meta Ads</span>
+          <span class="chip">Google Ads</span>
+          <span class="chip">TikTok Ads</span>
+          <span class="chip">Adsplay (fonte)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUALIDADE ===================== -->
+<section id="qualidade">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">05 — CRM</div>
+        <h2 class="sec-title">Qualidade dos leads · Junho</h2>
+      </div>
+      <p class="sec-desc">402 leads de Bariloche capturados no controle interno. 96,5% chegaram sem nenhum problema de dado.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Leads limpos vs. com problema</h3>
+        <div class="chart-box" style="height:260px;"><canvas id="chartQuality"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Ocorrências por tipo de problema</h3>
+        <div class="sub">Colégio e nome — sem sobreposição entre os dois neste mês</div>
+        <div class="quality-flags">
+          <div class="qflag"><span class="name">Colégio</span><div class="bar"><i style="width:100%"></i></div><span class="n">10</span></div>
+          <div class="qflag"><span class="name">Nome</span><div class="bar"><i style="width:40%"></i></div><span class="n">4</span></div>
+        </div>
+        <div class="note-box" style="border-left-color:var(--gray-dim); background:rgba(255,255,255,0.03);">Telefone ficou de fora desta contagem: a divergência encontrada era de exportação da planilha, não do preenchimento do lead — todos os números estão corretos.</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h3>De onde vieram os 402 leads de Bariloche</h3>
+      <div class="sub">Cruzamento do CRM com os relatórios de mídia paga — quase 1 em cada 3 leads vem de orgânico</div>
+      <div class="chart-box" style="height:90px;"><canvas id="chartSource"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EMBAIXADORES ===================== -->
+<section id="embaixadores">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">06 — INFLUENCIADORES</div>
+        <h2 class="sec-title">Performance dos embaixadores · BRC</h2>
+      </div>
+      <p class="sec-desc">20 criativos no Meta e 21 no TikTok rodando com embaixadores, além de leads diretos via Stories. Carol Thome, Lisa Barcelos e Maria Emanuelly lideram nas duas plataformas de mídia paga.</p>
+    </div>
+
+    <div class="stat-strip">
+      <div class="ministat"><div class="v">10.848</div><div class="l">Visitas ao perfil (Meta)</div></div>
+      <div class="ministat"><div class="v">R$ 0,28</div><div class="l">Custo médio/visita</div></div>
+      <div class="ministat"><div class="v">R$ 3.057</div><div class="l">Investido em Meta</div></div>
+      <div class="ministat"><div class="v">2.780</div><div class="l">Seguidores pagos (TikTok)</div></div>
+      <div class="ministat"><div class="v">R$ 1,10</div><div class="l">Custo médio/seguidor</div></div>
+      <div class="ministat"><div class="v">R$ 3.070</div><div class="l">Investido em TikTok</div></div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h3>Leads gerados por influenciador (Stories)</h3>
+      <div class="sub">16 leads no total · fonte: Controle de Leads (UTM medium = "influencer") · junho/2026 · conversão orgânica, sem custo de mídia paga adicional</div>
+      <div class="chart-box" style="height:230px;"><canvas id="chartInfluencerLeads"></canvas></div>
+    </div>
+
+    <div class="grid-2" style="margin-top:16px;">
+      <div class="card">
+        <h3>Top 6 · Visitas ao perfil (Meta)</h3>
+        <div class="sub">Custo por visita entre parênteses no tooltip</div>
+        <div class="chart-box" style="height:270px;"><canvas id="chartAmbMeta"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Top 6 · Seguidores pagos (TikTok)</h3>
+        <div class="sub">Somando todos os anúncios do mesmo embaixador</div>
+        <div class="chart-box" style="height:270px;"><canvas id="chartAmbTikTok"></canvas></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="ico">→</span>
+      <div>
+        <b>Carol Thome está desativada no Meta, mas é líder isolada no TikTok</b> (1.433 seguidores pagos, R$1,05/seguidor). Vale reavaliar a reativação do criativo dela no Meta — no ar, ela ficou em 3º lugar em visitas (1.040) mesmo pouco tempo ativa.
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:12px;">
+      <span class="ico">→</span>
+      <div>
+        <b>Mari, a embaixadora do teste de remarketing:</b> no Meta, custo por visita de R$0,19 — melhor que a média geral (R$0,28). No TikTok, custo por seguidor de R$2,36 — acima da média (R$1,10). Performance mista, mas o forte engajamento no Meta sustenta a escolha dela para a nova peça de remarketing da programática.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRÓXIMOS PASSOS ===================== -->
+<section id="passos" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">07 — AÇÃO</div>
+        <h2 class="sec-title">Próximos passos</h2>
+      </div>
+      <p class="sec-desc">O que entra em teste ou implementação a partir de agora.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <span class="num">01</span>
+        <div>
+          <h4>Uso cruzado de dados de audiência</h4>
+          <p>Aplicar os insights de segmentação da mídia programática (destaque para o público de pais) nas campanhas de Meta, Google e TikTok.</p>
+          <span class="status progress">Em andamento</span>
+        </div>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <div>
+          <h4>Formulário nativo no Meta Ads</h4>
+          <p>Testar campanhas de formulário nativo (Instant Forms) no Meta Ads para reduzir o CPL, hoje 34% acima da meta histórica.</p>
+          <span class="status test">A testar</span>
+        </div>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <div>
+          <h4>Novos criativos de remarketing</h4>
+          <p>Atualizar as peças de mídia programática para remarketing usando apenas a imagem da Mari (embaixadora) e uma imagem focada em Travel Rock.</p>
+          <span class="status test">A implementar</span>
+        </div>
+      </div>
+      <div class="step">
+        <span class="num">04</span>
+        <div>
+          <h4>Teste de público de pais</h4>
+          <p>Replicar no Meta Ads e no Google Ads a segmentação parental que já entrega CTR de 6,56% na programática.</p>
+          <span class="status test">A testar</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fbrand">V4 ALVES & CO.</div>
+    <p>Assessoria de marketing · Painel interno gerado a partir de Meta Ads, Google Ads, TikTok Ads, Adsplay e controle de leads · 02/07/2026</p>
+  </div>
+</footer>
+
+<script>
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.color = '#948F8C';
+Chart.defaults.font.size = 12;
+
+const orange = '#FF5A1F';
+const orangeBright = '#FF7E4D';
+const amber = '#FFB230';
+const grayLine = 'rgba(255,255,255,0.07)';
+const white = '#F7F4F0';
+
+function fmtBRL(v){ return 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits:0, maximumFractionDigits:0}); }
+
+// ---- Ambassadors: Meta profile visits ----
+new Chart(document.getElementById('chartAmbMeta'), {
+  type:'bar',
+  data:{
+    labels:['Colinhas','Lisa Barcelos','Carol Thome','Maria Emanuelly','Julia Puzzuoli','Maria Nicolly'],
+    datasets:[{ data:[3776,2903,1040,992,579,515],
+      backgroundColor:[orange,orange,'rgba(255,255,255,0.14)',amber,amber,'rgba(255,255,255,0.14)'],
+      borderRadius:6, barPercentage:0.6 }]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false },
+      tooltip:{ backgroundColor:'#1C191D', borderColor:'rgba(255,255,255,0.12)', borderWidth:1, padding:10,
+        callbacks:{ label:(c)=>{
+          const cpv=[0.21,0.30,0.39,0.32,0.32,0.41][c.dataIndex];
+          const status=['Ativo','Ativo','Desativado','Ativo','Ativo','Desativado'][c.dataIndex];
+          return c.raw.toLocaleString('pt-BR')+' visitas · R$'+cpv.toFixed(2).replace('.',',')+'/visita · '+status;
+        } } } },
+    scales:{ x:{ grid:{ color:grayLine } }, y:{ grid:{ display:false }, ticks:{ color:white, font:{size:11.5,weight:600} } } }
+  }
+});
+
+// ---- Ambassadors: TikTok paid follows ----
+new Chart(document.getElementById('chartAmbTikTok'), {
+  type:'bar',
+  data:{
+    labels:['Carol Thome','Lisa Barcelos','Maria Emanuelly','Pedro Avelar','Gabi Medeiros','Gabriel Santos'],
+    datasets:[{ data:[1433,472,374,144,101,66],
+      backgroundColor:[orange,orange,amber,'rgba(255,255,255,0.14)','rgba(255,255,255,0.14)','#6FBF7A'],
+      borderRadius:6, barPercentage:0.6 }]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false },
+      tooltip:{ backgroundColor:'#1C191D', borderColor:'rgba(255,255,255,0.12)', borderWidth:1, padding:10,
+        callbacks:{ label:(c)=>{
+          const cpf=[1.05,1.14,1.05,1.48,0.72,0.29][c.dataIndex];
+          return c.raw.toLocaleString('pt-BR')+' seguidores · R$'+cpf.toFixed(2).replace('.',',')+'/seguidor';
+        } } } },
+    scales:{ x:{ grid:{ color:grayLine } }, y:{ grid:{ display:false }, ticks:{ color:white, font:{size:11.5,weight:600} } } }
+  }
+});
+
+// ---- Leads gerados por influenciador (Stories) ----
+new Chart(document.getElementById('chartInfluencerLeads'), {
+  type:'bar',
+  data:{
+    labels:['Vivian & Vitória','Vinícius (MS)','Pedro Thomaz','Lisa Barcelos','Robson','Gusta','Colas'],
+    datasets:[{ data:[6,3,3,1,1,1,1],
+      backgroundColor:[orange,orange,amber,amber,'rgba(255,255,255,0.14)','rgba(255,255,255,0.14)','rgba(255,255,255,0.14)'],
+      borderRadius:6, barPercentage:0.6 }]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false },
+      tooltip:{ backgroundColor:'#1C191D', borderColor:'rgba(255,255,255,0.12)', borderWidth:1, padding:10,
+        callbacks:{ label:(c)=> c.raw + ' lead' + (c.raw>1?'s':'') } } },
+    scales:{ x:{ grid:{ color:grayLine }, ticks:{ stepSize:1 } }, y:{ grid:{ display:false }, ticks:{ color:white, font:{size:11.5,weight:600} } } }
+  }
+});
+
+// ---- Funnel: Total leads -> MQL ----
+new Chart(document.getElementById('chartFunnel'), {
+  type:'bar',
+  data:{
+    labels:['Total de leads','MQL'],
+    datasets:[{ data:[499,430], backgroundColor:[amber, orange], borderRadius:6, barPercentage:0.55 }]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false },
+      tooltip:{ backgroundColor:'#1C191D', borderColor:'rgba(255,255,255,0.12)', borderWidth:1, padding:10,
+        callbacks:{ label:(c)=> c.raw + (c.dataIndex===1 ? ' (86,2% do total)' : '') } } },
+    scales:{ x:{ grid:{ color:grayLine }, max:560 }, y:{ grid:{ display:false }, ticks:{ color:white, font:{weight:600, size:13} } } }
+  }
+});
+
+// ---- Budget chart ----
+new Chart(document.getElementById('chartBudget'), {
+  type: 'bar',
+  data: {
+    labels: ['Meta Ads', 'Google Ads', 'TikTok Ads'],
+    datasets: [
+      { label: 'Planejado', data: [15840, 8910, 8250], backgroundColor: 'rgba(255,255,255,0.10)', borderRadius:6, barPercentage:0.55 },
+      { label: 'Realizado', data: [16698, 8335, 7352], backgroundColor: orange, borderRadius:6, barPercentage:0.55 },
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ position:'top', align:'end', labels:{ boxWidth:10, boxHeight:10, usePointStyle:true, pointStyle:'circle' } },
+      tooltip:{ backgroundColor:'#1C191D', borderColor:'rgba(255,255,255,0.12)', borderWidth:1, padding:10,
+        callbacks:{ label: (c)=> c.dataset.label + ': ' + fmtBRL(c.raw) } } },
+    scales:{
+      x:{ grid:{ display:false }, ticks:{ color: white, font:{weight:600} } },
+      y:{ grid:{ color: grayLine }, ticks:{ callback:(v)=> 'R$ '+(v/1000)+'k' } }
+    }
+  }
+});
+
+// ---- CPL chart (bar + reference line) ----
+new Chart(document.getElementById('chartCPL'), {
+  data: {
+    labels: ['Meta Ads', 'Google Ads', 'Blended'],
+    datasets: [
+      { type:'bar', label:'CPL realizado', data:[53.70, 39.69, 46.41],
+        backgroundColor:[orange, '#6FBF7A', amber], borderRadius:6, barPercentage:0.5 },
+      { type:'line', label:'Meta histórica (R$40)', data:[40,40,40],
+        borderColor:'rgba(255,255,255,0.55)', borderDash:[6,5], borderWidth:2, pointRadius:0 }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ position:'bottom', labels:{ boxWidth:9, boxHeight:9, usePointStyle:true, pointStyle:'circle', font:{size:10.5}, padding:10 } },
+      tooltip:{ backgroundColor:'#1C191D', borderColor:'rgba(255,255,255,0.12)', borderWidth:1, padding:10,
+        callbacks:{ label:(c)=> c.dataset.label + ': R$ ' + c.raw.toFixed(2).replace('.',',') } } },
+    scales:{
+      x:{ grid:{ display:false }, ticks:{ color:white, font:{weight:600, size:11} } },
+      y:{ grid:{ color:grayLine }, ticks:{ callback:(v)=>'R$'+v, font:{size:10.5} } }
+    }
+  }
+});
+
+// ---- Lead origins (Controle de Leads, June 2026) ----
+new Chart(document.getElementById('chartLeadsSplit'), {
+  type:'bar',
+  data:{
+    labels:['Google','Instagram (ig)','Link da Bio','Influenciadores (Stories)','Link da Bio TikTok','Instagram Stories (orgânico)','Não identificado'],
+    datasets:[{ data:[164,115,83,16,14,8,2],
+      backgroundColor:[orange,orange,amber,'#6FBF7A',amber,'rgba(255,255,255,0.14)','rgba(255,255,255,0.14)'],
+      borderRadius:5, barPercentage:0.65 }]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false },
+      tooltip:{ backgroundColor:'#1C191D', borderColor:'rgba(255,255,255,0.12)', borderWidth:1, padding:10,
+        callbacks:{ label:(c)=> c.raw + ' leads · ' + (c.raw/402*100).toFixed(1)+'%' } } },
+    scales:{ x:{ grid:{ color:grayLine } }, y:{ grid:{ display:false }, ticks:{ color:white, font:{size:10.5,weight:600} } } }
+  }
+});
+
+// ---- Strategy CTR ----
+new Chart(document.getElementById('chartStrategy'), {
+  type:'bar',
+  data:{
+    labels:['Público parental','Público semelhante','Remarketing 30 dias','Custom Intent','Categorias Educação'],
+    datasets:[{ data:[6.56,1.72,1.53,0.68,0.22],
+      backgroundColor:[orange, 'rgba(255,255,255,0.14)','rgba(255,255,255,0.14)','rgba(255,255,255,0.14)','rgba(255,255,255,0.14)'],
+      borderRadius:6, barPercentage:0.6 }]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false },
+      tooltip:{ backgroundColor:'#1C191D', borderColor:'rgba(255,255,255,0.12)', borderWidth:1, padding:10,
+        callbacks:{ label:(c)=> 'CTR: '+c.raw+'%' } } },
+    scales:{ x:{ grid:{ color:grayLine }, ticks:{ callback:(v)=>v+'%' } }, y:{ grid:{ display:false }, ticks:{ color:white, font:{size:11.5} } } }
+  }
+});
+
+// ---- Creative CTR ----
+new Chart(document.getElementById('chartCreative'), {
+  type:'bar',
+  data:{
+    labels:['Inesquecível 336×280','Inesquecível 320×50','Não Comum 320×50','Não Comum 728×90'],
+    datasets:[{ data:[2.87,1.92,1.13,0.71],
+      backgroundColor:[orange, amber, 'rgba(255,255,255,0.14)','rgba(255,255,255,0.14)'],
+      borderRadius:6, barPercentage:0.6 }]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false },
+      tooltip:{ backgroundColor:'#1C191D', borderColor:'rgba(255,255,255,0.12)', borderWidth:1, padding:10,
+        callbacks:{ label:(c)=> 'CTR: '+c.raw+'%' } } },
+    scales:{ x:{ grid:{ color:grayLine }, ticks:{ callback:(v)=>v+'%' } }, y:{ grid:{ display:false }, ticks:{ color:white, font:{size:11.5} } } }
+  }
+});
+
+// ---- Quality donut ----
+new Chart(document.getElementById('chartQuality'), {
+  type:'doughnut',
+  data:{ labels:['Sem problema (388)','Com problema (14)'],
+    datasets:[{ data:[388,14], backgroundColor:[orange,'rgba(255,255,255,0.14)'], borderColor:'#151316', borderWidth:4 }] },
+  options:{
+    responsive:true, maintainAspectRatio:false, cutout:'68%',
+    plugins:{ legend:{ position:'bottom', labels:{ boxWidth:10, boxHeight:10, usePointStyle:true, pointStyle:'circle', padding:16 } },
+      tooltip:{ backgroundColor:'#1C191D', borderColor:'rgba(255,255,255,0.12)', borderWidth:1, padding:10,
+        callbacks:{ label:(c)=> c.label + ' — ' + (c.raw/402*100).toFixed(1)+'%' } } }
+  }
+});
+
+// ---- Source reconciliation (stacked horizontal) ----
+new Chart(document.getElementById('chartSource'), {
+  type:'bar',
+  data:{
+    labels:[''],
+    datasets:[
+      { label:'Google Ads (164)', data:[164], backgroundColor:orange, borderRadius:{topLeft:6,bottomLeft:6}, borderSkipped:false },
+      { label:'Instagram / Meta (115)', data:[115], backgroundColor:amber },
+      { label:'Orgânico — bio/stories (123)', data:[123], backgroundColor:'rgba(255,255,255,0.16)', borderRadius:{topRight:6,bottomRight:6}, borderSkipped:false },
+    ]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ position:'bottom', labels:{ boxWidth:10, boxHeight:10, usePointStyle:true, pointStyle:'circle', padding:16 } },
+      tooltip:{ backgroundColor:'#1C191D', borderColor:'rgba(255,255,255,0.12)', borderWidth:1, padding:10,
+        callbacks:{ label:(c)=> c.dataset.label + ' — ' + (c.raw/402*100).toFixed(1)+'%' } } },
+    scales:{ x:{ stacked:true, display:false }, y:{ stacked:true, display:false } }
+  }
+});
+</script>
+</body>
+</html>
