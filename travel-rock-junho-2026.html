@@ -6,7 +6,24 @@
 <title>Travel Rock · Painel de Performance · Junho 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script>
+(function(){
+  var sources = [
+    'https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js',
+    'https://unpkg.com/chart.js@4.4.4/dist/chart.umd.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js'
+  ];
+  var i = 0;
+  function tryLoad(){
+    if (i >= sources.length){ console.error('Nao foi possivel carregar a biblioteca de graficos de nenhum CDN.'); return; }
+    var s = document.createElement('script');
+    s.src = sources[i];
+    s.onerror = function(){ i++; tryLoad(); };
+    document.head.appendChild(s);
+  }
+  tryLoad();
+})();
+</script>
 <style>
   :root{
     --black: #0A0A0B;
@@ -37,6 +54,24 @@
   }
   .mono{ font-family:'IBM Plex Mono', monospace; }
   .wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,10,11,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .brand .dot{ width:10px;height:10px;border-radius:50%; background:var(--orange); box-shadow:0 0 12px var(--orange);}
+  .brand span{ font-family:'Archivo Black', sans-serif; font-size:15px; letter-spacing:0.5px; }
+  .brand small{ display:block; font-family:'Inter'; font-weight:500; font-size:10.5px; color:var(--gray); letter-spacing:1px; }
+  .navlinks{ display:flex; gap:26px; }
+  .navlinks a{ color:var(--gray); text-decoration:none; font-size:13px; font-weight:600; letter-spacing:0.2px; transition:color .15s;}
+  .navlinks a:hover, .navlinks a:focus-visible{ color:var(--orange-bright); }
+  .navlinks a:focus-visible{ outline:2px solid var(--orange); outline-offset:4px; border-radius:4px;}
+  @media (max-width:920px){ .navlinks{display:none;} }
 
   /* ---------- HERO ---------- */
   header.hero{ padding:64px 0 40px; border-bottom:1px solid var(--line); position:relative; overflow:hidden; }
@@ -563,6 +598,7 @@
 </footer>
 
 <script>
+function initDashboardCharts(){
 Chart.defaults.font.family = "'Inter', sans-serif";
 Chart.defaults.color = '#948F8C';
 Chart.defaults.font.size = 12;
@@ -783,6 +819,19 @@ new Chart(document.getElementById('chartSource'), {
     scales:{ x:{ stacked:true, display:false }, y:{ stacked:true, display:false } }
   }
 });
+}
+
+if (window.Chart) {
+  initDashboardCharts();
+} else {
+  var __chartWait = setInterval(function(){
+    if (window.Chart) {
+      clearInterval(__chartWait);
+      initDashboardCharts();
+    }
+  }, 50);
+  setTimeout(function(){ clearInterval(__chartWait); }, 15000);
+}
 </script>
 </body>
 </html>
