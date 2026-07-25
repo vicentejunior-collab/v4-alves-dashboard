@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-07-22",
+  "gerado_em": "2026-07-25",
   "health_score_data": "2026-07-10",
   "clientes": [
     {
@@ -9,32 +9,8 @@
       "fee": 6327.0,
       "flag": "amarelo",
       "score": 75,
-      "meta_semanal": {
-        "period": null,
-        "invest": "R$ 3,430.78",
-        "impressoes": "702,665",
-        "cliques": "21,219",
-        "ctr": "3.02%",
-        "cpm": "R$ 4.88",
-        "cpc": "R$ 0.16",
-        "conversoes": "173",
-        "cpl": "R$ 19.83",
-        "roas": null,
-        "campaigns": []
-      },
-      "meta_mensal": {
-        "period": "Julho/2026 — parcial até 22/07",
-        "invest": "R$ 10,270.77",
-        "impressoes": "2,012,155",
-        "cliques": "51,308",
-        "ctr": "2.55%",
-        "cpm": "R$ 5.10",
-        "cpc": "R$ 0.20",
-        "conversoes": "345",
-        "cpl": "R$ 29.77",
-        "roas": null,
-        "campaigns": []
-      }
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "Ventania / Marynga",
@@ -334,16 +310,7 @@
         "conversoes": "0",
         "cpl": null,
         "roas": null,
-        "campaigns": [
-          {
-            "name": "[V4]-[MENSAGEM]-[MARÇO]-[CBO]-[TEST",
-            "spend": "R$ 202.89"
-          },
-          {
-            "name": "[V4]-[MENSAGEM]-[NOVO CHIP]-[CBO]-[",
-            "spend": "R$ 89.48"
-          }
-        ]
+        "campaigns": []
       },
       "meta_mensal": {
         "period": "Julho/2026 — parcial até 22/07",
@@ -353,7 +320,7 @@
         "ctr": "0.75%",
         "cpm": "R$ 10.32",
         "cpc": "R$ 1.38",
-        "conversoes": "0",
+        "conversoes": null,
         "cpl": null,
         "roas": null,
         "campaigns": []
