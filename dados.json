@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-08-26",
+  "gerado_em": "2026-08-27",
   "health_score_data": "2026-07-10",
   "clientes": [
     {
@@ -140,32 +140,8 @@
       "fee": 0.0,
       "flag": "amarelo",
       "score": 70,
-      "meta_semanal": {
-        "period": null,
-        "invest": "R$ 2,843.94",
-        "impressoes": "280,717",
-        "cliques": "4,615",
-        "ctr": "1.64%",
-        "cpm": "R$ 10.13",
-        "cpc": "R$ 0.62",
-        "conversoes": "0",
-        "cpl": null,
-        "roas": null,
-        "campaigns": []
-      },
-      "meta_mensal": {
-        "period": "Agosto/2026 — parcial até 23/08",
-        "invest": "R$ 11,688.29",
-        "impressoes": "953,360",
-        "cliques": "17,661",
-        "ctr": "1.85%",
-        "cpm": "R$ 12.26",
-        "cpc": "R$ 0.66",
-        "conversoes": "0",
-        "cpl": null,
-        "roas": null,
-        "campaigns": []
-      }
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "Terra Vitta",
