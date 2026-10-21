@@ -1,14 +1,14 @@
 {
-  "gerado_em": "2026-10-19",
-  "health_score_data": "N/A",
+  "gerado_em": "2026-10-20",
+  "health_score_data": "2026-07-10",
   "clientes": [
     {
       "name": "Travel Rock",
       "file": "travel-rock",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
+      "squad": "CINTIA",
+      "fee": 6327.0,
+      "flag": "amarelo",
+      "score": 75,
       "meta_semanal": {
         "period": null,
         "invest": "R$ 3,043.88",
@@ -46,22 +46,12 @@
       }
     },
     {
-      "name": "Farmácia Descontão",
-      "file": "farmacia-descontao",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
-      "meta_semanal": null,
-      "meta_mensal": null
-    },
-    {
       "name": "Ventania / Marynga",
       "file": "ventania",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
+      "squad": "CINTIA",
+      "fee": 6000.0,
+      "flag": "verde",
+      "score": 90,
       "meta_semanal": {
         "period": null,
         "invest": "R$ 323.47",
@@ -92,40 +82,40 @@
     {
       "name": "Éthéreal",
       "file": "ethereal",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
+      "squad": "CINTIA",
+      "fee": 8155.25,
+      "flag": "verde",
+      "score": 80,
       "meta_semanal": null,
       "meta_mensal": null
     },
     {
       "name": "Parcelando Tudo",
       "file": "parcelando-tudo",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
+      "squad": "VICENTE",
+      "fee": 4351.0,
+      "flag": "amarelo",
+      "score": 70,
       "meta_semanal": null,
       "meta_mensal": null
     },
     {
       "name": "Grupo Obará",
       "file": "grupo-obara",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
+      "squad": "VICENTE",
+      "fee": 10497.0,
+      "flag": "verde",
+      "score": 100,
       "meta_semanal": null,
       "meta_mensal": null
     },
     {
       "name": "Vitrinni",
       "file": "vitrinni",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
+      "squad": "ARTHUR",
+      "fee": 0.0,
+      "flag": "amarelo",
+      "score": 70,
       "meta_semanal": {
         "period": null,
         "invest": "R$ 2,381.88",
@@ -165,10 +155,10 @@
     {
       "name": "Terra Vitta",
       "file": "terra-vitta",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
+      "squad": "ARTHUR",
+      "fee": 2000.0,
+      "flag": "verde",
+      "score": 90,
       "meta_semanal": {
         "period": null,
         "invest": "R$ 211.41",
@@ -209,10 +199,10 @@
     {
       "name": "Instituto Lazarin",
       "file": "instituto-lazarin",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
+      "squad": "ARTHUR",
+      "fee": 2000.0,
+      "flag": "amarelo",
+      "score": 60,
       "meta_semanal": {
         "period": null,
         "invest": "R$ 450.87",
@@ -243,63 +233,30 @@
     {
       "name": "F&C Serviços",
       "file": "fc-servicos",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
-      "meta_semanal": {
-        "period": null,
-        "invest": "R$ 627.25",
-        "impressoes": "25,037",
-        "cliques": "473",
-        "ctr": "1.89%",
-        "cpm": "R$ 25.05",
-        "cpc": "R$ 1.33",
-        "conversoes": "20",
-        "cpl": "R$ 31.36",
-        "roas": null,
-        "campaigns": [
-          {
-            "name": "[V4]-[FN]-[RJ-SP-PR]-[CBO]-[TEST]-[",
-            "spend": "R$ 321.38"
-          },
-          {
-            "name": "[V4]-[FN]-[CBO]-[TEST]-[TOP]-[DIA]-",
-            "spend": "R$ 135.75"
-          }
-        ]
-      },
-      "meta_mensal": {
-        "period": "Outubro/2026 — parcial até 02/10",
-        "invest": "R$ 53.41",
-        "impressoes": "1,360",
-        "cliques": "12",
-        "ctr": "0.88%",
-        "cpm": "R$ 39.27",
-        "cpc": "R$ 4.45",
-        "conversoes": "1",
-        "cpl": "R$ 53.41",
-        "roas": null,
-        "campaigns": []
-      }
+      "squad": "ARTHUR",
+      "fee": 5959.6,
+      "flag": "verde",
+      "score": 90,
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "F&C Group App",
       "file": "fc-group-app",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
+      "squad": "ARTHUR",
+      "fee": 5855.05,
+      "flag": "verde",
+      "score": 90,
       "meta_semanal": null,
       "meta_mensal": null
     },
     {
       "name": "Uberhaus RP",
       "file": "uberhaus-rp",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
+      "squad": "CINTIA",
+      "fee": 2087.8,
+      "flag": "amarelo",
+      "score": 60,
       "meta_semanal": {
         "period": null,
         "invest": "R$ 400.89",
@@ -337,22 +294,12 @@
       }
     },
     {
-      "name": "Rede Representações",
-      "file": "rede-representacoes",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
-      "meta_semanal": null,
-      "meta_mensal": null
-    },
-    {
       "name": "Clínica Phoenix",
       "file": "clinica-phoenix",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
+      "squad": "ARTHUR",
+      "fee": 2376.75,
+      "flag": "amarelo",
+      "score": 40,
       "meta_semanal": {
         "period": null,
         "invest": "R$ 227.92",
@@ -383,10 +330,10 @@
     {
       "name": "HigiLife",
       "file": "higilife",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
+      "squad": "VICENTE",
+      "fee": 0.0,
+      "flag": "amarelo",
+      "score": 60,
       "meta_semanal": null,
       "meta_mensal": null
     },
@@ -403,20 +350,20 @@
     {
       "name": "Papelaria Home & Office",
       "file": "papelaria-home-office",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
+      "squad": "ARTHUR",
+      "fee": 0.0,
+      "flag": "amarelo",
+      "score": 60,
       "meta_semanal": null,
       "meta_mensal": null
     },
     {
       "name": "Condal Beauty",
       "file": "condal-beauty",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
+      "squad": "CINTIA",
+      "fee": 4540.0,
+      "flag": "amarelo",
+      "score": 70,
       "meta_semanal": {
         "period": null,
         "invest": "R$ 110.46",
@@ -533,23 +480,29 @@
     {
       "name": "Fazenda Vale Imperial",
       "file": "fazenda-vale-imperial",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
-      "meta_semanal": null,
-      "meta_mensal": null
-    },
-    {
-      "name": "Empadinhas",
-      "file": "empadinhas",
-      "squad": "—",
-      "fee": null,
-      "flag": "sem-dados",
-      "score": null,
+      "squad": "CINTIA",
+      "fee": 2000.0,
+      "flag": "amarelo",
+      "score": 50,
       "meta_semanal": null,
       "meta_mensal": null
     }
   ],
-  "churns": []
+  "churns": [
+    {
+      "name": "Farmácia Descontão",
+      "squad": "ARTHUR",
+      "churn_date": "2026-06-22"
+    },
+    {
+      "name": "Rede Representações",
+      "squad": "CINTIA",
+      "churn_date": "2026-06-24"
+    },
+    {
+      "name": "Empadinhas",
+      "squad": "ARTHUR",
+      "churn_date": "2026-06-19"
+    }
+  ]
 }
