@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-10-22",
+  "gerado_em": "2026-10-24",
   "health_score_data": "2026-07-10",
   "clientes": [
     {
@@ -338,32 +338,8 @@
       "fee": 2376.75,
       "flag": "amarelo",
       "score": 40,
-      "meta_semanal": {
-        "period": null,
-        "invest": "R$ 206.36",
-        "impressoes": "8,437",
-        "cliques": "310",
-        "ctr": "3.67%",
-        "cpm": "R$ 24.46",
-        "cpc": "R$ 0.67",
-        "conversoes": "0",
-        "cpl": null,
-        "roas": null,
-        "campaigns": []
-      },
-      "meta_mensal": {
-        "period": "Outubro/2026 — parcial até 22/10",
-        "invest": "R$ 646.40",
-        "impressoes": "55,936",
-        "cliques": "1,147",
-        "ctr": "2.05%",
-        "cpm": "R$ 11.56",
-        "cpc": "R$ 0.56",
-        "conversoes": "0",
-        "cpl": null,
-        "roas": null,
-        "campaigns": []
-      }
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "HigiLife",
