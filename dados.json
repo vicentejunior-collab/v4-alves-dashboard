@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-11-08",
+  "gerado_em": "2026-11-11",
   "health_score_data": "2026-07-10",
   "clientes": [
     {
@@ -11,36 +11,36 @@
       "score": 75,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 5,231.88",
-        "impressoes": "788,696",
-        "cliques": "19,413",
-        "ctr": "2.46%",
-        "cpm": "R$ 6.63",
-        "cpc": "R$ 0.27",
-        "conversoes": "272",
-        "cpl": "R$ 19.23",
+        "invest": "R$ 4,568.37",
+        "impressoes": "549,805",
+        "cliques": "17,277",
+        "ctr": "3.14%",
+        "cpm": "R$ 8.31",
+        "cpc": "R$ 0.26",
+        "conversoes": "349",
+        "cpl": "R$ 13.09",
         "roas": null,
         "campaigns": [
           {
             "name": "[RJ-ES] …",
-            "spend": "R$ 973.12"
+            "spend": "R$ 508.17"
           },
           {
-            "name": "[V4]-[FN]-[REMARKETING]-[BZ 🌊]-[CBO",
-            "spend": "R$ 266.49"
+            "name": "[SP-MG]",
+            "spend": "R$ 84.75"
           }
         ]
       },
       "meta_mensal": {
-        "period": "Novembro/2026 — parcial até 07/11",
-        "invest": "R$ 4,572.53",
-        "impressoes": "678,610",
-        "cliques": "17,011",
-        "ctr": "2.51%",
-        "cpm": "R$ 6.74",
-        "cpc": "R$ 0.27",
-        "conversoes": "251",
-        "cpl": "R$ 18.22",
+        "period": "Novembro/2026 — parcial até 10/11",
+        "invest": "R$ 7,003.12",
+        "impressoes": "943,274",
+        "cliques": "26,926",
+        "ctr": "2.85%",
+        "cpm": "R$ 7.42",
+        "cpc": "R$ 0.26",
+        "conversoes": "460",
+        "cpl": "R$ 15.22",
         "roas": null,
         "campaigns": []
       }
@@ -54,27 +54,27 @@
       "score": 90,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 229.45",
-        "impressoes": "24,187",
-        "cliques": "293",
-        "ctr": "1.21%",
-        "cpm": "R$ 9.49",
-        "cpc": "R$ 0.78",
+        "invest": "R$ 248.81",
+        "impressoes": "42,593",
+        "cliques": "710",
+        "ctr": "1.67%",
+        "cpm": "R$ 5.84",
+        "cpc": "R$ 0.35",
         "conversoes": "0",
         "cpl": null,
         "roas": null,
         "campaigns": []
       },
       "meta_mensal": {
-        "period": "Novembro/2026 — parcial até 07/11",
-        "invest": "R$ 183.67",
-        "impressoes": "21,353",
-        "cliques": "280",
-        "ctr": "1.31%",
-        "cpm": "R$ 8.60",
-        "cpc": "R$ 0.66",
-        "conversoes": "0",
-        "cpl": null,
+        "period": "Novembro/2026 — parcial até 10/11",
+        "invest": "R$ 2,202.61",
+        "impressoes": "155,115",
+        "cliques": "2,971",
+        "ctr": "1.92%",
+        "cpm": "R$ 14.20",
+        "cpc": "R$ 0.74",
+        "conversoes": "138",
+        "cpl": "R$ 15.96",
         "roas": null,
         "campaigns": []
       }
@@ -118,34 +118,34 @@
       "score": 70,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 4,451.85",
-        "impressoes": "1,008,012",
-        "cliques": "8,797",
-        "ctr": "0.87%",
-        "cpm": "R$ 4.42",
-        "cpc": "R$ 0.51",
+        "invest": "R$ 3,164.08",
+        "impressoes": "865,050",
+        "cliques": "5,650",
+        "ctr": "0.65%",
+        "cpm": "R$ 3.66",
+        "cpc": "R$ 0.56",
         "conversoes": "0",
         "cpl": null,
         "roas": null,
         "campaigns": [
           {
-            "name": "[ABO] [DIRECT-IG] [DOM] [Início: 30",
-            "spend": "R$ 1,784.77"
+            "name": "[ABO] [DIRECT-IG] [SÁB] [Início: 08",
+            "spend": "R$ 1,015.21"
           },
           {
-            "name": "[ABO] [DIRECT-IG] [SÁB] [Início: 08",
-            "spend": "R$ 1,410.08"
+            "name": "[ABO] [DIRECT-IG] [DOM] [Início: 30",
+            "spend": "R$ 701.60"
           }
         ]
       },
       "meta_mensal": {
-        "period": "Novembro/2026 — parcial até 07/11",
-        "invest": "R$ 3,572.48",
-        "impressoes": "974,181",
-        "cliques": "6,735",
-        "ctr": "0.69%",
-        "cpm": "R$ 3.67",
-        "cpc": "R$ 0.53",
+        "period": "Novembro/2026 — parcial até 10/11",
+        "invest": "R$ 4,052.57",
+        "impressoes": "1,122,045",
+        "cliques": "7,431",
+        "ctr": "0.66%",
+        "cpm": "R$ 3.61",
+        "cpc": "R$ 0.55",
         "conversoes": "0",
         "cpl": null,
         "roas": null,
@@ -159,32 +159,8 @@
       "fee": 2000.0,
       "flag": "verde",
       "score": 90,
-      "meta_semanal": {
-        "period": null,
-        "invest": "R$ 240.65",
-        "impressoes": "32,119",
-        "cliques": "2,492",
-        "ctr": "7.76%",
-        "cpm": "R$ 7.49",
-        "cpc": "R$ 0.10",
-        "conversoes": "0",
-        "cpl": null,
-        "roas": null,
-        "campaigns": []
-      },
-      "meta_mensal": {
-        "period": "Novembro/2026 — parcial até 07/11",
-        "invest": "R$ 217.39",
-        "impressoes": "30,131",
-        "cliques": "2,308",
-        "ctr": "7.66%",
-        "cpm": "R$ 7.21",
-        "cpc": "R$ 0.09",
-        "conversoes": "0",
-        "cpl": null,
-        "roas": null,
-        "campaigns": []
-      }
+      "meta_semanal": null,
+      "meta_mensal": null
     },
     {
       "name": "União Vida",
@@ -205,27 +181,27 @@
       "score": 60,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 862.96",
-        "impressoes": "16,231",
-        "cliques": "373",
-        "ctr": "2.30%",
-        "cpm": "R$ 53.17",
-        "cpc": "R$ 2.31",
-        "conversoes": "5",
-        "cpl": "R$ 172.59",
+        "invest": "R$ 810.80",
+        "impressoes": "14,434",
+        "cliques": "288",
+        "ctr": "2.00%",
+        "cpm": "R$ 56.17",
+        "cpc": "R$ 2.82",
+        "conversoes": "1",
+        "cpl": "R$ 810.80",
         "roas": null,
         "campaigns": []
       },
       "meta_mensal": {
-        "period": "Novembro/2026 — parcial até 07/11",
-        "invest": "R$ 769.09",
-        "impressoes": "14,634",
-        "cliques": "324",
-        "ctr": "2.21%",
-        "cpm": "R$ 52.56",
-        "cpc": "R$ 2.37",
+        "period": "Novembro/2026 — parcial até 10/11",
+        "invest": "R$ 1,233.17",
+        "impressoes": "22,670",
+        "cliques": "446",
+        "ctr": "1.97%",
+        "cpm": "R$ 54.40",
+        "cpc": "R$ 2.76",
         "conversoes": "4",
-        "cpl": "R$ 192.27",
+        "cpl": "R$ 308.29",
         "roas": null,
         "campaigns": []
       }
@@ -239,36 +215,36 @@
       "score": 90,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 545.01",
-        "impressoes": "19,514",
-        "cliques": "248",
-        "ctr": "1.27%",
-        "cpm": "R$ 27.93",
-        "cpc": "R$ 2.20",
-        "conversoes": "19",
-        "cpl": "R$ 28.68",
+        "invest": "R$ 534.74",
+        "impressoes": "18,277",
+        "cliques": "221",
+        "ctr": "1.21%",
+        "cpm": "R$ 29.26",
+        "cpc": "R$ 2.42",
+        "conversoes": "17",
+        "cpl": "R$ 31.46",
         "roas": null,
         "campaigns": [
           {
             "name": "[V4]-[FN]-[FIM DA ESCALA 6x1]-[CBO]",
-            "spend": "R$ 202.66"
+            "spend": "R$ 208.28"
           },
           {
             "name": "[V4]-[FN]-[CBO]-[TEST]-[TOP]-[DIA]-",
-            "spend": "R$ 169.78"
+            "spend": "R$ 181.50"
           }
         ]
       },
       "meta_mensal": {
-        "period": "Novembro/2026 — parcial até 07/11",
-        "invest": "R$ 501.20",
-        "impressoes": "18,094",
-        "cliques": "231",
-        "ctr": "1.28%",
-        "cpm": "R$ 27.70",
-        "cpc": "R$ 2.17",
-        "conversoes": "18",
-        "cpl": "R$ 27.84",
+        "period": "Novembro/2026 — parcial até 10/11",
+        "invest": "R$ 768.80",
+        "impressoes": "26,775",
+        "cliques": "347",
+        "ctr": "1.30%",
+        "cpm": "R$ 28.71",
+        "cpc": "R$ 2.22",
+        "conversoes": "26",
+        "cpl": "R$ 29.57",
         "roas": null,
         "campaigns": []
       }
@@ -292,34 +268,34 @@
       "score": 60,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 440.56",
-        "impressoes": "32,347",
-        "cliques": "264",
-        "ctr": "0.82%",
-        "cpm": "R$ 13.62",
-        "cpc": "R$ 1.67",
+        "invest": "R$ 475.17",
+        "impressoes": "29,368",
+        "cliques": "148",
+        "ctr": "0.50%",
+        "cpm": "R$ 16.18",
+        "cpc": "R$ 3.21",
         "conversoes": "0",
         "cpl": null,
         "roas": null,
         "campaigns": [
           {
             "name": "[V4]-[MENSAGEM]-[TOPO DE FUNIL]-[CB",
-            "spend": "R$ 212.12"
+            "spend": "R$ 252.89"
           },
           {
             "name": "[V4]-[MENSAGEM]-[MEIO DO FUNIL]-[CB",
-            "spend": "R$ 149.86"
+            "spend": "R$ 146.57"
           }
         ]
       },
       "meta_mensal": {
-        "period": "Novembro/2026 — parcial até 07/11",
-        "invest": "R$ 388.75",
-        "impressoes": "28,488",
-        "cliques": "212",
-        "ctr": "0.74%",
-        "cpm": "R$ 13.65",
-        "cpc": "R$ 1.83",
+        "period": "Novembro/2026 — parcial até 11/11",
+        "invest": "R$ 706.46",
+        "impressoes": "48,099",
+        "cliques": "299",
+        "ctr": "0.62%",
+        "cpm": "R$ 14.69",
+        "cpc": "R$ 2.36",
         "conversoes": "0",
         "cpl": null,
         "roas": null,
@@ -375,29 +351,29 @@
       "score": 70,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 419.09",
-        "impressoes": "26,471",
-        "cliques": "795",
-        "ctr": "3.00%",
-        "cpm": "R$ 15.83",
-        "cpc": "R$ 0.53",
+        "invest": "R$ 410.38",
+        "impressoes": "22,662",
+        "cliques": "762",
+        "ctr": "3.36%",
+        "cpm": "R$ 18.11",
+        "cpc": "R$ 0.54",
         "conversoes": "0",
         "cpl": null,
         "roas": null,
         "campaigns": [
           {
             "name": "[WPP] Campanha Kérastase - Barra Sh",
-            "spend": "R$ 261.30"
+            "spend": "R$ 257.19"
           }
         ]
       },
       "meta_mensal": {
-        "period": "Novembro/2026 — parcial até 07/11",
-        "invest": "R$ 386.45",
-        "impressoes": "24,190",
-        "cliques": "735",
+        "period": "Novembro/2026 — parcial até 10/11",
+        "invest": "R$ 498.00",
+        "impressoes": "31,040",
+        "cliques": "945",
         "ctr": "3.04%",
-        "cpm": "R$ 15.98",
+        "cpm": "R$ 16.04",
         "cpc": "R$ 0.53",
         "conversoes": "0",
         "cpl": null,
@@ -414,34 +390,34 @@
       "score": null,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 288.06",
-        "impressoes": "6,690",
-        "cliques": "108",
-        "ctr": "1.61%",
-        "cpm": "R$ 43.06",
-        "cpc": "R$ 2.67",
+        "invest": "R$ 296.24",
+        "impressoes": "6,216",
+        "cliques": "115",
+        "ctr": "1.85%",
+        "cpm": "R$ 47.66",
+        "cpc": "R$ 2.58",
         "conversoes": "0",
         "cpl": null,
         "roas": null,
         "campaigns": [
           {
             "name": "[V4]-[CBO]-[TEST]-[TOP]-[DIA]-[GERA",
-            "spend": "R$ 204.77"
+            "spend": "R$ 205.27"
           },
           {
             "name": "[V4]-[REMARKETING]-[CBO]-[TEST]-[TO",
-            "spend": "R$ 83.29"
+            "spend": "R$ 90.97"
           }
         ]
       },
       "meta_mensal": {
-        "period": "Novembro/2026 — parcial até 07/11",
-        "invest": "R$ 263.25",
-        "impressoes": "5,988",
-        "cliques": "103",
-        "ctr": "1.72%",
-        "cpm": "R$ 43.96",
-        "cpc": "R$ 2.56",
+        "period": "Novembro/2026 — parcial até 10/11",
+        "invest": "R$ 412.80",
+        "impressoes": "8,865",
+        "cliques": "154",
+        "ctr": "1.74%",
+        "cpm": "R$ 46.57",
+        "cpc": "R$ 2.68",
         "conversoes": "0",
         "cpl": null,
         "roas": null,
@@ -457,36 +433,36 @@
       "score": null,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 698.15",
-        "impressoes": "15,639",
-        "cliques": "250",
-        "ctr": "1.60%",
-        "cpm": "R$ 44.64",
-        "cpc": "R$ 2.79",
-        "conversoes": "12",
-        "cpl": "R$ 58.18",
+        "invest": "R$ 691.08",
+        "impressoes": "13,258",
+        "cliques": "257",
+        "ctr": "1.94%",
+        "cpm": "R$ 52.13",
+        "cpc": "R$ 2.69",
+        "conversoes": "13",
+        "cpl": "R$ 53.16",
         "roas": null,
         "campaigns": [
           {
             "name": "[V4]-[FN]-[NR-1][CBO]-[TEST]-[TOP]-",
-            "spend": "R$ 352.55"
+            "spend": "R$ 347.54"
           },
           {
-            "name": "[V4]-[FN]-[CBO]-[TEST]-[TOP]-[DIA]-",
-            "spend": "R$ 140.89"
+            "name": "[V4]-[NR-1]-[CBO]-[TEST]-[TOP]-[DIA",
+            "spend": "R$ 139.00"
           }
         ]
       },
       "meta_mensal": {
-        "period": "Novembro/2026 — parcial até 07/11",
-        "invest": "R$ 641.65",
-        "impressoes": "13,901",
-        "cliques": "234",
-        "ctr": "1.68%",
-        "cpm": "R$ 46.16",
-        "cpc": "R$ 2.74",
-        "conversoes": "12",
-        "cpl": "R$ 53.47",
+        "period": "Novembro/2026 — parcial até 11/11",
+        "invest": "R$ 1,104.25",
+        "impressoes": "22,323",
+        "cliques": "422",
+        "ctr": "1.89%",
+        "cpm": "R$ 49.47",
+        "cpc": "R$ 2.62",
+        "conversoes": "22",
+        "cpl": "R$ 50.19",
         "roas": null,
         "campaigns": []
       }
@@ -500,30 +476,25 @@
       "score": 50,
       "meta_semanal": {
         "period": null,
-        "invest": "R$ 379.27",
-        "impressoes": "19,319",
-        "cliques": "403",
-        "ctr": "2.09%",
-        "cpm": "R$ 19.63",
-        "cpc": "R$ 0.94",
+        "invest": "R$ 347.40",
+        "impressoes": "19,599",
+        "cliques": "327",
+        "ctr": "1.67%",
+        "cpm": "R$ 17.73",
+        "cpc": "R$ 1.06",
         "conversoes": "0",
         "cpl": null,
         "roas": null,
-        "campaigns": [
-          {
-            "name": "[V4]-[REMARKETING]-[CBO]-[TEST]-[TO",
-            "spend": "R$ 0.37"
-          }
-        ]
+        "campaigns": []
       },
       "meta_mensal": {
-        "period": "Novembro/2026 — parcial até 07/11",
-        "invest": "R$ 341.78",
-        "impressoes": "17,153",
-        "cliques": "354",
-        "ctr": "2.06%",
-        "cpm": "R$ 19.93",
-        "cpc": "R$ 0.97",
+        "period": "Novembro/2026 — parcial até 11/11",
+        "invest": "R$ 586.81",
+        "impressoes": "31,534",
+        "cliques": "612",
+        "ctr": "1.94%",
+        "cpm": "R$ 18.61",
+        "cpc": "R$ 0.96",
         "conversoes": "0",
         "cpl": null,
         "roas": null,
